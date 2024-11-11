@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
+use Domains\Medicines\Models\Medicine;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Tests\Medicines\Models\Medicine;
 
 class MedicineFactory extends Factory
 {

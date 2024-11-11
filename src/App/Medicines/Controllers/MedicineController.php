@@ -3,8 +3,8 @@
 namespace App\Medicines\Controllers;
 
 use App\Http\Controllers\Controller;
+use Domains\Medicines\Models\Medicine;
 use Illuminate\View\View;
-use Tests\Medicines\Models\Medicine;
 
 class MedicineController extends Controller
 {
