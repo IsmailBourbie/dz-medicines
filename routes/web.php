@@ -1,7 +1,6 @@
 <?php
 
+use App\Medicines\Controllers\MedicineController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome', ['user' => \Domains\Users\Models\User::query()->firstOrFail()]);
-});
+Route::get('/medicines', [MedicineController::class, 'index'])->name('medicines.index');
