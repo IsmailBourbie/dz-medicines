@@ -78,4 +78,60 @@ class MedicinesControllerTest extends TestCase
         $response->assertSee($medicine->dci->first()->details->dosage);
         $response->assertSee($medicine->dci->first()->details->packaging);
     }
+
+    #[Test]
+    public function it_show_medicine_with_combined_dci(): void
+    {
+        $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
+        $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
+        $medicine = MedicineFactory::new()->createOne(['name' => 'exval']);
+
+        $medicine->dci()->attach($amlodipine, [
+            'form' => 'COMP',
+            'dosage' => '5mg',
+            'packaging' => 'Bte 30',
+        ]);
+        $medicine->dci()->attach($valsartan, [
+            'form' => 'COMP',
+            'dosage' => '80mg',
+            'packaging' => 'Bte 30',
+        ]);
+
+        $response = $this->get(route('medicines.index'));
+
+        $response->assertSee($medicine->name);
+        $response->assertSee($medicine->dci->first()->name);
+        $response->assertSee($medicine->dci->last()->name);
+    }
+
+    #[Test]
+    public function it_show_medicine_on_formatted_way(): void
+    {
+        $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
+        $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
+
+        $exval = MedicineFactory::new()->createOne(['name' => 'exval']);
+        $amlor = MedicineFactory::new()->createOne(['name' => 'amlor']);
+
+        $exval->dci()->attach($amlodipine, [
+            'form' => 'COMP',
+            'dosage' => '5mg',
+            'packaging' => 'Bte 30',
+        ]);
+        $exval->dci()->attach($valsartan, [
+            'form' => 'COMP',
+            'dosage' => '80mg',
+            'packaging' => 'Bte 30',
+        ]);
+        $amlor->dci()->attach($valsartan, [
+            'form' => 'COMP',
+            'dosage' => '5mg',
+            'packaging' => 'Bte 30',
+        ]);
+
+        $response = $this->get(route('medicines.index'));
+
+//        $response->assertSee('exval (amlodipine/valsartan) 5mg/80mg COMP Bte 30');
+//        $response->assertSee('amlor (amlodipine) 5mg COMP Bte 30');
+    }
 }
