@@ -4,6 +4,7 @@ namespace Tests\Medicines\Models;
 
 use Database\Factories\DciFactory;
 use Database\Factories\MedicineFactory;
+use Domains\Medicines\Models\Medicine;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
@@ -51,5 +52,21 @@ class MedicineTest extends TestCase
         $this->assertEquals('1000mg', $medicine->dci->first()->details->dosage);
         $this->assertEquals('8', $medicine->dci->first()->details->packaging);
 
+    }
+
+    #[Test]
+    public function it_load_dci_relation_by_default(): void
+    {
+        $dci = DciFactory::new()->createOne();
+        $medicine = MedicineFactory::new()->createOne();
+        $medicine->dci()->attach($dci, [
+            'form' => 'COMP',
+            'dosage' => '1000mg',
+            'packaging' => '8',
+        ]);
+
+        $freshMedicine = Medicine::find($medicine);
+
+        $this->assertArrayHasKey('dci', $freshMedicine->first()->toArray());
     }
 }

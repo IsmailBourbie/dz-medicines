@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Medicine extends Model
 {
 
+    protected $with = ['dci'];
+
     public function dci(): BelongsToMany
     {
         return $this->belongsToMany(Dci::class)
