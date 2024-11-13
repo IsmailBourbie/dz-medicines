@@ -11,7 +11,13 @@
 
 <ul>
     @foreach($medicines as $medicine)
-        <li>{{$medicine->name}} | {{$medicine->dci->pluck('name')}}</li>
+        <li>
+            {{$medicine->name}} |
+            {{$medicine->dci->pluck('name')}} |
+            {{$medicine->dci->first()->details->form}} |
+            {{$medicine->dci->first()->details->dosage}} |
+            {{$medicine->dci->first()->details->packaging}}
+        </li>
     @endforeach
 </ul>
 </body>

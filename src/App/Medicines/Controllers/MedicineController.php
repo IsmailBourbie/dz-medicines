@@ -10,6 +10,6 @@ class MedicineController extends Controller
 {
     public function index(): View
     {
-        return view('medicines.index', ['medicines' => Medicine::all()]);
+        return view('medicines.index', ['medicines' => Medicine::query()->with('dci')->get()]);
     }
 }

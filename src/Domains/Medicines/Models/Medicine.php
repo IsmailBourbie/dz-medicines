@@ -10,6 +10,9 @@ class Medicine extends Model
 
     public function dci(): BelongsToMany
     {
-        return $this->belongsToMany(Dci::class);
+        return $this->belongsToMany(Dci::class)
+            ->withPivot('form', 'dosage', 'packaging')
+            ->as('details')
+            ->withTimestamps();
     }
 }
