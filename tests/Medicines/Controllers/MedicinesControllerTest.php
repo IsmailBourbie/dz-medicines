@@ -4,7 +4,6 @@ namespace Tests\Medicines\Controllers;
 
 use Database\Factories\DciFactory;
 use Database\Factories\MedicineFactory;
-use Domains\Medicines\Models\Medicine;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -25,16 +24,8 @@ class MedicinesControllerTest extends TestCase
     #[Test]
     public function it_show_all_existed_medicines_names(): void
     {
-        $medicines = MedicineFactory::new()->count(5)->create()->each(function (Medicine $medicine) {
-            $medicine->dci()->attach(
-                DciFactory::new()->createOne(),
-                [
-                    'form' => 'COMP',
-                    'dosage' => '1000mg',
-                    'packaging' => 'bte 8',
-                ]
-            );
-        });
+        $this->withoutExceptionHandling();
+        $medicines = MedicineFactory::new()->count(5)->withDci()->create();
         $response = $this->get(route('medicines.index'));
 
         $response->assertSee(
