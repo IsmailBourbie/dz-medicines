@@ -71,4 +71,16 @@ class MedicinesControllerTest extends TestCase
             'AMLOR', 'Amlodipine', '5mg', 'COMP', 'BTE 30',
         ]);
     }
+
+    #[Test]
+    public function it_show_10_medicines_per_page_using_pagination(): void
+    {
+        $medicines = MedicineFactory::new()->count(40)->withDci()->create();
+
+        $response = $this->get(route('medicines.index'));
+
+        $response->assertSeeText('40');
+        $response->assertSeeText($medicines->take(10)->pluck('name')->map(fn($str) => strtoupper($str))->toArray());
+        $response->assertDontSeeText(strtoupper($medicines->get(10)->name));
+    }
 }

@@ -33,5 +33,6 @@
     @endforeach
     </tbody>
 </table>
+{{ $medicines->links() }}
 </body>
 </html>
