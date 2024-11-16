@@ -1,9 +1,9 @@
 <div>
     <div class="my-12 space-y-6">
-        <h2 class="text-3xl font-medium">All Medicines</h2>
+        <h2 class="text-3xl font-bold font-montserrat">All Medicines</h2>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 font-montserrat">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         #
@@ -29,7 +29,7 @@
                 @foreach($medicines as $medicine)
                     <tr class="bg-white border-b" wire:key="{{$medicine->id}}">
                         <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ ($medicines->currentPage() - 1) * $medicines->perPage() + $loop->iteration }}</td>
-                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{strtoupper($medicine->name)}}</td>
+                        <td class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap">{{strtoupper($medicine->name)}}</td>
                         <td class="px-6 py-4">{{$medicine->dci->pluck('name')->map(function ($string) {return ucwords($string);})->implode('/')}}</td>
                         <td class="px-6 py-4">{{$medicine->dci->pluck('details.dosage')->implode('/')}}</td>
                         <td class="px-6 py-4">{{$medicine->dci->first()->details->form}}</td>
