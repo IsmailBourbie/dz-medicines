@@ -21,7 +21,7 @@ class MedicineFactory extends Factory
         return $this->afterCreating(function (Medicine $medicine) {
             $medicine->dci()->attach(DciFactory::new()->createOne(), [
                 'dosage' => $this->faker->numberBetween(10, 100).'mg',
-                'form' => $this->faker->randomElement(['COMP, SUPP', 'INJ']),
+                'form' => $this->faker->randomElement(['COMP', 'SUPP', 'INJ']),
                 'packaging' => 'BTE '.$this->faker->randomElement([10, 20, 30, 90]),
             ]);
         });

@@ -27,8 +27,8 @@
                 </thead>
                 <tbody>
                 @foreach($medicines as $medicine)
-                    <tr class="bg-white border-b">
-                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{$loop->index}}</td>
+                    <tr class="bg-white border-b" wire:key="{{$medicine->id}}">
+                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ ($medicines->currentPage() - 1) * $medicines->perPage() + $loop->iteration }}</td>
                         <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{strtoupper($medicine->name)}}</td>
                         <td class="px-6 py-4">{{$medicine->dci->pluck('name')->map(function ($string) {return ucwords($string);})->implode('/')}}</td>
                         <td class="px-6 py-4">{{$medicine->dci->pluck('details.dosage')->implode('/')}}</td>
@@ -38,7 +38,12 @@
                 @endforeach
                 </tbody>
             </table>
-            {{ $medicines->links() }}
+            <div class="py-3 px-6 flex items-center justify-between">
+                <div class="text-slate-600 text-sm">
+                    Results: {{Number::format($medicines->total())}}
+                </div>
+                {{ $medicines->links('livewire.medicines.index.pagination') }}
+            </div>
         </div>
     </div>
 </div>
