@@ -15,6 +15,7 @@ class MedicinesControllerTest extends TestCase
     #[Test]
     public function it_render_index_page_successfully(): void
     {
+        $this->withoutExceptionHandling();
         $response = $this->get(route('medicines.index'));
 
         $response->assertStatus(200);
