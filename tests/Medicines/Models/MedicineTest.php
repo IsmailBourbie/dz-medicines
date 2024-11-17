@@ -71,7 +71,7 @@ class MedicineTest extends TestCase
     }
 
     #[Test]
-    public function it_format_dci(): void
+    public function it_format_dci_and_dosage(): void
     {
         $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
         $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
@@ -101,5 +101,7 @@ class MedicineTest extends TestCase
         $this->assertEquals($exval->formatted_dci(), 'Amlodipine/Valsartan');
         $this->assertEquals($amlor->formatted_dci(), 'Amlodipine');
 
+        $this->assertEquals($exval->formatted_dosage(), '5mg/80mg');
+        $this->assertEquals($amlor->formatted_dosage(), '5mg');
     }
 }

@@ -24,4 +24,9 @@ class Medicine extends Model
             return ucwords($string);
         })->implode('/');
     }
+
+    public function formatted_dosage(): string
+    {
+        return $this->dci->pluck('details.dosage')->implode('/');
+    }
 }
