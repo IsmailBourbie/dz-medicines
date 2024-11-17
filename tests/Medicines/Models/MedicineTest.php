@@ -69,4 +69,37 @@ class MedicineTest extends TestCase
 
         $this->assertArrayHasKey('dci', $freshMedicine->first()->toArray());
     }
+
+    #[Test]
+    public function it_format_dci(): void
+    {
+        $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
+        $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
+
+        $exval = MedicineFactory::new()->createOne(['name' => 'exval']);
+        $amlor = MedicineFactory::new()->createOne(['name' => 'amlor']);
+
+        // With Combined DCI
+        $exval->dci()->attach($amlodipine, [
+            'form' => 'COMP',
+            'dosage' => '5mg',
+            'packaging' => 'Bte 30',
+        ]);
+        $exval->dci()->attach($valsartan, [
+            'form' => 'COMP',
+            'dosage' => '80mg',
+            'packaging' => 'Bte 30',
+        ]);
+        // With Single Dci
+        $amlor->dci()->attach($amlodipine, [
+            'form' => 'COMP',
+            'dosage' => '5mg',
+            'packaging' => 'Bte 30',
+        ]);
+
+
+        $this->assertEquals($exval->formatted_dci(), 'Amlodipine/Valsartan');
+        $this->assertEquals($amlor->formatted_dci(), 'Amlodipine');
+
+    }
 }

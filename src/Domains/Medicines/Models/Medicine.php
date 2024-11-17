@@ -17,4 +17,11 @@ class Medicine extends Model
             ->as('details')
             ->withTimestamps();
     }
+
+    public function formatted_dci(): string
+    {
+        return $this->dci->pluck('name')->map(function ($string) {
+            return ucwords($string);
+        })->implode('/');
+    }
 }
