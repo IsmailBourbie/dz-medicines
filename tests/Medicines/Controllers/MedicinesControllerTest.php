@@ -84,4 +84,35 @@ class MedicinesControllerTest extends TestCase
         $response->assertSeeText($medicines->take(10)->pluck('name')->map(fn($str) => strtoupper($str))->toArray());
         $response->assertDontSeeText(strtoupper($medicines->get(10)->name));
     }
+
+    #[Test]
+    public function it_render_a_medicine_details_page_successfully(): void
+    {
+        $this->withoutExceptionHandling();
+        $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
+        $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
+
+        $exval = MedicineFactory::new()->createOne(['name' => 'exval']);
+
+        // With Combined DCI
+        $exval->dci()->attach($amlodipine, [
+            'form' => 'COMP',
+            'dosage' => '5mg',
+            'packaging' => 'Bte 30',
+        ]);
+        $exval->dci()->attach($valsartan, [
+            'form' => 'COMP',
+            'dosage' => '80mg',
+            'packaging' => 'Bte 30',
+        ]);
+
+        $response = $this->get(route('medicines.show', $exval));
+
+        $response->assertSuccessful();
+        $response->assertViewIs('medicines.show');
+        $response->assertViewHas('medicine');
+        $response->assertSeeTextInOrder([
+            'EXVAL', 'Amlodipine/Valsartan', '5mg/80mg', 'COMP', 'BTE 30',
+        ]);
+    }
 }
