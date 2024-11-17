@@ -39,16 +39,11 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
-
-    protected static function newFactory(): UserFactory
-    {
-        return new UserFactory;
-    }
+//    protected function casts(): array
+//    {
+//        return [
+//            'email_verified_at' => 'datetime',
+//            'password' => 'hashed',
+//        ];
+//    }
 }
