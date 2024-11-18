@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('medicine_id')->constrained('medicines');
             $table->foreignId('dci_id')->constrained('dcis');
+            $table->string('slug');
             $table->string('form');
             $table->string('dosage');
             $table->string('packaging');

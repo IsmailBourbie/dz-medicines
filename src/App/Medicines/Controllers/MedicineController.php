@@ -13,8 +13,10 @@ class MedicineController extends Controller
         return view('medicines.index');
     }
 
-    public function show(Medicine $medicine): View
+    public function show(string $slug): View
     {
+        $medicine = Medicine::query()->whereSlug($slug)->get()->first();
+        
         return view('medicines.show', compact('medicine'));
     }
 }

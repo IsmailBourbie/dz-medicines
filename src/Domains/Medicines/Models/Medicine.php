@@ -2,6 +2,7 @@
 
 namespace Domains\Medicines\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -13,14 +14,21 @@ class Medicine extends Model
     public function dci(): BelongsToMany
     {
         return $this->belongsToMany(Dci::class)
-            ->withPivot('form', 'dosage', 'packaging')
+            ->withPivot('slug', 'form', 'dosage', 'packaging')
             ->as('details')
             ->withTimestamps();
     }
 
+    public function scopeWhereSlug(Builder $builder, string $slug): Builder
+    {
+        return $builder->whereHas('dci', function ($query) use ($slug) {
+            $query->where('slug', $slug);
+        });
+    }
+
     public function path(): string
     {
-        return route('medicines.show', $this);
+        return route('medicines.show', $this->dci->first()->details->slug);
     }
 
     public function formatted_dci(): string
