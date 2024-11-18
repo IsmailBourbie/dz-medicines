@@ -18,6 +18,11 @@ class Medicine extends Model
             ->withTimestamps();
     }
 
+    public function path(): string
+    {
+        return route('medicines.show', $this);
+    }
+
     public function formatted_dci(): string
     {
         return $this->dci->pluck('name')->map(function ($string) {

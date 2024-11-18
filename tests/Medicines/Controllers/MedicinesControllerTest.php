@@ -106,11 +106,14 @@ class MedicinesControllerTest extends TestCase
             'packaging' => 'Bte 30',
         ]);
 
-        $response = $this->get(route('medicines.show', $exval));
+        $response = $this->get($exval->path());
 
         $response->assertSuccessful();
         $response->assertViewIs('medicines.show');
         $response->assertViewHas('medicine');
+        $response->assertSeeTextInOrder([
+            'EXVAL', 'Amlodipine/Valsartan', '5mg/80mg', 'COMP', 'BTE 30',
+        ]);
         $response->assertSeeTextInOrder([
             'EXVAL', 'Amlodipine/Valsartan', '5mg/80mg', 'COMP', 'BTE 30',
         ]);

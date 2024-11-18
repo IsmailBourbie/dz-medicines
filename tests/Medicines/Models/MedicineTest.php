@@ -104,4 +104,11 @@ class MedicineTest extends TestCase
         $this->assertEquals($exval->formatted_dosage(), '5mg/80mg');
         $this->assertEquals($amlor->formatted_dosage(), '5mg');
     }
+
+    #[Test]
+    public function it_has_path_based_on_id(): void
+    {
+        $medicine = MedicineFactory::new()->createOne();
+        $this->assertEquals(url('medicines/1'), $medicine->path());
+    }
 }
