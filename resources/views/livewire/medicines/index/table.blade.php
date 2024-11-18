@@ -31,8 +31,8 @@
                         <tr class="bg-white border-b" wire:key="{{$medicine->id}}">
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ ($medicines->currentPage() - 1) * $medicines->perPage() + $loop->iteration }}</td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{strtoupper($medicine->name)}}</td>
-                            <td class="px-6 py-4">{{$medicine->dci->pluck('name')->map(function ($string) {return ucwords($string);})->implode('/')}}</td>
-                            <td class="px-6 py-4">{{$medicine->dci->pluck('details.dosage')->implode('/')}}</td>
+                            <td class="px-6 py-4">{{$medicine->formatted_dci()}}</td>
+                            <td class="px-6 py-4">{{$medicine->formatted_dosage()}}</td>
                             <td class="px-6 py-4">{{$medicine->dci->first()->details->form}}</td>
                             <td class="px-6 py-4">{{strtoupper($medicine->dci->first()->details->packaging)}}</td>
                         </tr>
