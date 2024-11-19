@@ -74,11 +74,15 @@ class MedicineTest extends TestCase
     {
         $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
         $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
-
         $exval = MedicineFactory::new()->withDci($amlodipine, [
             'slug' => 'test-slug',
             'form' => 'COMP',
             'dosage' => '5mg',
+            'packaging' => 'Bte 30',
+        ])->withDci($valsartan, [
+            'slug' => 'test-slug',
+            'form' => 'COMP',
+            'dosage' => '80mg',
             'packaging' => 'Bte 30',
         ])->createOne(['name' => 'exval']);
         $amlor = MedicineFactory::new()->withDci($amlodipine, [
@@ -88,20 +92,11 @@ class MedicineTest extends TestCase
             'packaging' => 'Bte 30',
         ])->createOne(['name' => 'amlor']);
 
-        // With Combined DCI
-        $exval->dci()->attach($valsartan, [
-            'slug' => 'test-slug',
-            'form' => 'COMP',
-            'dosage' => '80mg',
-            'packaging' => 'Bte 30',
-        ]);
+        $this->assertEquals('Amlodipine/Valsartan', $exval->formatted_dci());
+        $this->assertEquals('Amlodipine', $amlor->formatted_dci());
 
-
-        $this->assertEquals($exval->formatted_dci(), 'Amlodipine/Valsartan');
-        $this->assertEquals($amlor->formatted_dci(), 'Amlodipine');
-
-        $this->assertEquals($exval->formatted_dosage(), '5mg/80mg');
-        $this->assertEquals($amlor->formatted_dosage(), '5mg');
+        $this->assertEquals('5mg/80mg', $exval->formatted_dosage());
+        $this->assertEquals('5mg', $amlor->formatted_dosage());
     }
 
     #[Test]
@@ -115,8 +110,7 @@ class MedicineTest extends TestCase
                 'packaging' => 'BTE 8',
             ])
             ->createOne();
-
-
+        
         $this->assertEquals(url('medicines/hello-world'), $medicine->path());
     }
 
@@ -129,7 +123,6 @@ class MedicineTest extends TestCase
             'dosage' => '1000mg',
             'packaging' => 'BTE 8',
         ])->createOne();
-
         $findMedicine = Medicine::query()->whereSlug('hello-world')->get();
 
         $this->assertInstanceOf(Collection::class, $findMedicine);

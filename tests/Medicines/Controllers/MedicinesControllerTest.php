@@ -42,26 +42,23 @@ class MedicinesControllerTest extends TestCase
         $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
         $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
 
-        $exval = MedicineFactory::new()->withDci($amlodipine, [
+        MedicineFactory::new()->withDci($amlodipine, [
             'slug' => 'test-slug',
             'form' => 'COMP',
             'dosage' => '5mg',
             'packaging' => 'Bte 30',
+        ])->withDci($valsartan, [
+            'slug' => 'test-slug',
+            'form' => 'COMP',
+            'dosage' => '80mg',
+            'packaging' => 'Bte 30',
         ])->createOne(['name' => 'exval']);
-        $amlor = MedicineFactory::new()->withDci($amlodipine, [
+        MedicineFactory::new()->withDci($amlodipine, [
             'slug' => 'another-test-slug',
             'form' => 'COMP',
             'dosage' => '5mg',
             'packaging' => 'Bte 30',
         ])->createOne(['name' => 'amlor']);
-
-        // With Combined DCI
-        $exval->dci()->attach($valsartan, [
-            'slug' => 'test-slug',
-            'form' => 'COMP',
-            'dosage' => '80mg',
-            'packaging' => 'Bte 30',
-        ]);
 
         $response = $this->get(route('medicines.index'));
 
@@ -90,6 +87,28 @@ class MedicinesControllerTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
+        $amlor = MedicineFactory::new()->withDci($amlodipine, [
+            'slug' => 'amlor-5mg-comp-bte-30',
+            'form' => 'COMP',
+            'dosage' => '5mg',
+            'packaging' => 'Bte 30',
+        ])->createOne(['name' => 'amlor']);
+
+        $response = $this->get($amlor->path())->assertSuccessful();
+
+        $response->assertSuccessful();
+        $response->assertViewIs('medicines.show');
+        $response->assertViewHas('medicine');
+        $response->assertSeeTextInOrder([
+            'AMLOR', 'Amlodipine', '5mg', 'COMP', 'BTE 30',
+        ]);
+    }
+
+    #[Test]
+    public function it_show_combined_medicine_page_successfully(): void
+    {
+        $this->withoutExceptionHandling();
+        $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
         $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
 
         $exval = MedicineFactory::new()->withDci($amlodipine, [
@@ -97,21 +116,12 @@ class MedicinesControllerTest extends TestCase
             'form' => 'COMP',
             'dosage' => '5mg',
             'packaging' => 'Bte 30',
-        ])->createOne(['name' => 'exval']);
-        $amlor = MedicineFactory::new()->withDci($amlodipine, [
-            'slug' => 'another-test-slug',
-            'form' => 'COMP',
-            'dosage' => '5mg',
-            'packaging' => 'Bte 30',
-        ])->createOne(['name' => 'amlor']);
-
-        // With Combined DCI
-        $exval->dci()->attach($valsartan, [
+        ])->withDci($valsartan, [
             'slug' => 'test-slug',
             'form' => 'COMP',
             'dosage' => '80mg',
             'packaging' => 'Bte 30',
-        ]);
+        ])->createOne(['name' => 'exval']);
 
         $response = $this->get($exval->path());
 
@@ -121,56 +131,5 @@ class MedicinesControllerTest extends TestCase
         $response->assertSeeTextInOrder([
             'EXVAL', 'Amlodipine/Valsartan', '5mg/80mg', 'COMP', 'BTE 30',
         ]);
-        $response->assertSeeTextInOrder([
-            'EXVAL', 'Amlodipine/Valsartan', '5mg/80mg', 'COMP', 'BTE 30',
-        ]);
-    }
-
-    #[Test]
-    public function it_show_medicine_page_based_on_slug(): void
-    {
-        $this->withoutExceptionHandling();
-        $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
-        $amlor = MedicineFactory::new()->withDci($amlodipine, [
-            'slug' => 'amlor-5mg-comp-bte-30',
-            'form' => 'COMP',
-            'dosage' => '5mg',
-            'packaging' => 'Bte 30',
-        ])->createOne(['name' => 'amlor']);
-
-        $response = $this->get($amlor->path())->assertSuccessful();
-        $response->assertSeeText(['Amlodipine', 'AMLOR']);
-    }
-
-    #[Test]
-    public function it_show_combined_medicine_page_based_on_slug(): void
-    {
-        $this->withoutExceptionHandling();
-        $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
-        $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
-
-        $exval = MedicineFactory::new()->withDci($amlodipine, [
-            'slug' => 'test-slug',
-            'form' => 'COMP',
-            'dosage' => '5mg',
-            'packaging' => 'Bte 30',
-        ])->createOne(['name' => 'exval']);
-        $amlor = MedicineFactory::new()->withDci($amlodipine, [
-            'slug' => 'another-test-slug',
-            'form' => 'COMP',
-            'dosage' => '5mg',
-            'packaging' => 'Bte 30',
-        ])->createOne(['name' => 'amlor']);
-
-        // With Combined DCI
-        $exval->dci()->attach($valsartan, [
-            'slug' => 'test-slug',
-            'form' => 'COMP',
-            'dosage' => '80mg',
-            'packaging' => 'Bte 30',
-        ]);
-        
-        $response = $this->get($exval->path())->assertSuccessful();
-        $response->assertSeeText(['Amlodipine', 'Valsartan', 'EXVAL']);
     }
 }
