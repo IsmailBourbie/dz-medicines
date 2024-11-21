@@ -33,8 +33,8 @@
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{strtoupper($medicine->name)}}</td>
                             <td class="px-6 py-4">{{$medicine->formatted_dci()}}</td>
                             <td class="px-6 py-4">{{$medicine->formatted_dosage()}}</td>
-                            <td class="px-6 py-4">{{$medicine->dci->first()->details->form}}</td>
-                            <td class="px-6 py-4">{{strtoupper($medicine->dci->first()->details->packaging)}}</td>
+                            <td class="px-6 py-4">{{$medicine->form}}</td>
+                            <td class="px-6 py-4">{{strtoupper($medicine->packaging)}}</td>
                         </tr>
                     @endforeach
                     </tbody>

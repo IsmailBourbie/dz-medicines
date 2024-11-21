@@ -13,10 +13,10 @@
     </div>
     <div>
         <h2>Form:</h2>
-        <p>{{$medicine->dci->first()->details->form}}</p>
+        <p>{{$medicine->form}}</p>
     </div>
     <div>
         <h2>Packaging:</h2>
-        <p>{{strtoupper($medicine->dci->first()->details->packaging)}}</p>
+        <p>{{strtoupper($medicine->packaging)}}</p>
     </div>
 @endcomponent

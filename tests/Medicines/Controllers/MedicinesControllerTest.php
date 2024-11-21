@@ -42,23 +42,12 @@ class MedicinesControllerTest extends TestCase
         $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
         $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
 
-        MedicineFactory::new()->withDci($amlodipine, [
-            'slug' => 'test-slug',
-            'form' => 'COMP',
-            'dosage' => '5mg',
-            'packaging' => 'Bte 30',
-        ])->withDci($valsartan, [
-            'slug' => 'test-slug',
-            'form' => 'COMP',
-            'dosage' => '80mg',
-            'packaging' => 'Bte 30',
-        ])->createOne(['name' => 'exval']);
-        MedicineFactory::new()->withDci($amlodipine, [
-            'slug' => 'another-test-slug',
-            'form' => 'COMP',
-            'dosage' => '5mg',
-            'packaging' => 'Bte 30',
-        ])->createOne(['name' => 'amlor']);
+        MedicineFactory::new(['packaging' => 'BTE 30', 'form' => 'COMP'])
+            ->withDci($amlodipine, '5mg')
+            ->withDci($valsartan, '80mg')
+            ->createOne(['name' => 'exval']);
+        MedicineFactory::new(['packaging' => 'BTE 30', 'form' => 'COMP'])
+            ->withDci($amlodipine, '5mg')->createOne(['name' => 'amlor']);
 
         $response = $this->get(route('medicines.index'));
 
@@ -87,12 +76,8 @@ class MedicinesControllerTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
-        $amlor = MedicineFactory::new()->withDci($amlodipine, [
-            'slug' => 'amlor-5mg-comp-bte-30',
-            'form' => 'COMP',
-            'dosage' => '5mg',
-            'packaging' => 'Bte 30',
-        ])->createOne(['name' => 'amlor']);
+        $amlor = MedicineFactory::new(['packaging' => 'BTE 30', 'form' => 'COMP'])
+            ->withDci($amlodipine, '5mg')->createOne(['name' => 'amlor']);
 
         $response = $this->get($amlor->path())->assertSuccessful();
 
@@ -111,17 +96,9 @@ class MedicinesControllerTest extends TestCase
         $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
         $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
 
-        $exval = MedicineFactory::new()->withDci($amlodipine, [
-            'slug' => 'test-slug',
-            'form' => 'COMP',
-            'dosage' => '5mg',
-            'packaging' => 'Bte 30',
-        ])->withDci($valsartan, [
-            'slug' => 'test-slug',
-            'form' => 'COMP',
-            'dosage' => '80mg',
-            'packaging' => 'Bte 30',
-        ])->createOne(['name' => 'exval']);
+        $exval = MedicineFactory::new(['packaging' => 'BTE 30', 'form' => 'COMP'])
+            ->withDci($amlodipine, '5mg')->withDci($valsartan,
+                '80mg')->createOne(['name' => 'exval']);
 
         $response = $this->get($exval->path());
 
