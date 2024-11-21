@@ -14,21 +14,19 @@ class Medicine extends Model
     public function dci(): BelongsToMany
     {
         return $this->belongsToMany(Dci::class)
-            ->withPivot('slug', 'form', 'dosage', 'packaging')
+            ->withPivot('dosage')
             ->as('details')
             ->withTimestamps();
     }
 
     public function scopeWhereSlug(Builder $builder, string $slug): Builder
     {
-        return $builder->whereHas('dci', function ($query) use ($slug) {
-            $query->where('slug', $slug);
-        });
+        return $builder->where('slug', $slug);
     }
 
     public function path(): string
     {
-        return route('medicines.show', $this->dci->first()->details->slug);
+        return route('medicines.show', $this->slug);
     }
 
     public function formatted_dci(): string

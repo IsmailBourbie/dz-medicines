@@ -20,13 +20,7 @@ class MedicineTest extends TestCase
         $dci = DciFactory::new()->createOne([
             'name' => 'paracetamol',
         ]);
-        $medicine = MedicineFactory::new()->withDci($dci, [
-            'slug' => 'test-slug',
-            'form' => 'COMP',
-            'dosage' => '1000mg',
-            'packaging' => 'Bte/8',
-        ])->createOne();
-
+        $medicine = MedicineFactory::new()->withDci($dci, '1000mg')->createOne();
 
         $this->assertInstanceOf(Collection::class, $medicine->dci);
         $this->assertCount(1, $medicine->dci);
@@ -40,29 +34,16 @@ class MedicineTest extends TestCase
         $dci = DciFactory::new()->createOne([
             'name' => 'paracetamol',
         ]);
-        $medicine = MedicineFactory::new()->withDci($dci, [
-            'slug' => 'test-slug',
-            'form' => 'COMP',
-            'dosage' => '1000mg',
-            'packaging' => '8',
-        ])->createOne();
+        $medicine = MedicineFactory::new()->withDci($dci, '1000mg')->createOne();
 
-        $this->assertEquals('COMP', $medicine->dci->first()->details->form);
         $this->assertEquals('1000mg', $medicine->dci->first()->details->dosage);
-        $this->assertEquals('8', $medicine->dci->first()->details->packaging);
-
     }
 
     #[Test]
     public function it_load_dci_relation_by_default(): void
     {
         $dci = DciFactory::new()->createOne();
-        $medicine = MedicineFactory::new()->withDci($dci, [
-            'slug' => 'test-slug',
-            'form' => 'COMP',
-            'dosage' => '1000mg',
-            'packaging' => '8',
-        ])->createOne();
+        $medicine = MedicineFactory::new()->withDci($dci, '1000mg')->createOne();
 
         $freshMedicine = Medicine::find($medicine);
 
@@ -74,23 +55,12 @@ class MedicineTest extends TestCase
     {
         $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
         $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
-        $exval = MedicineFactory::new()->withDci($amlodipine, [
-            'slug' => 'test-slug',
-            'form' => 'COMP',
-            'dosage' => '5mg',
-            'packaging' => 'Bte 30',
-        ])->withDci($valsartan, [
-            'slug' => 'test-slug',
-            'form' => 'COMP',
-            'dosage' => '80mg',
-            'packaging' => 'Bte 30',
-        ])->createOne(['name' => 'exval']);
-        $amlor = MedicineFactory::new()->withDci($amlodipine, [
-            'slug' => 'another-test-slug',
-            'form' => 'COMP',
-            'dosage' => '5mg',
-            'packaging' => 'Bte 30',
-        ])->createOne(['name' => 'amlor']);
+        $exval = MedicineFactory::new()
+            ->withDci($amlodipine, '5mg')
+            ->withDci($valsartan, '80mg')
+            ->createOne(['name' => 'exval']);
+
+        $amlor = MedicineFactory::new()->withDci($amlodipine, '5mg')->createOne(['name' => 'amlor']);
 
         $this->assertEquals('Amlodipine/Valsartan', $exval->formatted_dci());
         $this->assertEquals('Amlodipine', $amlor->formatted_dci());
@@ -102,30 +72,20 @@ class MedicineTest extends TestCase
     #[Test]
     public function it_has_path_based_on_slug(): void
     {
-        $medicine = MedicineFactory::new()
-            ->withDci(DciFactory::new()->createOne(), [
-                'slug' => 'hello-world',
-                'form' => 'COMP',
-                'dosage' => '1000mg',
-                'packaging' => 'BTE 8',
-            ])
+        $medicine = MedicineFactory::new(['slug' => 'hello-world'])
+            ->withDci()
             ->createOne();
-        
+
         $this->assertEquals(url('medicines/hello-world'), $medicine->path());
     }
 
     #[Test]
     public function it_find_medicine_with_slug(): void
     {
-        $medicine = MedicineFactory::new()->withDci(DciFactory::new()->createOne(), [
-            'slug' => 'hello-world',
-            'form' => 'COMP',
-            'dosage' => '1000mg',
-            'packaging' => 'BTE 8',
-        ])->createOne();
-        $findMedicine = Medicine::query()->whereSlug('hello-world')->get();
+        $medicine = MedicineFactory::new(['slug' => 'hello-world'])->withDci()->createOne();
+        $findMedicine = Medicine::query()->whereSlug('hello-world')->first();
 
-        $this->assertInstanceOf(Collection::class, $findMedicine);
+        $this->assertInstanceOf(Medicine::class, $findMedicine);
         $this->assertTrue($medicine->is($findMedicine->first()));
     }
 }

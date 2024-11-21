@@ -14,17 +14,17 @@ class MedicineFactory extends Factory
     {
         return [
             'name' => $this->faker->words(rand(2, 3), true),
+            'slug' => $this->faker->unique()->slug(),
+            'form' => $this->faker->randomElement(['COMP', 'SUPP', 'INJ']),
+            'packaging' => 'BTE '.$this->faker->randomElement([10, 20, 30, 90]),
         ];
     }
 
-    public function withDci(?Dci $dci = null, array $attributes = []): static
+    public function withDci(?Dci $dci = null, ?string $dosage = null): static
     {
-        return $this->afterCreating(function (Medicine $medicine) use ($dci, $attributes) {
+        return $this->afterCreating(function (Medicine $medicine) use ($dci, $dosage) {
             $medicine->dci()->attach($dci ?? DciFactory::new()->createOne(), [
-                'slug' => $attributes['slug'] ?? $this->faker->unique()->slug(),
-                'dosage' => $attributes['dosage'] ?? $this->faker->numberBetween(10, 100).'mg',
-                'form' => $attributes['form'] ?? $this->faker->randomElement(['COMP', 'SUPP', 'INJ']),
-                'packaging' => $attributes['packaging'] ?? 'BTE '.$this->faker->randomElement([10, 20, 30, 90]),
+                'dosage' => $dosage ?? $this->faker->numberBetween(10, 100).'mg',
             ]);
         });
     }
