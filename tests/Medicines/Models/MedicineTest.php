@@ -78,14 +78,4 @@ class MedicineTest extends TestCase
 
         $this->assertEquals(url('medicines/hello-world'), $medicine->path());
     }
-
-    #[Test]
-    public function it_find_medicine_with_slug(): void
-    {
-        $medicine = MedicineFactory::new(['slug' => 'hello-world'])->withDci()->createOne();
-        $findMedicine = Medicine::query()->whereSlug('hello-world')->first();
-
-        $this->assertInstanceOf(Medicine::class, $findMedicine);
-        $this->assertTrue($medicine->is($findMedicine->first()));
-    }
 }

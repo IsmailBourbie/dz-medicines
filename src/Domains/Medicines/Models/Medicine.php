@@ -2,7 +2,6 @@
 
 namespace Domains\Medicines\Models;
 
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -17,11 +16,6 @@ class Medicine extends Model
             ->withPivot('dosage')
             ->as('details')
             ->withTimestamps();
-    }
-
-    public function scopeWhereSlug(Builder $builder, string $slug): Builder
-    {
-        return $builder->where('slug', $slug);
     }
 
     public function path(): string
