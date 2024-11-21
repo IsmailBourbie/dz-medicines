@@ -15,37 +15,25 @@ class MedicineSeeder extends Seeder
         $paracetamol = DciFactory::new()->createOne(['name' => 'paracetamol']);
         $codeine = DciFactory::new()->createOne(['name' => 'codeine']);
 
-        $doliprane = MedicineFactory::new()->createOne(['name' => 'doliprane']);
-        $dolyc = MedicineFactory::new()->createOne(['name' => 'dolyc']);
-        $codolipran = MedicineFactory::new()->createOne(['name' => 'codolipran']);
-
-        $doliprane->dci()->attach($paracetamol, [
+        $doliprane = MedicineFactory::new()->withDci($paracetamol, '500mg')->createOne([
+            'name' => 'doliprane',
             'slug' => 'doliprane-500mg-comp',
             'form' => 'COMP',
-            'dosage' => '500mg',
             'packaging' => 'bte 8',
         ]);
-        $dolyc->dci()->attach($paracetamol, [
+        $dolyc = MedicineFactory::new()->withDci($paracetamol, '500mg')->createOne([
+            'name' => 'dolyc',
             'slug' => 'dolyc-500mg-comp',
             'form' => 'COMP',
-            'dosage' => '500mg',
             'packaging' => 'bte 10',
         ]);
-
-        $codolipran->dci()->attach($paracetamol, [
+        $codolipran = MedicineFactory::new()->withDci($paracetamol, '400mg')->withDci($codeine, '20mg')->createOne([
+            'name' => 'codolipran',
             'slug' => 'codoliprane-500mg-comp',
             'form' => 'COMP',
-            'dosage' => '500mg',
             'packaging' => 'bte 10',
         ]);
-        $codolipran->dci()->attach($codeine, [
-            'slug' => 'codoliprane-500mg-comp',
-            'form' => 'COMP',
-            'dosage' => '30mg',
-            'packaging' => 'bte 10',
-        ]);
-
-
+        
         // Fake Data
         MedicineFactory::new()->count(25)->withDci()->create();
     }
