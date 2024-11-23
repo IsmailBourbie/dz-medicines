@@ -4,6 +4,7 @@ namespace Domains\Medicines\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Medicine extends Model
@@ -24,6 +25,11 @@ class Medicine extends Model
             ->withPivot('dosage')
             ->as('details')
             ->withTimestamps();
+    }
+
+    public function laboratory(): BelongsTo
+    {
+        return $this->belongsTo(Laboratory::class);
     }
 
     public function path(): string

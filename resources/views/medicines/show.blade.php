@@ -22,4 +22,9 @@
         <h2>Packaging:</h2>
         <p>{{strtoupper($medicine->packaging)}}</p>
     </div>
+
+    <div>
+        <h2>Lab Name:</h2>
+        <p>{{$medicine->laboratory->name}}</p>
+    </div>
 @endcomponent

@@ -3,6 +3,7 @@
 namespace Tests\Medicines\Controllers;
 
 use Database\Factories\DciFactory;
+use Database\Factories\LaboratoryFactory;
 use Database\Factories\MedicineFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
@@ -87,6 +88,9 @@ class MedicinesControllerTest extends TestCase
         $response->assertSeeTextInOrder([
             'AMLOR 5MG COMP BTE 30', 'AMLOR', 'Amlodipine', '5mg', 'COMP', 'BTE 30',
         ]);
+
+        $response->assertSeeTextInOrder([
+        ]);
     }
 
     #[Test]
@@ -108,5 +112,18 @@ class MedicinesControllerTest extends TestCase
         $response->assertSeeTextInOrder([
             'EXVAL', 'Amlodipine/Valsartan', '5mg/80mg', 'COMP', 'BTE 30',
         ]);
+    }
+
+    #[Test]
+    public function it_show_the_detail_of_medicine_laboratory(): void
+    {
+        $phizer = LaboratoryFactory::new()->createOne(['name' => 'phizer']);
+        $amlor = MedicineFactory::new()
+            ->for($phizer)
+            ->createOne(['name' => 'amlor']);
+
+        $response = $this->get($amlor->path());
+
+        $response->assertSeeText('phizer');
     }
 }

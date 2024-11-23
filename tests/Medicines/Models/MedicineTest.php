@@ -3,7 +3,9 @@
 namespace Tests\Medicines\Models;
 
 use Database\Factories\DciFactory;
+use Database\Factories\LaboratoryFactory;
 use Database\Factories\MedicineFactory;
+use Domains\Medicines\Models\Laboratory;
 use Domains\Medicines\Models\Medicine;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -26,6 +28,16 @@ class MedicineTest extends TestCase
         $this->assertCount(1, $medicine->dci);
         $this->assertEquals($dci->id, $medicine->dci->first()->id);
         $this->assertEquals('paracetamol', $medicine->dci->first()->name);
+    }
+
+    #[Test]
+    public function it_belongs_to_laboratory(): void
+    {
+        $laboratory = LaboratoryFactory::new()->createOne();
+        $medicine = MedicineFactory::new()->createOne(['laboratory_id' => $laboratory]);
+
+        $this->assertInstanceOf(Laboratory::class, $medicine->laboratory);
+        $this->assertTrue($medicine->laboratory->is($laboratory));
     }
 
     #[Test]

@@ -10,6 +10,7 @@ return new class extends Migration {
     {
         Schema::create('medicines', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('laboratory_id')->constrained('laboratories');
             $table->string('slug');
             $table->string('name');
             $table->string('form');
