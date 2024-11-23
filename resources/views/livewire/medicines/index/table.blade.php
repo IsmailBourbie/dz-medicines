@@ -4,7 +4,7 @@
         <div class="relative  shadow-md sm:rounded-lg">
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 font-montserrat">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-100 font-montserrat">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             #
@@ -26,9 +26,12 @@
                         </th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody x-data>
                     @foreach($medicines as $medicine)
-                        <tr class="bg-white border-b" wire:key="{{$medicine->id}}">
+                        <tr
+                            class="bg-white border-b hover:cursor-pointer hover:bg-gray-50"
+                            wire:key="{{$medicine->id}}"
+                            x-on:click="location.href = '{{route('medicines.show', $medicine->slug)}}'">
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ ($medicines->currentPage() - 1) * $medicines->perPage() + $loop->iteration }}</td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{strtoupper($medicine->name)}}</td>
                             <td class="px-6 py-4">{{$medicine->formatted_dci()}}</td>
