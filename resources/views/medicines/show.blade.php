@@ -24,7 +24,13 @@
     </div>
 
     <div>
-        <h2>Lab Name:</h2>
-        <p>{{$medicine->laboratory->name}}</p>
+        <div>
+            <h2>Lab Name:</h2>
+            <p>{{$medicine->laboratory->name}}</p>
+        </div>
+        <div>
+            <h2>Lab Country:</h2>
+            <p>{{ucfirst($medicine->laboratory->country)}}</p>
+        </div>
     </div>
 @endcomponent

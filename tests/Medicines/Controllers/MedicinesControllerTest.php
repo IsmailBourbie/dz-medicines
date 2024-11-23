@@ -117,7 +117,7 @@ class MedicinesControllerTest extends TestCase
     #[Test]
     public function it_show_the_detail_of_medicine_laboratory(): void
     {
-        $phizer = LaboratoryFactory::new()->createOne(['name' => 'phizer']);
+        $phizer = LaboratoryFactory::new()->createOne(['name' => 'phizer', 'country' => 'france']);
         $amlor = MedicineFactory::new()
             ->for($phizer)
             ->createOne(['name' => 'amlor']);
@@ -125,5 +125,6 @@ class MedicinesControllerTest extends TestCase
         $response = $this->get($amlor->path());
 
         $response->assertSeeText('phizer');
+        $response->assertSeeText('France');
     }
 }
