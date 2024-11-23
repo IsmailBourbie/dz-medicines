@@ -2,6 +2,7 @@
 
 namespace Domains\Medicines\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
@@ -9,6 +10,13 @@ class Medicine extends Model
 {
 
     protected $with = ['dci'];
+
+    public function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn() => strtoupper($this->name.' '.$this->formatted_dosage().' '.$this->form.' '.$this->packaging)
+        );
+    }
 
     public function dci(): BelongsToMany
     {

@@ -72,7 +72,7 @@ class MedicinesControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_show_a_medicine_details_page_successfully(): void
+    public function it_show_a_medicine_details_page_successfully_with_all_information(): void
     {
         $this->withoutExceptionHandling();
         $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
@@ -85,7 +85,7 @@ class MedicinesControllerTest extends TestCase
         $response->assertViewIs('medicines.show');
         $response->assertViewHas('medicine');
         $response->assertSeeTextInOrder([
-            'AMLOR', 'Amlodipine', '5mg', 'COMP', 'BTE 30',
+            'AMLOR 5MG COMP BTE 30', 'AMLOR', 'Amlodipine', '5mg', 'COMP', 'BTE 30',
         ]);
     }
 

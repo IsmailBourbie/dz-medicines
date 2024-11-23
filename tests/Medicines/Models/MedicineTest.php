@@ -78,4 +78,16 @@ class MedicineTest extends TestCase
 
         $this->assertEquals(url('medicines/hello-world'), $medicine->path());
     }
+
+    #[Test]
+    public function it_has_fullName(): void
+    {
+        $medicine = MedicineFactory::new()->withDci(dosage: '5mg')->createOne([
+            'name' => 'doliprane',
+            'form' => 'COMP',
+            'packaging' => 'bte 30',
+        ]);
+
+        $this->assertEquals('DOLIPRANE 5MG COMP BTE 30', $medicine->fullName);
+    }
 }

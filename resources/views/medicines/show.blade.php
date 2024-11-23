@@ -1,4 +1,7 @@
 @component('layouts.base')
+    <h2>
+        {{$medicine->fullName}}
+    </h2>
     <div>
         <h2>Trade Name:</h2>
         <p>{{strtoupper($medicine->name)}}</p>
