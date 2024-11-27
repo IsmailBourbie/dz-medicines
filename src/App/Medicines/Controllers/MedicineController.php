@@ -2,7 +2,7 @@
 
 namespace App\Medicines\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Controller;
 use Domains\Medicines\Models\Medicine;
 use Illuminate\View\View;
 
