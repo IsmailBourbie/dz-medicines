@@ -30,7 +30,7 @@ class MedicinesControllerTest extends TestCase
         $medicines = MedicineFactory::new()->count(5)->withDci()->create();
         $response = $this->get(route('medicines.index'));
 
-        $response->assertSee(
+        $response->assertSeeText(
             $medicines->pluck('name')
                 ->map(fn($str) => strtoupper($str))
                 ->toArray()
@@ -129,7 +129,7 @@ class MedicinesControllerTest extends TestCase
 
         $response = $this->get($amlor->path());
 
-        $response->assertSeeText('phizer');
+        $response->assertSeeText('PHIZER');
         $response->assertSeeText('France');
     }
 }

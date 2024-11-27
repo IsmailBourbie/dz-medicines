@@ -20,6 +20,28 @@ class Medicine extends Model
         );
     }
 
+    public function name(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Str::upper($value)
+        );
+    }
+
+    public function form(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Str::upper($value)
+        );
+    }
+
+    public function packaging(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Str::upper($value)
+        );
+    }
+
+
     public function dci(): BelongsToMany
     {
         return $this->belongsToMany(Dci::class)

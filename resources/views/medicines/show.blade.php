@@ -4,7 +4,7 @@
     </h2>
     <div>
         <h2>Trade Name:</h2>
-        <p>{{strtoupper($medicine->name)}}</p>
+        <p>{{$medicine->name}}</p>
     </div>
     <div>
         <h2>Denomination Commune Internationale (DCI):</h2>
@@ -20,7 +20,7 @@
     </div>
     <div>
         <h2>Packaging:</h2>
-        <p>{{strtoupper($medicine->packaging)}}</p>
+        <p>{{$medicine->packaging}}</p>
     </div>
 
     <div>
@@ -30,7 +30,7 @@
         </div>
         <div>
             <h2>Lab Country:</h2>
-            <p>{{ucfirst($medicine->laboratory->country)}}</p>
+            <p>{{$medicine->laboratory->country}}</p>
         </div>
     </div>
 @endcomponent

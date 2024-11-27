@@ -33,11 +33,11 @@
                             wire:key="{{$medicine->id}}"
                             x-on:click="location.href = '{{route('medicines.show', $medicine->slug)}}'">
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ ($medicines->currentPage() - 1) * $medicines->perPage() + $loop->iteration }}</td>
-                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{strtoupper($medicine->name)}}</td>
+                            <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{$medicine->name}}</td>
                             <td class="px-6 py-4">{{$medicine->formatted_dci()}}</td>
                             <td class="px-6 py-4">{{$medicine->formatted_dosage()}}</td>
                             <td class="px-6 py-4">{{$medicine->form}}</td>
-                            <td class="px-6 py-4">{{strtoupper($medicine->packaging)}}</td>
+                            <td class="px-6 py-4">{{$medicine->packaging}}</td>
                         </tr>
                     @endforeach
                     </tbody>
