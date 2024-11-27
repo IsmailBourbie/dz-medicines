@@ -27,7 +27,7 @@ class MedicineTest extends TestCase
         $this->assertInstanceOf(Collection::class, $medicine->dci);
         $this->assertCount(1, $medicine->dci);
         $this->assertEquals($dci->id, $medicine->dci->first()->id);
-        $this->assertEquals('paracetamol', $medicine->dci->first()->name);
+        $this->assertEqualsIgnoringCase('paracetamol', $medicine->dci->first()->name);
     }
 
     #[Test]
@@ -74,11 +74,11 @@ class MedicineTest extends TestCase
 
         $amlor = MedicineFactory::new()->withDci($amlodipine, '5mg')->createOne(['name' => 'amlor']);
 
-        $this->assertEquals('Amlodipine/Valsartan', $exval->formatted_dci());
-        $this->assertEquals('Amlodipine', $amlor->formatted_dci());
+        $this->assertEquals('Amlodipine/Valsartan', $exval->displayDci());
+        $this->assertEquals('Amlodipine', $amlor->displayDci());
 
-        $this->assertEquals('5mg/80mg', $exval->formatted_dosage());
-        $this->assertEquals('5mg', $amlor->formatted_dosage());
+        $this->assertEquals('5mg/80mg', $exval->displayDosage());
+        $this->assertEquals('5mg', $amlor->displayDosage());
     }
 
     #[Test]

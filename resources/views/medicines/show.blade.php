@@ -8,11 +8,11 @@
     </div>
     <div>
         <h2>Denomination Commune Internationale (DCI):</h2>
-        <p>{{$medicine->formatted_dci()}}</p>
+        <p>{{$medicine->displayDci()}}</p>
     </div>
     <div>
         <h2>Dosage:</h2>
-        <p>{{$medicine->formatted_dosage()}}</p>
+        <p>{{$medicine->displayDosage()}}</p>
     </div>
     <div>
         <h2>Form:</h2>

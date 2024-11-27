@@ -44,7 +44,7 @@ class MedicinesControllerTest extends TestCase
         $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
 
         MedicineFactory::new(['packaging' => 'BTE 30', 'form' => 'COMP'])
-            ->withDci($amlodipine, '5mg')
+            ->withDci($amlodipine, '5MG')
             ->withDci($valsartan, '80mg')
             ->createOne(['name' => 'exval']);
         MedicineFactory::new(['packaging' => 'BTE 30', 'form' => 'COMP'])

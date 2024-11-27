@@ -10,9 +10,9 @@ use Illuminate\Support\Str;
 
 class Medicine extends Model
 {
-
     protected $with = ['dci'];
 
+    // Accessor Methods
     public function fullName(): Attribute
     {
         return Attribute::make(
@@ -41,10 +41,11 @@ class Medicine extends Model
         );
     }
 
-
+    // Relationships
     public function dci(): BelongsToMany
     {
         return $this->belongsToMany(Dci::class)
+            ->using(DciMedicine::class)
             ->withPivot('dosage')
             ->as('details')
             ->withTimestamps();
@@ -55,19 +56,18 @@ class Medicine extends Model
         return $this->belongsTo(Laboratory::class);
     }
 
+    // Utility Methods
     public function path(): string
     {
         return route('medicines.show', $this->slug);
     }
 
-    public function formatted_dci(): string
+    public function displayDci(): string
     {
-        return $this->dci->pluck('name')->map(function ($string) {
-            return ucwords($string);
-        })->implode('/');
+        return $this->dci->pluck('name')->implode('/');
     }
 
-    public function formatted_dosage(): string
+    public function displayDosage(): string
     {
         return $this->dci->pluck('details.dosage')->implode('/');
     }
