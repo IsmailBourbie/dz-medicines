@@ -1,6 +1,6 @@
 @component('layouts.base')
     <h2>
-        {{$medicine->fullName}}
+        {{$medicine->full_name}}
     </h2>
     <div>
         <h2>Trade Name:</h2>

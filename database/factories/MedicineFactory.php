@@ -13,11 +13,16 @@ class MedicineFactory extends Factory
 
     public function definition(): array
     {
+        $name = $this->faker->words(rand(2, 3), true);
+        $form = $this->faker->randomElement(['COMP', 'SUPP', 'INJ']);
+        $packaging = 'BTE '.$this->faker->randomElement([10, 20, 30, 90]);
+
         return [
-            'name' => $this->faker->words(rand(2, 3), true),
+            'full_name' => $name.' '.$form.' '.$packaging,
+            'name' => $name,
             'slug' => $this->faker->unique()->slug(),
-            'form' => $this->faker->randomElement(['COMP', 'SUPP', 'INJ']),
-            'packaging' => 'BTE '.$this->faker->randomElement([10, 20, 30, 90]),
+            'form' => $form,
+            'packaging' => $packaging,
             'laboratory_id' => LaboratoryFactory::new()->createOne(),
         ];
     }

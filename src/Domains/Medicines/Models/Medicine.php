@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Str;
 
 class Medicine extends Model
 {
@@ -15,7 +16,7 @@ class Medicine extends Model
     public function fullName(): Attribute
     {
         return Attribute::make(
-            get: fn() => strtoupper($this->name.' '.$this->formatted_dosage().' '.$this->form.' '.$this->packaging)
+            get: fn($value) => Str::upper($value)
         );
     }
 

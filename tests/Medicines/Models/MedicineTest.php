@@ -95,11 +95,11 @@ class MedicineTest extends TestCase
     public function it_has_fullName(): void
     {
         $medicine = MedicineFactory::new()->withDci(dosage: '5mg')->createOne([
+            'full_name' => 'doliprane 5mg comp bte 30 secable',
             'name' => 'doliprane',
             'form' => 'COMP',
             'packaging' => 'bte 30',
         ]);
-
-        $this->assertEquals('DOLIPRANE 5MG COMP BTE 30', $medicine->fullName);
+        $this->assertEquals('DOLIPRANE 5MG COMP BTE 30 SECABLE', $medicine->full_name);
     }
 }

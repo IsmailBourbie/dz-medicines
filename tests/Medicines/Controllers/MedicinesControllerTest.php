@@ -77,8 +77,13 @@ class MedicinesControllerTest extends TestCase
     {
         $this->withoutExceptionHandling();
         $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
-        $amlor = MedicineFactory::new(['packaging' => 'BTE 30', 'form' => 'COMP'])
-            ->withDci($amlodipine, '5mg')->createOne(['name' => 'amlor']);
+        $amlor = MedicineFactory::new()
+            ->withDci($amlodipine, '5mg')->createOne([
+                'full_name' => 'amlor 5mg COMP bte 30',
+                'name' => 'amlor',
+                'packaging' => 'BTE 30',
+                'form' => 'COMP',
+            ]);
 
         $response = $this->get($amlor->path())->assertSuccessful();
 
