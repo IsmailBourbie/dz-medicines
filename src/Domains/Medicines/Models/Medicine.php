@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 
 class Medicine extends Model
 {
+    protected $guarded = [];
 //    protected $with = ['code'];
 
     // Accessor Methods
@@ -63,6 +64,6 @@ class Medicine extends Model
     // Utility Methods
     public function path(): string
     {
-        return route('medicines.show', $this->slug);
+        return "medicines/$this->slug";
     }
 }

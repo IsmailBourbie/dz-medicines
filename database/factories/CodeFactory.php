@@ -12,7 +12,7 @@ class CodeFactory extends Factory
     public function definition(): array
     {
         return [
-            'code' => $this->faker->unique()->word,
+            'value' => $this->faker->unique()->word,
         ];
     }
 }
