@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use Domains\Medicines\Models\Dci;
+use Domains\Medicines\Models\Code;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class DciFactory extends Factory
+class CodeFactory extends Factory
 {
-    protected $model = Dci::class;
+    protected $model = Code::class;
 
     public function definition(): array
     {
         return [
-            'name' => $this->faker->words(2, true),
+            'code' => $this->faker->unique()->word,
         ];
     }
 }

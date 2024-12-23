@@ -1,6 +1,6 @@
 @component('layouts.base')
     <h2>
-        {{$medicine->full_name}}
+        {{$medicine->label}}
     </h2>
     <div>
         <h2>Trade Name:</h2>
@@ -8,11 +8,11 @@
     </div>
     <div>
         <h2>Denomination Commune Internationale (DCI):</h2>
-        <p>{{$medicine->displayDci()}}</p>
+        <p>{{$medicine->dci}}</p>
     </div>
     <div>
         <h2>Dosage:</h2>
-        <p>{{$medicine->displayDosage()}}</p>
+        <p>{{$medicine->dosage}}</p>
     </div>
     <div>
         <h2>Form:</h2>

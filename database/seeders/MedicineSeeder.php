@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Database\Factories\DciFactory;
+use Database\Factories\CodeFactory;
 use Database\Factories\LaboratoryFactory;
 use Database\Factories\MedicineFactory;
 use Illuminate\Database\Seeder;
@@ -13,8 +13,8 @@ class MedicineSeeder extends Seeder
     {
 
         // Some real data
-        $paracetamol = DciFactory::new()->createOne(['name' => 'paracetamol']);
-        $codeine = DciFactory::new()->createOne(['name' => 'codeine']);
+        $paracetamol = CodeFactory::new()->createOne(['name' => 'paracetamol']);
+        $codeine = CodeFactory::new()->createOne(['name' => 'codeine']);
 
         $sanofi = LaboratoryFactory::new()->createOne(['name' => 'Sanofi', 'country' => 'France']);
         $merenal = LaboratoryFactory::new()->createOne(['name' => 'Merenal', 'country' => 'Algeria']);

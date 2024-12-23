@@ -34,8 +34,8 @@
                             x-on:click="location.href = '{{route('medicines.show', $medicine->slug)}}'">
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ ($medicines->currentPage() - 1) * $medicines->perPage() + $loop->iteration }}</td>
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{$medicine->name}}</td>
-                            <td class="px-6 py-4">{{$medicine->displayDci()}}</td>
-                            <td class="px-6 py-4">{{$medicine->displayDosage()}}</td>
+                            <td class="px-6 py-4">{{$medicine->dci}}</td>
+                            <td class="px-6 py-4">{{$medicine->dosage}}</td>
                             <td class="px-6 py-4">{{$medicine->form}}</td>
                             <td class="px-6 py-4">{{$medicine->packaging}}</td>
                         </tr>

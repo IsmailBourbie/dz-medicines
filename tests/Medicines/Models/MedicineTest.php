@@ -2,7 +2,7 @@
 
 namespace Tests\Medicines\Models;
 
-use Database\Factories\DciFactory;
+use Database\Factories\CodeFactory;
 use Database\Factories\LaboratoryFactory;
 use Database\Factories\MedicineFactory;
 use Domains\Medicines\Models\Laboratory;
@@ -19,7 +19,7 @@ class MedicineTest extends TestCase
     #[Test]
     public function it_belongs_to_many_dci(): void
     {
-        $dci = DciFactory::new()->createOne([
+        $dci = CodeFactory::new()->createOne([
             'name' => 'paracetamol',
         ]);
         $medicine = MedicineFactory::new()->withDci($dci, '1000mg')->createOne();
@@ -43,7 +43,7 @@ class MedicineTest extends TestCase
     #[Test]
     public function it_has_pivot_data_on_dci_relation(): void
     {
-        $dci = DciFactory::new()->createOne([
+        $dci = CodeFactory::new()->createOne([
             'name' => 'paracetamol',
         ]);
         $medicine = MedicineFactory::new()->withDci($dci, '1000mg')->createOne();
@@ -54,7 +54,7 @@ class MedicineTest extends TestCase
     #[Test]
     public function it_load_dci_relation_by_default(): void
     {
-        $dci = DciFactory::new()->createOne();
+        $dci = CodeFactory::new()->createOne();
         $medicine = MedicineFactory::new()->withDci($dci, '1000mg')->createOne();
 
         $freshMedicine = Medicine::find($medicine);
@@ -65,8 +65,8 @@ class MedicineTest extends TestCase
     #[Test]
     public function it_format_dci_and_dosage(): void
     {
-        $amlodipine = DciFactory::new()->createOne(['name' => 'amlodipine']);
-        $valsartan = DciFactory::new()->createOne(['name' => 'valsartan']);
+        $amlodipine = CodeFactory::new()->createOne(['name' => 'amlodipine']);
+        $valsartan = CodeFactory::new()->createOne(['name' => 'valsartan']);
         $exval = MedicineFactory::new()
             ->withDci($amlodipine, '5mg')
             ->withDci($valsartan, '80mg')

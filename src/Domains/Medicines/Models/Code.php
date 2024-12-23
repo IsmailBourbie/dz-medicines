@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class Dci extends Model
+class Code extends Model
 {
 
     public function name(): Attribute

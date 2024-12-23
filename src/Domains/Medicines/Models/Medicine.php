@@ -5,15 +5,14 @@ namespace Domains\Medicines\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 
 class Medicine extends Model
 {
-    protected $with = ['dci'];
+//    protected $with = ['code'];
 
     // Accessor Methods
-    public function fullName(): Attribute
+    public function label(): Attribute
     {
         return Attribute::make(
             get: fn($value) => Str::upper($value)
@@ -34,6 +33,13 @@ class Medicine extends Model
         );
     }
 
+    public function dosage(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Str::upper($value)
+        );
+    }
+
     public function packaging(): Attribute
     {
         return Attribute::make(
@@ -41,16 +47,14 @@ class Medicine extends Model
         );
     }
 
-    // Relationships
-    public function dci(): BelongsToMany
+    public function dci(): Attribute
     {
-        return $this->belongsToMany(Dci::class)
-            ->using(DciMedicine::class)
-            ->withPivot('dosage')
-            ->as('details')
-            ->withTimestamps();
+        return Attribute::make(
+            get: fn($value) => Str::upper($value)
+        );
     }
 
+    // Relationships
     public function laboratory(): BelongsTo
     {
         return $this->belongsTo(Laboratory::class);
@@ -60,15 +64,5 @@ class Medicine extends Model
     public function path(): string
     {
         return route('medicines.show', $this->slug);
-    }
-
-    public function displayDci(): string
-    {
-        return $this->dci->pluck('name')->implode('/');
-    }
-
-    public function displayDosage(): string
-    {
-        return $this->dci->pluck('details.dosage')->implode('/');
     }
 }

@@ -11,11 +11,16 @@ return new class extends Migration {
         Schema::create('medicines', function (Blueprint $table) {
             $table->id();
             $table->foreignId('laboratory_id')->constrained('laboratories');
-            $table->string('full_name');
-            $table->string('slug');
+            $table->foreignId('code_id')->constrained('codes');
             $table->string('name');
+            $table->string('dci');
             $table->string('form');
+            $table->string('dosage');
             $table->string('packaging');
+            $table->boolean('is_generic')->default(true);
+            $table->boolean('is_local')->default(true);
+            $table->string('label')->nullable();
+            $table->string('slug');
             $table->timestamps();
         });
     }
