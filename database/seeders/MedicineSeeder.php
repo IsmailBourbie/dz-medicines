@@ -20,6 +20,8 @@ class MedicineSeeder extends Seeder
             'slug' => 'doliprane-500mg-comp',
             'form' => 'COMP',
             'packaging' => 'bte 8',
+            'is_generic' => false,
+            'is_local' => false,
         ]);
         $dolyc = MedicineFactory::new()->for($merenal)->createOne([
             'name' => 'dolyc',
@@ -36,6 +38,8 @@ class MedicineSeeder extends Seeder
             'slug' => 'codoliprane-500mg-comp',
             'form' => 'COMP',
             'packaging' => 'bte 20',
+            'is_generic' => false,
+            'is_local' => false,
         ]);
 
         // Fake Data

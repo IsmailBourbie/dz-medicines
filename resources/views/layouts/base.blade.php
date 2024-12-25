@@ -7,13 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+
     @vite('resources/css/app.css')
     <title>{{$title ?? 'Page' }}{{ app()->isProduction() ? '' : ' (local)' }}</title>
 </head>
-<body class="font-openSans">
+<body class="font-sans bg-indigo-50/30">
 <div class="container mx-auto min-h-screen">
     {{$slot}}
 </div>

@@ -11,8 +11,8 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                montserrat: ['Montserrat', ...defaultTheme.fontFamily.sans],
-                openSans: ['"Open Sans"', ...defaultTheme.fontFamily.sans],
+                sans: ['-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+                quicksand: ['"Quicksand"', ...defaultTheme.fontFamily.sans],
             },
         },
     },

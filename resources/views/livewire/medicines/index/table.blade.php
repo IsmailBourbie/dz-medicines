@@ -1,10 +1,10 @@
 <div class="w-11/12 md:w-full">
     <div class="my-12 space-y-6">
-        <h2 class="text-3xl font-medium font-montserrat">All Medicines</h2>
+        <h2 class="text-3xl font-bold font-quicksand">All Medicines</h2>
         <div class="relative  shadow-md sm:rounded-lg">
             <div class="overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-100 font-montserrat">
+                    <thead class="text-sm text-gray-700 font-bold uppercase bg-gray-100 font-quicksand">
                     <tr>
                         <th scope="col" class="px-6 py-3">
                             #
