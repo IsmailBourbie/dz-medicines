@@ -131,4 +131,20 @@ class MedicinesControllerTest extends TestCase
         });
         $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
     }
+
+    #[Test]
+    public function it_show_empty_state_for_not_founding_same_lab_medicines(): void
+    {
+        $phizer = LaboratoryFactory::new()->createOne(['name' => 'phizer', 'country' => 'france']);
+        $amlor = MedicineFactory::new()
+            ->for($phizer)
+            ->createOne(['label' => 'amlor 5mg', 'name' => 'amlor', 'is_local' => false]);
+
+        $response = $this->get($amlor->path());
+
+        $response->assertViewHas('same_lab_medicines', function ($same_lab_medicines) {
+            return $same_lab_medicines->isEmpty();
+        });
+        $response->assertSeeText('No medicines from this lab.');
+    }
 }
