@@ -64,6 +64,6 @@ class Medicine extends Model
     // Utility Methods
     public function path(): string
     {
-        return "medicines/$this->slug";
+        return "/medicines/$this->slug";
     }
 }

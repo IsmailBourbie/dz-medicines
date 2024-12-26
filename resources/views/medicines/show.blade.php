@@ -1,7 +1,7 @@
 @component('layouts.base', ['title' => $medicine->label])
-    <div class="min-h-screen flex items-center justify-center">
-        <section class="w-9/12">
-            <div class="py-2 mb-8">
+    <div class="min-h-screen flex items-center justify-center flex-col space-y-14">
+        <section class="w-9/12 space-y-3">
+            <div class="py-2">
                 <h2 class="text-5xl text-sky-700 font-quicksand font-bold tracking-wide">
                     {{$medicine->name}}
                 </h2>
@@ -62,10 +62,25 @@
             </div>
         </section>
 
-        <section>
-            @foreach($same_lab_medicines as $medicine)
-                <h4>{{$medicine->name}}</h4>
-            @endforeach
+        <section class="w-9/12 space-y-4">
+            <h2
+                class="font-quicksand font-medium text-2xl text-sky-800 relative after:absolute after:-z-10 after:left-0 after:top-1/2 after:w-full after:h-[2px] after:bg-sky-600 transform after:-translate-y-1/2"
+            >
+                <div class="bg-white pe-2 inline">
+                    See more from <span class=" font-bold text-sky-600">{{$medicine->laboratory->name}}</span>
+                </div>
+            </h2>
+            <ul class="divide-y divide-slate-200 px-4">
+                @foreach($same_lab_medicines as $medicine)
+                    <li class="text-sky-700/80 font-medium pt-2 pb-1">
+                        <a class="flex items-center space-x-1 hover:text-sky-700 transition-colors"
+                           href="{{$medicine->path()}}">
+                            <span>{{$medicine->label}}</span>
+                            <x-icons.arrow-top-right-on-square size="sm"/>
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
         </section>
     </div>
 @endcomponent

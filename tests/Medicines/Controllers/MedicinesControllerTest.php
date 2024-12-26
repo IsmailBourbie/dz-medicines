@@ -114,7 +114,7 @@ class MedicinesControllerTest extends TestCase
         $phizer = LaboratoryFactory::new()->createOne(['name' => 'phizer', 'country' => 'france']);
 
         MedicineFactory::new()->for($phizer)->count(2)
-            ->state(new Sequence(fn($sequence) => ['name' => 'medicine_'.$sequence->index]))
+            ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
             ->create();
         $amlor = MedicineFactory::new()
             ->for($phizer)

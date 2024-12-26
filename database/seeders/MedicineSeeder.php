@@ -14,6 +14,7 @@ class MedicineSeeder extends Seeder
         $merenal = LaboratoryFactory::new()->createOne(['name' => 'Merenal', 'country' => 'Algeria']);
 
         $doliprane = MedicineFactory::new()->for($sanofi)->createOne([
+            'label' => 'doliprane 500mg comp bte 8',
             'name' => 'doliprane',
             'dci' => 'paracetamol',
             'dosage' => '500mg',
@@ -24,6 +25,7 @@ class MedicineSeeder extends Seeder
             'is_local' => false,
         ]);
         $dolyc = MedicineFactory::new()->for($merenal)->createOne([
+            'label' => 'dolyc 500mg comp bte 10',
             'name' => 'dolyc',
             'dci' => 'paracetamol',
             'dosage' => '500mg',
@@ -32,6 +34,7 @@ class MedicineSeeder extends Seeder
             'packaging' => 'bte 10',
         ]);
         $codolipran = MedicineFactory::new()->for($sanofi)->createOne([
+            'label' => 'co-doliprane 400mg/20mg comp bte 20',
             'name' => 'co-doliprane',
             'dci' => 'paracetamol/codeine',
             'dosage' => '400mg/20mg',

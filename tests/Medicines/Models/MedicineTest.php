@@ -14,7 +14,7 @@ class MedicineTest extends TestCase
     {
         $medicine = new Medicine(['slug' => 'hello-world']);
 
-        $this->assertEquals('medicines/hello-world', $medicine->path());
+        $this->assertEquals('/medicines/hello-world', $medicine->path());
     }
 
 }
