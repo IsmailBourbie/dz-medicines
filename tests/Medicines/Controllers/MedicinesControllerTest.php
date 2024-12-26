@@ -16,7 +16,6 @@ class MedicinesControllerTest extends TestCase
     #[Test]
     public function it_render_index_page_successfully(): void
     {
-        $this->withoutExceptionHandling();
         $response = $this->get(route('medicines.index'));
 
         $response->assertStatus(200);
@@ -53,14 +52,15 @@ class MedicinesControllerTest extends TestCase
     #[Test]
     public function it_show_10_medicines_per_page_using_pagination(): void
     {
-        $this->withoutExceptionHandling();
-        $medicines = MedicineFactory::new()->count(40)->create();
+        MedicineFactory::new()->count(11)->state(new Sequence(
+            fn($sequence) => ['name' => 'medicine_'.$sequence->index]
+        ))->create();
 
         $response = $this->get(route('medicines.index'));
 
-        $response->assertSeeText('40');
-        $response->assertSeeText([$medicines->get(0)->name, $medicines->get(9)->name]);
-        $response->assertDontSeeText(strtoupper($medicines->get(10)->name));
+        $response->assertSeeText('Results: 11');
+        $response->assertSeeText(['MEDICINE_0', 'MEDICINE_4', 'MEDICINE_9']);
+        $response->assertDontSeeText(['MEDICINE_10']);
     }
 
     #[Test]
