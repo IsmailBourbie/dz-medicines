@@ -4,6 +4,7 @@ namespace Tests\Medicines\Controllers;
 
 use Database\Factories\LaboratoryFactory;
 use Database\Factories\MedicineFactory;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -104,5 +105,23 @@ class MedicinesControllerTest extends TestCase
         $response->assertSeeText('PHIZER');
         $response->assertSeeText('France');
         $response->assertSeeText('Foreign');
+    }
+
+    #[Test]
+    public function it_show_other_medicine_form_the_same_laboratory(): void
+    {
+        $this->withoutExceptionHandling();
+        $phizer = LaboratoryFactory::new()->createOne(['name' => 'phizer', 'country' => 'france']);
+
+        MedicineFactory::new()->for($phizer)->count(2)
+            ->state(new Sequence(fn($sequence) => ['name' => 'medicine_'.$sequence->index]))
+            ->create();
+        $amlor = MedicineFactory::new()
+            ->for($phizer)
+            ->createOne(['name' => 'amlor', 'is_local' => false]);
+
+        $response = $this->get($amlor->path());
+
+        $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
     }
 }

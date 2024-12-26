@@ -61,5 +61,11 @@
                 </div>
             </div>
         </section>
+
+        <section>
+            @foreach($same_lab_medicines as $medicine)
+                <h4>{{$medicine->name}}</h4>
+            @endforeach
+        </section>
     </div>
 @endcomponent

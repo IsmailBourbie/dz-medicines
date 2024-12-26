@@ -15,6 +15,8 @@ class MedicineController extends Controller
 
     public function show(Medicine $medicine): View
     {
-        return view('medicines.show', compact('medicine'));
+        $same_lab_medicines = $medicine->laboratory->medicines;
+
+        return view('medicines.show', compact('medicine', 'same_lab_medicines'));
     }
 }
