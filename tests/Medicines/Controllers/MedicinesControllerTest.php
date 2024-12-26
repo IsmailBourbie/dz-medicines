@@ -113,15 +113,22 @@ class MedicinesControllerTest extends TestCase
         $this->withoutExceptionHandling();
         $phizer = LaboratoryFactory::new()->createOne(['name' => 'phizer', 'country' => 'france']);
 
-        MedicineFactory::new()->for($phizer)->count(2)
+        MedicineFactory::new()
+            ->for($phizer)
+            ->count(2)
             ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
             ->create();
         $amlor = MedicineFactory::new()
             ->for($phizer)
-            ->createOne(['name' => 'amlor', 'is_local' => false]);
+            ->createOne(['label' => 'amlor 5mg', 'name' => 'amlor', 'is_local' => false]);
 
         $response = $this->get($amlor->path());
 
+        $response->assertViewHas('same_lab_medicines', function ($same_lab_medicines) {
+            return $same_lab_medicines->contains('label', 'MEDICINE_0') &&
+                $same_lab_medicines->contains('label', 'MEDICINE_1') &&
+                $same_lab_medicines->doesntContain('label', 'AMLOR 5MG');
+        });
         $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
     }
 }

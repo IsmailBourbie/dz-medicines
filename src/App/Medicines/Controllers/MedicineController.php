@@ -15,7 +15,9 @@ class MedicineController extends Controller
 
     public function show(Medicine $medicine): View
     {
-        $same_lab_medicines = $medicine->laboratory->medicines;
+        $same_lab_medicines = $medicine->laboratory->medicines()
+            ->where('id', '!=', $medicine->id)
+            ->get();
 
         return view('medicines.show', compact('medicine', 'same_lab_medicines'));
     }
