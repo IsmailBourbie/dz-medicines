@@ -11,13 +11,19 @@ class MedicineFactory extends Factory
 
     public function definition(): array
     {
+        $name = $this->faker->words(rand(1, 2), true);
+        $dosage = $this->faker->randomElement(['10mg', '2.5mg', '1g', "75µg", '3%']);
+        $form = $this->faker->randomElement(['COMP', 'SUPP', 'INJ']);
+        $packaging = 'BTE '.$this->faker->randomElement([10, 20, 30, 90]);
+
         return [
-            'name' => $this->faker->words(rand(1, 2), true),
+            'label' => $name.' '.$dosage.' '.$form.' '.$packaging,
+            'name' => $name,
             'dci' => $this->faker->words(rand(2, 3), true),
             'slug' => $this->faker->unique()->slug(),
-            'form' => $this->faker->randomElement(['COMP', 'SUPP', 'INJ']),
-            'dosage' => $this->faker->randomElement(['10mg', '2.5mg', '1g', "75µg", '3%']),
-            'packaging' => 'BTE '.$this->faker->randomElement([10, 20, 30, 90]),
+            'form' => $form,
+            'dosage' => $dosage,
+            'packaging' => $packaging,
             'code_id' => CodeFactory::new()->createOne(),
             'laboratory_id' => LaboratoryFactory::new()->createOne(),
         ];

@@ -13,6 +13,8 @@ class MedicineSeeder extends Seeder
         $sanofi = LaboratoryFactory::new()->createOne(['name' => 'Sanofi', 'country' => 'France']);
         $merenal = LaboratoryFactory::new()->createOne(['name' => 'Merenal', 'country' => 'Algeria']);
 
+        $otherLabs = LaboratoryFactory::new()->count(6)->create();
+
         $doliprane = MedicineFactory::new()->for($sanofi)->createOne([
             'label' => 'doliprane 500mg comp bte 8',
             'name' => 'doliprane',
@@ -46,6 +48,6 @@ class MedicineSeeder extends Seeder
         ]);
 
         // Fake Data
-        MedicineFactory::new()->count(25)->create();
+        MedicineFactory::new()->count(25)->sequence(fn() => ['laboratory_id' => $otherLabs->random()])->create();
     }
 }
