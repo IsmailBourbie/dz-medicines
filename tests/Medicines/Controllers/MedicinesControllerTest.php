@@ -73,6 +73,7 @@ class MedicinesControllerTest extends TestCase
             'dosage' => '5mg',
             'form' => 'COMP',
             'packaging' => 'BTE 30',
+            'is_generic' => false,
         ]);
 
         $response = $this->get($amlor->path());
@@ -81,7 +82,12 @@ class MedicinesControllerTest extends TestCase
         $response->assertViewIs('medicines.show');
         $response->assertViewHas('medicine');
         $response->assertSeeTextInOrder([
-            'AMLOR 5MG COMP BTE 30', 'AMLOR', 'AMLODIPINE', '5MG', 'COMP', 'BTE 30',
+            'AMLOR 5MG COMP BTE 30',
+            'AMLOR', 'AMLODIPINE',
+            '5MG',
+            'COMP',
+            'BTE 30',
+            'Innovator',
         ]);
     }
 
@@ -91,11 +97,12 @@ class MedicinesControllerTest extends TestCase
         $phizer = LaboratoryFactory::new()->createOne(['name' => 'phizer', 'country' => 'france']);
         $amlor = MedicineFactory::new()
             ->for($phizer)
-            ->createOne(['name' => 'amlor']);
+            ->createOne(['name' => 'amlor', 'is_local' => false]);
 
         $response = $this->get($amlor->path());
 
         $response->assertSeeText('PHIZER');
         $response->assertSeeText('France');
+        $response->assertSeeText('Foreign');
     }
 }
