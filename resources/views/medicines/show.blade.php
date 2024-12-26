@@ -24,7 +24,7 @@
                     <div class="flex items-baseline">
                         <h2 class="text-lg mr-2 font-bold text-sky-800">Type:</h2>
                         <div
-                            class="flex gap-1.5 font-quicksand bg-purple-100 text-purple-700 text-xs font-bold me-2 px-2.5 py-0.5 rounded">
+                            class="flex gap-1 font-quicksand bg-purple-100 text-purple-700 text-xs font-bold me-2 px-1.5 py-0.5 rounded tracking-wide">
                             @if($medicine->is_generic)
                                 <span>Generic</span>
                                 <x-icons.arrow-path size="sm"/>
@@ -47,7 +47,7 @@
                     <div class="flex items-baseline">
                         <h2 class="text-lg mr-2 font-bold text-sky-800">Status:</h2>
                         <div
-                            class="flex gap-2 font-quicksand bg-purple-100 text-purple-700 text-xs font-bold me-2 px-2.5 py-0.5 rounded"
+                            class="flex gap-1 font-quicksand bg-purple-100 text-purple-700 text-xs font-bold me-2 px-1.5 py-0.5 rounded tracking-wide"
                         >
                             @if($medicine->is_local)
                                 <span>Local</span>
