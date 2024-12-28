@@ -38,7 +38,7 @@
                 <div>
                     <div class="flex items-baseline">
                         <h2 class="text-lg mr-2 font-bold text-sky-800">Speciality:</h2>
-                        <span class="text-slate-500 font-medium">{{$medicine->code->speciality->name}}</span>
+                        <span class="text-slate-500 font-medium">{{$medicine->speciality->name}}</span>
                     </div>
                     <div class="flex items-baseline">
                         <h2 class="text-lg mr-2 font-bold text-sky-800">Laboratory:</h2>

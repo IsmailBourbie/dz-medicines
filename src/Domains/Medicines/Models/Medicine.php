@@ -5,6 +5,7 @@ namespace Domains\Medicines\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Str;
 
 class Medicine extends Model
@@ -64,6 +65,11 @@ class Medicine extends Model
     public function code(): BelongsTo
     {
         return $this->belongsTo(Code::class);
+    }
+
+    public function speciality(): HasOneThrough
+    {
+        return $this->hasOneThrough(Speciality::class, Code::class, 'id', 'id', 'code_id');
     }
 
     // Utility Methods
