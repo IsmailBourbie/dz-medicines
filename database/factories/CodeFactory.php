@@ -12,7 +12,7 @@ class CodeFactory extends Factory
     public function definition(): array
     {
         return [
-            'value' => $this->faker->unique()->word,
+            'value' => $this->faker->regexify('\d{2}[A-Z]\d{3}'),
         ];
     }
 }
