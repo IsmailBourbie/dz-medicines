@@ -2,8 +2,10 @@
 
 namespace Tests\Medicines\Controllers;
 
+use Database\Factories\CodeFactory;
 use Database\Factories\LaboratoryFactory;
 use Database\Factories\MedicineFactory;
+use Database\Factories\SpecialityFactory;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
@@ -108,6 +110,21 @@ class MedicinesControllerTest extends TestCase
     }
 
     #[Test]
+    public function it_show_the_speciality_name(): void
+    {
+        $speciality = SpecialityFactory::new()->createOne(['name' => 'cardiology']);
+        $code = CodeFactory::new()->for($speciality)->createOne();
+
+        $amlor = MedicineFactory::new()
+            ->for($code)
+            ->createOne(['name' => 'amlor']);
+
+        $response = $this->get($amlor->path());
+
+        $response->assertSeeText('cardiology');
+    }
+
+    #[Test]
     public function it_show_other_medicine_form_the_same_laboratory(): void
     {
         $this->withoutExceptionHandling();
@@ -147,4 +164,5 @@ class MedicinesControllerTest extends TestCase
         });
         $response->assertSeeText('No medicines from this lab.');
     }
+
 }

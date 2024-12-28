@@ -61,6 +61,11 @@ class Medicine extends Model
         return $this->belongsTo(Laboratory::class);
     }
 
+    public function code(): BelongsTo
+    {
+        return $this->belongsTo(Code::class);
+    }
+
     // Utility Methods
     public function path(): string
     {
