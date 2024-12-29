@@ -7,13 +7,11 @@ use Database\Factories\MedicineFactory;
 use Database\Factories\SpecialityFactory;
 use Domains\Medicines\Models\Medicine;
 use Illuminate\Database\Eloquent\Factories\Sequence;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class MedicineTest extends TestCase
 {
-    use RefreshDatabase;
 
     #[Test]
     public function it_has_path_based_on_slug(): void

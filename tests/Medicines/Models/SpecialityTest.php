@@ -6,13 +6,11 @@ use Database\Factories\CodeFactory;
 use Database\Factories\MedicineFactory;
 use Database\Factories\SpecialityFactory;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class SpecialityTest extends TestCase
 {
-    use RefreshDatabase;
 
     #[Test]
     public function it_has_a_many_medicines_through_code(): void
