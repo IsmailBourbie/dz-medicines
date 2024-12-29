@@ -19,6 +19,12 @@ class MedicineController extends Controller
             ->where('id', '!=', $medicine->id)
             ->get();
 
-        return view('medicines.show', compact('medicine', 'same_lab_medicines'));
+        $related_medicines = $medicine->specialityRelatedMedicines();
+
+        return view('medicines.show', compact(
+            'medicine',
+            'same_lab_medicines',
+            'related_medicines'
+        ));
     }
 }

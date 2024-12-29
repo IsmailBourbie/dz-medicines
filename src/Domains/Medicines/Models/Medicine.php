@@ -72,6 +72,13 @@ class Medicine extends Model
         return $this->hasOneThrough(Speciality::class, Code::class, 'id', 'id', 'code_id');
     }
 
+    public function specialityRelatedMedicines()
+    {
+        return $this->speciality->medicines()
+            ->where('medicines.id', '!=', $this->id)
+            ->get();
+    }
+
     // Utility Methods
     public function path(): string
     {

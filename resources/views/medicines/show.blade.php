@@ -90,5 +90,30 @@
                 @endforelse
             </ul>
         </section>
+
+        <section class="w-9/12 space-y-4">
+            <h2
+                class="font-quicksand font-medium text-2xl text-sky-800 relative after:absolute after:-z-10 after:left-0 after:top-1/2 after:w-full after:h-[2px] after:bg-sky-600 transform after:-translate-y-1/2"
+            >
+                <div class="bg-white pe-2 inline">
+                    Explore related medicines
+                </div>
+            </h2>
+            <ul class="divide-y divide-slate-200 px-4">
+                @forelse($related_medicines as $medicine)
+                    <li class="text-sky-700/80 font-medium pt-2 pb-1">
+                        <a class="inline-flex items-center space-x-1 hover:text-sky-700 transition-colors"
+                           href="{{$medicine->path()}}">
+                            <span>{{$medicine->label}}</span>
+                            <x-icons.arrow-top-right-on-square size="sm"/>
+                        </a>
+                    </li>
+                @empty
+                    <li class="text-sky-500 tracking-wide font-medium pt-2 pb-1">
+                        – No medicines from this lab.
+                    </li>
+                @endforelse
+            </ul>
+        </section>
     </div>
 @endcomponent

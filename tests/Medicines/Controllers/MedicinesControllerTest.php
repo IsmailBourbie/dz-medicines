@@ -165,4 +165,20 @@ class MedicinesControllerTest extends TestCase
         $response->assertSeeText('No medicines from this lab.');
     }
 
+    #[Test]
+    public function it_show_related_medicines_based_on_speciality(): void
+    {
+        $medicines = MedicineFactory::new()
+            ->for(CodeFactory::new())
+            ->count(3)
+            ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
+            ->create();
+
+        $response = $this->get($medicines->first()->path());
+
+        $response->assertViewHas('related_medicines');
+        $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
+
+    }
+
 }

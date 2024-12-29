@@ -6,6 +6,7 @@ use Database\Factories\CodeFactory;
 use Database\Factories\MedicineFactory;
 use Database\Factories\SpecialityFactory;
 use Domains\Medicines\Models\Medicine;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -20,6 +21,26 @@ class MedicineTest extends TestCase
         $medicine = new Medicine(['slug' => 'hello-world']);
 
         $this->assertEquals('/medicines/hello-world', $medicine->path());
+    }
+
+    #[Test]
+    public function it_get_related_medicines_based_on_speciality(): void
+    {
+        $speciality = SpecialityFactory::new()->createOne();
+        $code = CodeFactory::new()->for($speciality)->createOne();
+        $medicine = MedicineFactory::new()->createOne(['code_id' => $code, 'label' => 'amlor 5mg']);
+        MedicineFactory::new()->for($code)->count(2)
+            ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
+            ->create();
+
+        $specialityRelatedMedicines = $medicine->specialityRelatedMedicines();
+
+        $this->assertCount(2, $specialityRelatedMedicines);
+
+        $this->assertContains('MEDICINE_0', $specialityRelatedMedicines->pluck('label')->toArray());
+        $this->assertContains('MEDICINE_1', $specialityRelatedMedicines->pluck('label')->toArray());
+        $this->assertNotContains('AMLOR 5MG', $specialityRelatedMedicines->pluck('label')->toArray());
+
     }
 
     #[Test]
@@ -38,7 +59,7 @@ class MedicineTest extends TestCase
         $speciality = SpecialityFactory::new()->createOne();
         $code = CodeFactory::new()->for($speciality)->createOne();
         $medicine = MedicineFactory::new()->createOne(['code_id' => $code]);
-        
+
         $this->assertNotNull($medicine->speciality);
         $this->assertTrue($medicine->speciality->is($speciality));
     }
