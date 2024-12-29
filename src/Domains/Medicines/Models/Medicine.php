@@ -69,7 +69,7 @@ class Medicine extends Model
 
     public function speciality(): HasOneThrough
     {
-        return $this->hasOneThrough(Speciality::class, Code::class, 'id', 'id', 'code_id');
+        return $this->hasOneThrough(Speciality::class, Code::class, 'id', 'id', 'code_id', 'speciality_id');
     }
 
     public function specialityRelatedMedicines()

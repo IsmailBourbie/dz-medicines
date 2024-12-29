@@ -44,6 +44,25 @@ class MedicineTest extends TestCase
     }
 
     #[Test]
+    public function it_get_related_medicines_based_on_speciality_with_different_codes(): void
+    {
+        $speciality = SpecialityFactory::new()->createOne();
+        $codeOne = CodeFactory::new()->for($speciality)->createOne();
+        $codeTwo = CodeFactory::new()->for($speciality)->createOne();
+        $medicine = MedicineFactory::new()->createOne(['code_id' => $codeOne, 'label' => 'amlor 5mg']);
+        MedicineFactory::new()->for($codeTwo)->count(2)
+            ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
+            ->create();
+
+        $specialityRelatedMedicines = $medicine->specialityRelatedMedicines();
+
+
+        $this->assertContains('MEDICINE_0', $specialityRelatedMedicines->pluck('label')->toArray());
+        $this->assertContains('MEDICINE_1', $specialityRelatedMedicines->pluck('label')->toArray());
+
+    }
+
+    #[Test]
     public function it_belongs_to_code(): void
     {
         $code = CodeFactory::new()->createOne();
@@ -57,8 +76,8 @@ class MedicineTest extends TestCase
     public function it_has_a_speciality_through_code(): void
     {
         $speciality = SpecialityFactory::new()->createOne();
-        $code = CodeFactory::new()->for($speciality)->createOne();
-        $medicine = MedicineFactory::new()->createOne(['code_id' => $code]);
+        $codes = CodeFactory::new()->count(2)->for($speciality)->create();
+        $medicine = MedicineFactory::new()->createOne(['code_id' => $codes->last()]);
 
         $this->assertNotNull($medicine->speciality);
         $this->assertTrue($medicine->speciality->is($speciality));
