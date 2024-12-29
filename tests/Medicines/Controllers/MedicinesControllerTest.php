@@ -181,4 +181,18 @@ class MedicinesControllerTest extends TestCase
 
     }
 
+    #[Test]
+    public function it_show_empty_state_for_not_founding_related_medicines(): void
+    {
+        $medicine = MedicineFactory::new()
+            ->for(CodeFactory::new())
+            ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
+            ->createOne();
+
+        $response = $this->get($medicine->first()->path());
+
+        $response->assertSeeText('No related medicines');
+
+    }
+
 }

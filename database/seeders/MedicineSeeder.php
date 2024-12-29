@@ -14,13 +14,14 @@ class MedicineSeeder extends Seeder
     {
         $speciality = SpecialityFactory::new()->createOne(['name' => 'antalgique']);
 
+
         $paracetamol_code = CodeFactory::new()->for($speciality)->createOne();
         $paracetamol_codeine_code = CodeFactory::new()->for($speciality)->createOne();
+
 
         $sanofi = LaboratoryFactory::new()->createOne(['name' => 'Sanofi', 'country' => 'France']);
         $merenal = LaboratoryFactory::new()->createOne(['name' => 'Merenal', 'country' => 'Algeria']);
 
-        $otherLabs = LaboratoryFactory::new()->count(6)->create();
 
         $doliprane = MedicineFactory::new()
             ->for($sanofi)
@@ -64,6 +65,17 @@ class MedicineSeeder extends Seeder
             ]);
 
         // Fake Data
-        MedicineFactory::new()->count(25)->sequence(fn() => ['laboratory_id' => $otherLabs->random()])->create();
+
+        $otherSpecialises = SpecialityFactory::new()->count(3)->create();
+        $otherLabs = LaboratoryFactory::new()->count(3)->create();
+
+        $otherCodes = CodeFactory::new()->count(3)
+            ->sequence(fn() => ['speciality_id' => $otherSpecialises->random()])
+            ->create();
+
+        MedicineFactory::new()->count(25)->sequence(fn() => [
+            'laboratory_id' => $otherLabs->random(),
+            'code_id' => $otherCodes->random(),
+        ])->create();
     }
 }

@@ -85,7 +85,7 @@
                     </li>
                 @empty
                     <li class="text-sky-500 tracking-wide font-medium pt-2 pb-1">
-                        – No medicines from this lab.
+                        – No related medicines.
                     </li>
                 @endforelse
             </ul>
