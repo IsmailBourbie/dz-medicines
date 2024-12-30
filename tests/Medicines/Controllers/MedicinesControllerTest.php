@@ -44,8 +44,8 @@ class MedicinesControllerTest extends TestCase
         $response = $this->get(route('medicines.index'));
 
         $response->assertSeeText([
-            'AMLOR', 'AMLODIPINE', '5MG', 'COMP', 'BTE 30',
-            'EXVAL', 'AMLODIPINE/VALSARTAN', '5MG/80MG', 'COMP', 'BTE 30',
+            'amlor', 'amlodipine', '5mg', 'comp', 'BTE 30',
+            'exval', 'amlodipine/valsartan', '5mg/80mg', 'comp', 'BTE 30',
         ]);
     }
 
@@ -59,8 +59,8 @@ class MedicinesControllerTest extends TestCase
         $response = $this->get(route('medicines.index'));
 
         $response->assertSeeText('Results: 11');
-        $response->assertSeeText(['MEDICINE_0', 'MEDICINE_4', 'MEDICINE_9']);
-        $response->assertDontSeeText(['MEDICINE_10']);
+        $response->assertSeeText(['medicine_0', 'medicine_4', 'medicine_9']);
+        $response->assertDontSeeText(['medicine_10']);
     }
 
     #[Test]
@@ -83,9 +83,9 @@ class MedicinesControllerTest extends TestCase
         $response->assertViewIs('medicines.show');
         $response->assertViewHas('medicine');
         $response->assertSeeTextInOrder([
-            'AMLOR 5MG COMP BTE 30',
-            'AMLOR', 'AMLODIPINE',
-            '5MG',
+            'amlor 5mg COMP bte 30',
+            'amlor', 'amlodipine',
+            '5mg',
             'COMP',
             'BTE 30',
             'Innovator',
@@ -140,11 +140,11 @@ class MedicinesControllerTest extends TestCase
         $response = $this->get($amlor->path());
 
         $response->assertViewHas('same_lab_medicines', function ($same_lab_medicines) {
-            return $same_lab_medicines->contains('label', 'MEDICINE_0') &&
-                $same_lab_medicines->contains('label', 'MEDICINE_1') &&
+            return $same_lab_medicines->contains('label', 'medicine_0') &&
+                $same_lab_medicines->contains('label', 'medicine_1') &&
                 $same_lab_medicines->doesntContain('label', 'AMLOR 5MG');
         });
-        $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
+        $response->assertSeeText(['medicine_0', 'medicine_1']);
     }
 
     #[Test]
@@ -175,7 +175,7 @@ class MedicinesControllerTest extends TestCase
         $response = $this->get($medicines->first()->path());
 
         $response->assertViewHas('related_medicines');
-        $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
+        $response->assertSeeText(['medicine_0', 'medicine_1']);
 
     }
 

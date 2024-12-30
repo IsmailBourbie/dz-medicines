@@ -35,9 +35,9 @@ class MedicineTest extends TestCase
 
         $this->assertCount(2, $specialityRelatedMedicines);
 
-        $this->assertContains('MEDICINE_0', $specialityRelatedMedicines->pluck('label')->toArray());
-        $this->assertContains('MEDICINE_1', $specialityRelatedMedicines->pluck('label')->toArray());
-        $this->assertNotContains('AMLOR 5MG', $specialityRelatedMedicines->pluck('label')->toArray());
+        $this->assertContains('medicine_0', $specialityRelatedMedicines->pluck('label')->toArray());
+        $this->assertContains('medicine_1', $specialityRelatedMedicines->pluck('label')->toArray());
+        $this->assertNotContains('amlor 5mg', $specialityRelatedMedicines->pluck('label')->toArray());
 
     }
 
@@ -55,8 +55,8 @@ class MedicineTest extends TestCase
         $specialityRelatedMedicines = $medicine->specialityRelatedMedicines();
 
 
-        $this->assertContains('MEDICINE_0', $specialityRelatedMedicines->pluck('label')->toArray());
-        $this->assertContains('MEDICINE_1', $specialityRelatedMedicines->pluck('label')->toArray());
+        $this->assertContains('medicine_0', $specialityRelatedMedicines->pluck('label')->toArray());
+        $this->assertContains('medicine_1', $specialityRelatedMedicines->pluck('label')->toArray());
 
     }
 
