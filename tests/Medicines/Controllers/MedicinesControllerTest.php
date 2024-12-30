@@ -83,7 +83,7 @@ class MedicinesControllerTest extends TestCase
         $response->assertViewIs('medicines.show');
         $response->assertViewHas('medicine');
         $response->assertSeeTextInOrder([
-            'amlor 5mg COMP bte 30',
+            'AMLOR 5MG COMP BTE 30',
             'amlor', 'amlodipine',
             '5mg',
             'COMP',
@@ -140,11 +140,11 @@ class MedicinesControllerTest extends TestCase
         $response = $this->get($amlor->path());
 
         $response->assertViewHas('same_lab_medicines', function ($same_lab_medicines) {
-            return $same_lab_medicines->contains('label', 'medicine_0') &&
-                $same_lab_medicines->contains('label', 'medicine_1') &&
+            return $same_lab_medicines->contains('label', 'MEDICINE_0') &&
+                $same_lab_medicines->contains('label', 'MEDICINE_1') &&
                 $same_lab_medicines->doesntContain('label', 'AMLOR 5MG');
         });
-        $response->assertSeeText(['medicine_0', 'medicine_1']);
+        $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
     }
 
     #[Test]
@@ -175,7 +175,7 @@ class MedicinesControllerTest extends TestCase
         $response = $this->get($medicines->first()->path());
 
         $response->assertViewHas('related_medicines');
-        $response->assertSeeText(['medicine_0', 'medicine_1']);
+        $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
 
     }
 

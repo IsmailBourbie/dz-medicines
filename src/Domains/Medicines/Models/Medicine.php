@@ -2,15 +2,23 @@
 
 namespace Domains\Medicines\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
+use Illuminate\Support\Str;
 
 class Medicine extends Model
 {
     protected $guarded = [];
 
     // Accessor Methods
+    public function label(): Attribute
+    {
+        return Attribute::make(
+            get: fn($value) => Str::upper($value)
+        );
+    }
 
     // Relationships
     public function laboratory(): BelongsTo

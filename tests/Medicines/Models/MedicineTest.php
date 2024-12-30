@@ -22,12 +22,21 @@ class MedicineTest extends TestCase
     }
 
     #[Test]
+    public function it_gets_the_label_as_uppercases_letter(): void
+    {
+        $medicine = new Medicine(['label' => 'hello world']);
+
+        $this->assertEquals('HELLO WORLD', $medicine->label);
+
+    }
+
+    #[Test]
     public function it_get_related_medicines_based_on_speciality(): void
     {
         $speciality = SpecialityFactory::new()->createOne();
         $code = CodeFactory::new()->for($speciality)->createOne();
         $medicine = MedicineFactory::new()->createOne(['code_id' => $code, 'label' => 'amlor 5mg']);
-        MedicineFactory::new()->for($code)->count(2)
+        $relatedMedicines = MedicineFactory::new()->for($code)->count(2)
             ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
             ->create();
 
@@ -35,9 +44,10 @@ class MedicineTest extends TestCase
 
         $this->assertCount(2, $specialityRelatedMedicines);
 
-        $this->assertContains('medicine_0', $specialityRelatedMedicines->pluck('label')->toArray());
-        $this->assertContains('medicine_1', $specialityRelatedMedicines->pluck('label')->toArray());
-        $this->assertNotContains('amlor 5mg', $specialityRelatedMedicines->pluck('label')->toArray());
+        $this->assertContains($relatedMedicines->first()->label,
+            $specialityRelatedMedicines->pluck('label')->toArray());
+        $this->assertContains($relatedMedicines->last()->label, $specialityRelatedMedicines->pluck('label')->toArray());
+        $this->assertNotContains($medicine->label, $specialityRelatedMedicines->pluck('label')->toArray());
 
     }
 
@@ -48,15 +58,21 @@ class MedicineTest extends TestCase
         $codeOne = CodeFactory::new()->for($speciality)->createOne();
         $codeTwo = CodeFactory::new()->for($speciality)->createOne();
         $medicine = MedicineFactory::new()->createOne(['code_id' => $codeOne, 'label' => 'amlor 5mg']);
-        MedicineFactory::new()->for($codeTwo)->count(2)
+        $relatedMedicines = MedicineFactory::new()->for($codeTwo)->count(2)
             ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
             ->create();
 
         $specialityRelatedMedicines = $medicine->specialityRelatedMedicines();
 
 
-        $this->assertContains('medicine_0', $specialityRelatedMedicines->pluck('label')->toArray());
-        $this->assertContains('medicine_1', $specialityRelatedMedicines->pluck('label')->toArray());
+        $this->assertContains(
+            $relatedMedicines->first()->label,
+            $specialityRelatedMedicines->pluck('label')->toArray()
+        );
+        $this->assertContains(
+            $relatedMedicines->last()->label,
+            $specialityRelatedMedicines->pluck('label')->toArray()
+        );
 
     }
 
