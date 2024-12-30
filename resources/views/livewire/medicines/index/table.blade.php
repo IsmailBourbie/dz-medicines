@@ -29,7 +29,7 @@
                     <tbody x-data>
                     @foreach($medicines as $medicine)
                         <tr
-                            class="bg-white border-b hover:cursor-pointer hover:bg-gray-50"
+                            class="bg-white border-b hover:cursor-pointer hover:bg-gray-50 uppercase"
                             wire:key="{{$medicine->id}}"
                             x-on:click="location.href = '{{route('medicines.show', $medicine->slug)}}'">
                             <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">{{ ($medicines->currentPage() - 1) * $medicines->perPage() + $loop->iteration }}</td>

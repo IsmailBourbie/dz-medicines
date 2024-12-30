@@ -2,10 +2,10 @@
     <div class="min-h-screen flex items-center justify-center flex-col space-y-14">
         <section class="w-9/12 space-y-3">
             <div class="py-2">
-                <h2 class="text-5xl text-sky-700 font-quicksand font-bold tracking-wide">
+                <h2 class="text-5xl text-sky-700 font-quicksand font-bold tracking-wide capitalize">
                     {{$medicine->name}}
                 </h2>
-                <span class="text-xl text-sky-500 font-medium tracking-wider">{{$medicine->dci}}</span>
+                <span class="text-xl text-sky-500 font-medium tracking-wider capitalize">{{$medicine->dci}}</span>
             </div>
             <div class="flex space-x-28">
                 <div class="space-y-0.5">
@@ -19,7 +19,7 @@
                     </div>
                     <div class="flex items-baseline">
                         <h2 class="text-lg mr-2 font-bold text-sky-800">Packaging:</h2>
-                        <span class="text-slate-500 font-medium">{{$medicine->packaging}}</span>
+                        <span class="text-slate-500 font-medium uppercase">{{$medicine->packaging}}</span>
                     </div>
                     <div class="flex items-baseline">
                         <h2 class="text-lg mr-2 font-bold text-sky-800">Type:</h2>
@@ -38,7 +38,7 @@
                 <div>
                     <div class="flex items-baseline">
                         <h2 class="text-lg mr-2 font-bold text-sky-800">Speciality:</h2>
-                        <span class="text-slate-500 font-medium">{{$medicine->speciality->name}}</span>
+                        <span class="text-slate-500 font-medium capitalize">{{$medicine->speciality->name}}</span>
                     </div>
                     <div class="flex items-baseline">
                         <h2 class="text-lg mr-2 font-bold text-sky-800">Laboratory:</h2>
