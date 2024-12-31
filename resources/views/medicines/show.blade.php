@@ -70,6 +70,15 @@
 
             <x-medicine.section>
                 <x-medicine.section.heading>
+                    Available generic medicines
+                </x-medicine.section.heading>
+                <x-medicine.section.list :medicines="$generics"
+                                         empty-state-display="No available generics."
+                />
+            </x-medicine.section>
+
+            <x-medicine.section>
+                <x-medicine.section.heading>
                     Explore
                     <a href="#" class=" font-bold text-sky-600 hover:text-sky-700">related medicines</a>
                 </x-medicine.section.heading>
@@ -83,15 +92,6 @@
                 </x-medicine.section.heading>
                 <x-medicine.section.list :medicines="$same_lab_medicines"
                                          empty-state-display="No medicines from this lab."
-                />
-            </x-medicine.section>
-
-            <x-medicine.section>
-                <x-medicine.section.heading>
-                    See more generics
-                </x-medicine.section.heading>
-                <x-medicine.section.list :medicines="$generics"
-                                         empty-state-display="No generics found."
                 />
             </x-medicine.section>
         </div>
