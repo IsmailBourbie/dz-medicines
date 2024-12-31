@@ -43,6 +43,13 @@ class Medicine extends Model
             ->get();
     }
 
+    public function generics()
+    {
+        return $this->code->medicines()
+            ->where('medicines.id', '!=', $this->id)
+            ->get();
+    }
+
     // Utility Methods
     public function path(): string
     {

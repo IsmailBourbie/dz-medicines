@@ -85,6 +85,15 @@
                                          empty-state-display="No medicines from this lab."
                 />
             </x-medicine.section>
+
+            <x-medicine.section>
+                <x-medicine.section.heading>
+                    See more generics
+                </x-medicine.section.heading>
+                <x-medicine.section.list :medicines="$generics"
+                                         empty-state-display="No generics found."
+                />
+            </x-medicine.section>
         </div>
     </div>
 @endcomponent

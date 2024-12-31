@@ -21,10 +21,13 @@ class MedicineController extends Controller
 
         $related_medicines = $medicine->specialityRelatedMedicines();
 
+        $generics = $medicine->generics();
+
         return view('medicines.show', compact(
             'medicine',
             'same_lab_medicines',
-            'related_medicines'
+            'related_medicines',
+            'generics',
         ));
     }
 }

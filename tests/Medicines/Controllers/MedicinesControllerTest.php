@@ -193,4 +193,20 @@ class MedicinesControllerTest extends TestCase
 
     }
 
+    #[Test]
+    public function it_show_generics_medicines(): void
+    {
+        $medicines = MedicineFactory::new()
+            ->for(CodeFactory::new())
+            ->count(3)
+            ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
+            ->create();
+
+        $response = $this->get($medicines->first()->path());
+
+        $response->assertViewHas('generics');
+        $response->assertSeeText($medicines->skip(1)->pluck('label')->toArray());
+
+    }
+
 }

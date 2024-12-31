@@ -77,6 +77,23 @@ class MedicineTest extends TestCase
     }
 
     #[Test]
+    public function it_get_generics_medicines(): void
+    {
+        $code = CodeFactory::new()->createOne();
+
+        $medicine = MedicineFactory::new()->for($code)->createOne();
+        $generics = MedicineFactory::new()->count(2)->for($code)->create();
+
+        $otherMedicine = MedicineFactory::new()->createOne();
+
+        $this->assertCount(2, $medicine->generics());
+        $this->assertTrue($medicine->generics()->contains($generics->first()));
+        $this->assertTrue($medicine->generics()->contains($generics->last()));
+        $this->assertTrue($medicine->generics()->doesntContain($otherMedicine));
+
+    }
+
+    #[Test]
     public function it_belongs_to_code(): void
     {
         $code = CodeFactory::new()->createOne();
