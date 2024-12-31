@@ -34,7 +34,7 @@ class MedicineTest extends TestCase
     public function it_get_related_medicines_based_on_class(): void
     {
         $class = MedicineClassFactory::new()->createOne();
-        $code = CodeFactory::new()->for($class, 'class')->createOne();
+        $code = CodeFactory::new()->for($class)->createOne();
         $medicine = MedicineFactory::new()->createOne(['code_id' => $code, 'label' => 'amlor 5mg']);
         $relatedMedicines = MedicineFactory::new()->for($code)->count(2)
             ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
@@ -55,8 +55,8 @@ class MedicineTest extends TestCase
     public function it_get_related_medicines_based_on_class_with_different_codes(): void
     {
         $class = MedicineClassFactory::new()->createOne();
-        $codeOne = CodeFactory::new()->for($class, 'class')->createOne();
-        $codeTwo = CodeFactory::new()->for($class, 'class')->createOne();
+        $codeOne = CodeFactory::new()->for($class)->createOne();
+        $codeTwo = CodeFactory::new()->for($class)->createOne();
         $medicine = MedicineFactory::new()->createOne(['code_id' => $codeOne, 'label' => 'amlor 5mg']);
         $relatedMedicines = MedicineFactory::new()->for($codeTwo)->count(2)
             ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
@@ -107,7 +107,7 @@ class MedicineTest extends TestCase
     public function it_has_a_class_through_code(): void
     {
         $class = MedicineClassFactory::new()->createOne();
-        $codes = CodeFactory::new()->count(2)->for($class, 'class')->create();
+        $codes = CodeFactory::new()->count(2)->for($class)->create();
         $medicine = MedicineFactory::new()->createOne(['code_id' => $codes->last()]);
 
         $this->assertNotNull($medicine->class);

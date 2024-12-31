@@ -16,7 +16,7 @@ class MedicineClassTest extends TestCase
     public function it_has_a_many_medicines_through_code(): void
     {
         $class = MedicineClassFactory::new()->createOne();
-        $code = CodeFactory::new()->for($class, 'class')->createOne();
+        $code = CodeFactory::new()->for($class)->createOne();
         $medicine = MedicineFactory::new()->createOne(['code_id' => $code]);
         MedicineFactory::new()->count(3)->create(['code_id' => $code]);
 

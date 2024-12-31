@@ -16,4 +16,9 @@ class CodeFactory extends Factory
             'value' => $this->faker->regexify('\d{2}[A-Z]\d{3}'),
         ];
     }
+
+    public function for($factory, $relationship = 'class'): CodeFactory
+    {
+        return parent::for($factory, $relationship);
+    }
 }

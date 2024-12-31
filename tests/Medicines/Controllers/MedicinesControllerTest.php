@@ -111,7 +111,7 @@ class MedicinesControllerTest extends TestCase
     public function it_show_the_class_name(): void
     {
         $class = MedicineClassFactory::new()->createOne(['name' => 'cardiology']);
-        $code = CodeFactory::new()->for($class, 'class')->createOne();
+        $code = CodeFactory::new()->for($class)->createOne();
 
         $amlor = MedicineFactory::new()
             ->for($code)

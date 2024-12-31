@@ -15,8 +15,8 @@ class MedicineSeeder extends Seeder
         $class = MedicineClassFactory::new()->createOne(['name' => 'antalgique']);
 
 
-        $paracetamol_code = CodeFactory::new()->for($class, 'class')->createOne();
-        $paracetamol_codeine_code = CodeFactory::new()->for($class, 'class')->createOne();
+        $paracetamol_code = CodeFactory::new()->for($class)->createOne();
+        $paracetamol_codeine_code = CodeFactory::new()->for($class)->createOne();
 
 
         $sanofi = LaboratoryFactory::new()->createOne(['name' => 'Sanofi', 'country' => 'France']);
