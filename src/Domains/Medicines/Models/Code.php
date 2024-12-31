@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Code extends Model
 {
 
-    public function speciality(): BelongsTo
+    public function class(): BelongsTo
     {
-        return $this->belongsTo(Speciality::class);
+        return $this->belongsTo(MedicineClass::class);
     }
 
     public function medicines(): HasMany

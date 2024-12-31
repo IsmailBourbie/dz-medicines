@@ -3,9 +3,9 @@
 namespace Tests\Medicines\Models;
 
 use Database\Factories\CodeFactory;
+use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
-use Database\Factories\SpecialityFactory;
-use Domains\Medicines\Models\Speciality;
+use Domains\Medicines\Models\MedicineClass;
 use Illuminate\Database\Eloquent\Collection;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -14,14 +14,14 @@ class CodeTest extends TestCase
 {
 
     #[Test]
-    public function it_belongs_to_speciality(): void
+    public function it_belongs_to_class(): void
     {
-        $speciality = SpecialityFactory::new()->createOne(['name' => 'cardiology']);
-        $code = CodeFactory::new()->createOne(['speciality_id' => $speciality]);
+        $class = MedicineClassFactory::new()->createOne(['name' => 'cardiology']);
+        $code = CodeFactory::new()->createOne(['class_id' => $class]);
 
-        $this->assertNotNull($code->speciality);
-        $this->assertInstanceOf(Speciality::class, $code->speciality);
-        $this->assertTrue($code->speciality->is($speciality));
+        $this->assertNotNull($code->class);
+        $this->assertInstanceOf(MedicineClass::class, $code->class);
+        $this->assertTrue($code->class->is($class));
     }
 
     #[Test]

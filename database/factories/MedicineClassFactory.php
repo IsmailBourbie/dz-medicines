@@ -2,13 +2,13 @@
 
 namespace Database\Factories;
 
-use Domains\Medicines\Models\Speciality;
+use Domains\Medicines\Models\MedicineClass;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SpecialityFactory extends Factory
+class MedicineClassFactory extends Factory
 {
 
-    protected $model = Speciality::class;
+    protected $model = MedicineClass::class;
 
     public function definition(): array
     {

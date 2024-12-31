@@ -40,7 +40,7 @@
                     <div>
                         <div class="flex items-baseline">
                             <h2 class="text-lg mr-2 font-bold text-sky-800">Speciality:</h2>
-                            <span class="text-slate-500 font-medium capitalize">{{$medicine->speciality->name}}</span>
+                            <span class="text-slate-500 font-medium capitalize">{{$medicine->class->name}}</span>
                         </div>
                         <div class="flex items-baseline">
                             <h2 class="text-lg mr-2 font-bold text-sky-800">Laboratory:</h2>

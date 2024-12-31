@@ -4,15 +4,15 @@ namespace Database\Seeders;
 
 use Database\Factories\CodeFactory;
 use Database\Factories\LaboratoryFactory;
+use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
-use Database\Factories\SpecialityFactory;
 use Illuminate\Database\Seeder;
 
 class MedicineSeeder extends Seeder
 {
     public function run(): void
     {
-        $speciality = SpecialityFactory::new()->createOne(['name' => 'antalgique']);
+        $speciality = MedicineClassFactory::new()->createOne(['name' => 'antalgique']);
 
 
         $paracetamol_code = CodeFactory::new()->for($speciality)->createOne();
@@ -66,7 +66,7 @@ class MedicineSeeder extends Seeder
 
         // Fake Data
 
-        $otherSpecialises = SpecialityFactory::new()->count(3)->create();
+        $otherSpecialises = MedicineClassFactory::new()->count(3)->create();
         $otherLabs = LaboratoryFactory::new()->count(3)->create();
 
         $otherCodes = CodeFactory::new()->count(3)

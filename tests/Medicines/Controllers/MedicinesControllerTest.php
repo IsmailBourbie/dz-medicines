@@ -4,8 +4,8 @@ namespace Tests\Medicines\Controllers;
 
 use Database\Factories\CodeFactory;
 use Database\Factories\LaboratoryFactory;
+use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
-use Database\Factories\SpecialityFactory;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -108,10 +108,10 @@ class MedicinesControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_show_the_speciality_name(): void
+    public function it_show_the_class_name(): void
     {
-        $speciality = SpecialityFactory::new()->createOne(['name' => 'cardiology']);
-        $code = CodeFactory::new()->for($speciality)->createOne();
+        $class = MedicineClassFactory::new()->createOne(['name' => 'cardiology']);
+        $code = CodeFactory::new()->for($class, 'class')->createOne();
 
         $amlor = MedicineFactory::new()
             ->for($code)
@@ -164,7 +164,7 @@ class MedicinesControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_show_related_medicines_based_on_speciality(): void
+    public function it_show_related_medicines_based_on_class(): void
     {
         $medicines = MedicineFactory::new()
             ->for(CodeFactory::new())

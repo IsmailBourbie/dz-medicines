@@ -10,7 +10,7 @@ return new class extends Migration {
     {
         Schema::create('codes', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('speciality_id')->constrained('specialities');
+            $table->foreignId('class_id')->constrained('medicine_classes');
             $table->string('value');
             $table->timestamps();
         });

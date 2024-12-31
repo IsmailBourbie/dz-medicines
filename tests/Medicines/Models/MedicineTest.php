@@ -3,8 +3,8 @@
 namespace Tests\Medicines\Models;
 
 use Database\Factories\CodeFactory;
+use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
-use Database\Factories\SpecialityFactory;
 use Domains\Medicines\Models\Medicine;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use PHPUnit\Framework\Attributes\Test;
@@ -31,47 +31,47 @@ class MedicineTest extends TestCase
     }
 
     #[Test]
-    public function it_get_related_medicines_based_on_speciality(): void
+    public function it_get_related_medicines_based_on_class(): void
     {
-        $speciality = SpecialityFactory::new()->createOne();
-        $code = CodeFactory::new()->for($speciality)->createOne();
+        $class = MedicineClassFactory::new()->createOne();
+        $code = CodeFactory::new()->for($class, 'class')->createOne();
         $medicine = MedicineFactory::new()->createOne(['code_id' => $code, 'label' => 'amlor 5mg']);
         $relatedMedicines = MedicineFactory::new()->for($code)->count(2)
             ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
             ->create();
 
-        $specialityRelatedMedicines = $medicine->specialityRelatedMedicines();
+        $classRelatedMedicines = $medicine->classRelatedMedicines();
 
-        $this->assertCount(2, $specialityRelatedMedicines);
+        $this->assertCount(2, $classRelatedMedicines);
 
         $this->assertContains($relatedMedicines->first()->label,
-            $specialityRelatedMedicines->pluck('label')->toArray());
-        $this->assertContains($relatedMedicines->last()->label, $specialityRelatedMedicines->pluck('label')->toArray());
-        $this->assertNotContains($medicine->label, $specialityRelatedMedicines->pluck('label')->toArray());
+            $classRelatedMedicines->pluck('label')->toArray());
+        $this->assertContains($relatedMedicines->last()->label, $classRelatedMedicines->pluck('label')->toArray());
+        $this->assertNotContains($medicine->label, $classRelatedMedicines->pluck('label')->toArray());
 
     }
 
     #[Test]
-    public function it_get_related_medicines_based_on_speciality_with_different_codes(): void
+    public function it_get_related_medicines_based_on_class_with_different_codes(): void
     {
-        $speciality = SpecialityFactory::new()->createOne();
-        $codeOne = CodeFactory::new()->for($speciality)->createOne();
-        $codeTwo = CodeFactory::new()->for($speciality)->createOne();
+        $class = MedicineClassFactory::new()->createOne();
+        $codeOne = CodeFactory::new()->for($class, 'class')->createOne();
+        $codeTwo = CodeFactory::new()->for($class, 'class')->createOne();
         $medicine = MedicineFactory::new()->createOne(['code_id' => $codeOne, 'label' => 'amlor 5mg']);
         $relatedMedicines = MedicineFactory::new()->for($codeTwo)->count(2)
             ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
             ->create();
 
-        $specialityRelatedMedicines = $medicine->specialityRelatedMedicines();
+        $classRelatedMedicines = $medicine->classRelatedMedicines();
 
 
         $this->assertContains(
             $relatedMedicines->first()->label,
-            $specialityRelatedMedicines->pluck('label')->toArray()
+            $classRelatedMedicines->pluck('label')->toArray()
         );
         $this->assertContains(
             $relatedMedicines->last()->label,
-            $specialityRelatedMedicines->pluck('label')->toArray()
+            $classRelatedMedicines->pluck('label')->toArray()
         );
 
     }
@@ -104,14 +104,14 @@ class MedicineTest extends TestCase
     }
 
     #[Test]
-    public function it_has_a_speciality_through_code(): void
+    public function it_has_a_class_through_code(): void
     {
-        $speciality = SpecialityFactory::new()->createOne();
-        $codes = CodeFactory::new()->count(2)->for($speciality)->create();
+        $class = MedicineClassFactory::new()->createOne();
+        $codes = CodeFactory::new()->count(2)->for($class, 'class')->create();
         $medicine = MedicineFactory::new()->createOne(['code_id' => $codes->last()]);
 
-        $this->assertNotNull($medicine->speciality);
-        $this->assertTrue($medicine->speciality->is($speciality));
+        $this->assertNotNull($medicine->class);
+        $this->assertTrue($medicine->class->is($class));
     }
 
 }

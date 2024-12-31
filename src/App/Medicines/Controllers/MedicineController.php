@@ -19,7 +19,7 @@ class MedicineController extends Controller
             ->where('id', '!=', $medicine->id)
             ->get();
 
-        $related_medicines = $medicine->specialityRelatedMedicines();
+        $related_medicines = $medicine->classRelatedMedicines();
 
         $generics = $medicine->generics();
 

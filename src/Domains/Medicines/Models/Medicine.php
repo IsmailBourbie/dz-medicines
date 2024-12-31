@@ -31,14 +31,14 @@ class Medicine extends Model
         return $this->belongsTo(Code::class);
     }
 
-    public function speciality(): HasOneThrough
+    public function class(): HasOneThrough
     {
-        return $this->hasOneThrough(Speciality::class, Code::class, 'id', 'id', 'code_id', 'speciality_id');
+        return $this->hasOneThrough(MedicineClass::class, Code::class, 'id', 'id', 'code_id', 'class_id');
     }
 
-    public function specialityRelatedMedicines()
+    public function classRelatedMedicines()
     {
-        return $this->speciality->medicines()
+        return $this->class->medicines()
             ->where('medicines.id', '!=', $this->id)
             ->get();
     }
