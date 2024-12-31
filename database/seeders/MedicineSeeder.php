@@ -12,11 +12,11 @@ class MedicineSeeder extends Seeder
 {
     public function run(): void
     {
-        $speciality = MedicineClassFactory::new()->createOne(['name' => 'antalgique']);
+        $class = MedicineClassFactory::new()->createOne(['name' => 'antalgique']);
 
 
-        $paracetamol_code = CodeFactory::new()->for($speciality)->createOne();
-        $paracetamol_codeine_code = CodeFactory::new()->for($speciality)->createOne();
+        $paracetamol_code = CodeFactory::new()->for($class, 'class')->createOne();
+        $paracetamol_codeine_code = CodeFactory::new()->for($class, 'class')->createOne();
 
 
         $sanofi = LaboratoryFactory::new()->createOne(['name' => 'Sanofi', 'country' => 'France']);
@@ -66,11 +66,11 @@ class MedicineSeeder extends Seeder
 
         // Fake Data
 
-        $otherSpecialises = MedicineClassFactory::new()->count(3)->create();
+        $otherClasses = MedicineClassFactory::new()->count(3)->create();
         $otherLabs = LaboratoryFactory::new()->count(3)->create();
 
         $otherCodes = CodeFactory::new()->count(3)
-            ->sequence(fn() => ['speciality_id' => $otherSpecialises->random()])
+            ->sequence(fn() => ['class_id' => $otherClasses->random()])
             ->create();
 
         MedicineFactory::new()->count(25)->sequence(fn() => [
