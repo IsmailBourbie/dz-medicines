@@ -28,7 +28,7 @@
                 </tr>
                 </thead>
                 <tbody x-data>
-                @foreach($laboratory->medicines as $medicine)
+                @foreach($medicines as $medicine)
                     <tr
                         class="bg-white border-b hover:cursor-pointer hover:bg-indigo-50 uppercase"
                         wire:key="{{$medicine->id}}"

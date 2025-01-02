@@ -38,4 +38,20 @@ class LaboratoryControllerTest extends TestCase
         ]);
 
     }
+
+    #[Test]
+    public function it_use_pagination_to_show_ten_medicine_per_page(): void
+    {
+        $laboratory = LaboratoryFactory::new()->createOne();
+        $medicines = MedicineFactory::new()->for($laboratory)->count(11)->create();
+
+        $response = $this->get(route('laboratories.show', $laboratory->id));
+
+        $response->assertSeeText([
+            $medicines->get(0)->name,
+            $medicines->get(9)->name,
+        ]);
+        $response->assertSeeText($medicines->get(10)->name);
+
+    }
 }
