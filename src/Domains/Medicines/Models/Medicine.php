@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 class Medicine extends Model
 {
     protected $guarded = [];
+    protected $perPage = 10;
 
     // Accessor Methods
     public function label(): Attribute
