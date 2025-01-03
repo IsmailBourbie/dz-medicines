@@ -40,7 +40,11 @@
                     <div>
                         <div class="flex items-baseline">
                             <h2 class="text-lg mr-2 font-bold text-sky-800">Class:</h2>
-                            <span class="text-slate-500 font-medium capitalize">{{$medicine->class->name}}</span>
+                            <a href="{{route('classes.show', $medicine->class)}}"
+                               class="text-slate-500 font-medium capitalize"
+                            >
+                                {{$medicine->class->name}}
+                            </a>
                         </div>
                         <div class="flex items-baseline">
                             <h2 class="text-lg mr-2 font-bold text-sky-800">Laboratory:</h2>
@@ -84,7 +88,11 @@
             <x-medicine.section>
                 <x-medicine.section.heading>
                     Explore
-                    <a href="#" class=" font-bold text-sky-600 hover:text-sky-700">related medicines</a>
+                    <a href="{{route('classes.show', $medicine->class)}}"
+                       class=" font-bold text-sky-600 hover:text-sky-700"
+                    >
+                        related medicines
+                    </a>
                 </x-medicine.section.heading>
                 <x-medicine.section.list :medicines="$related_medicines" empty-state-display="No related medicines."/>
             </x-medicine.section>
