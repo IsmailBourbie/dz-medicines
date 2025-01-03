@@ -11,7 +11,6 @@ class MedicineClassController extends Controller
 
     public function show(MedicineClass $class): View
     {
-
         return view('classes.show', compact('class'));
     }
 }

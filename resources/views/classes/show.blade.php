@@ -5,5 +5,6 @@
                 {{$class->name}}
             </h2>
         </div>
+        <livewire:medicines.index.table :source="$class"/>
     </div>
 @endcomponent
