@@ -1,50 +1,52 @@
 <?php
 
-namespace Tests\Laboratory\Controllers;
+namespace Tests\Medicines\Feature;
 
-use Database\Factories\LaboratoryFactory;
+use Database\Factories\CodeFactory;
+use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class LaboratoryControllerTest extends TestCase
+class MedicineClassControllerTest extends TestCase
 {
     #[Test]
     public function it_show_laboratory_page(): void
     {
-        $laboratory = LaboratoryFactory::new()->createOne();
+        $class = MedicineClassFactory::new()->createOne();
 
-        $response = $this->get(route('laboratories.show', $laboratory->id));
+        $response = $this->get(route('classes.show', $class));
 
         $response->assertSuccessful();
-        $response->assertViewIs('laboratories.show');
-        $response->assertViewHas('laboratory');
-        $response->assertSeeText([$laboratory->name, $laboratory->country]);
+        $response->assertViewIs('classes.show');
+        $response->assertViewHas('class');
+        $response->assertSeeText([$class->name]);
 
     }
 
     #[Test]
     public function it_show_medicines_of_laboratory(): void
     {
-        $laboratory = LaboratoryFactory::new()->createOne();
-        $medicine = MedicineFactory::new()->for($laboratory)->createOne();
+        $class = MedicineClassFactory::new()->createOne();
+        $code = CodeFactory::new()->for($class)->createOne();
+        $medicine = MedicineFactory::new()->for($code)->createOne();
 
-        $response = $this->get(route('laboratories.show', $laboratory->id));
+        $response = $this->get(route('classes.show', $class));
 
         $response->assertSeeText([
             $medicine->name, $medicine->dci,
             $medicine->dosage, $medicine->form,
             $medicine->packaging,
         ]);
-
     }
 
     #[Test]
     public function it_use_pagination_to_show_ten_medicine_per_page(): void
     {
-        $laboratory = LaboratoryFactory::new()->createOne();
-        $medicines = MedicineFactory::new()->for($laboratory)
+        $class = MedicineClassFactory::new()->createOne();
+        $code = CodeFactory::new()->for($class)->createOne();
+        $medicines = MedicineFactory::new()->for($code)
             ->count(11)
             ->state(new Sequence(
                 fn($sequence) => ['name' => 'medicine_'.$sequence->index]
@@ -52,7 +54,7 @@ class LaboratoryControllerTest extends TestCase
             ->create();
 
 
-        $response = $this->get(route('laboratories.show', $laboratory->id));
+        $response = $this->get(route('classes.show', $class));
 
         $response->assertSeeText([
             'medicine_0',

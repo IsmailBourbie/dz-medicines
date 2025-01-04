@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Medicines\Livewire;
+namespace Tests\Medicines\Feature\Livewire;
 
 use App\Livewire\Medicines\Index\Table;
 use PHPUnit\Framework\Attributes\Test;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Medicines\Controllers;
+namespace Tests\Medicines\Feature;
 
 use Database\Factories\CodeFactory;
 use Database\Factories\LaboratoryFactory;
