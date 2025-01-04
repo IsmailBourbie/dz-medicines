@@ -68,10 +68,10 @@ class MedicineTest extends TestCase
 
         $otherMedicine = MedicineFactory::new()->createOne();
 
-        $this->assertCount(2, $medicine->generics());
-        $this->assertTrue($medicine->generics()->contains($generics->first()));
-        $this->assertTrue($medicine->generics()->contains($generics->last()));
-        $this->assertTrue($medicine->generics()->doesntContain($otherMedicine));
+        $this->assertCount(2, $medicine->generics);
+        $this->assertTrue($medicine->generics->contains($generics->first()));
+        $this->assertTrue($medicine->generics->contains($generics->last()));
+        $this->assertTrue($medicine->generics->doesntContain($otherMedicine));
 
     }
 

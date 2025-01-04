@@ -197,7 +197,7 @@ class MedicinesControllerTest extends TestCase
     public function it_show_generics_medicines(): void
     {
         $medicines = MedicineFactory::new()
-            ->for(CodeFactory::new())
+            ->for(CodeFactory::new()->createOne())
             ->count(3)
             ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
             ->create();
@@ -206,6 +206,7 @@ class MedicinesControllerTest extends TestCase
 
         $response->assertViewHas('generics');
         $response->assertSeeText($medicines->skip(1)->pluck('label')->toArray());
+        $response->assertDontSeeText('No available generics');
 
     }
 

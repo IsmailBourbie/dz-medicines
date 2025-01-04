@@ -5,6 +5,7 @@ namespace Domains\Medicines\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Str;
 
@@ -44,11 +45,9 @@ class Medicine extends Model
             ->get();
     }
 
-    public function generics()
+    public function generics(): HasMany
     {
-        return $this->code->medicines()
-            ->where('medicines.id', '!=', $this->id)
-            ->get();
+        return $this->hasMany(self::class, 'code_id')->whereNot('id', $this->id);
     }
 
     // Utility Methods

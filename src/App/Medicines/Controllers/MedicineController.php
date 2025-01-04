@@ -21,7 +21,7 @@ class MedicineController extends Controller
 
         $related_medicines = $medicine->classRelatedMedicines();
 
-        $generics = $medicine->generics();
+        $generics = $medicine->generics;
 
         return view('medicines.show', compact(
             'medicine',
