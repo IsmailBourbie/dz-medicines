@@ -61,16 +61,15 @@ class MedicineTest extends TestCase
     #[Test]
     public function it_get_generics_medicines(): void
     {
-        $code = CodeFactory::new()->createOne();
-
+        $code = CodeFactory::new()->createOne(['id' => 2024]); // Different id for medicine id
         $medicine = MedicineFactory::new()->for($code)->createOne();
         $generics = MedicineFactory::new()->count(2)->for($code)->create();
 
         $otherMedicine = MedicineFactory::new()->createOne();
 
         $this->assertCount(2, $medicine->generics);
-        $this->assertTrue($medicine->generics->contains($generics->first()));
-        $this->assertTrue($medicine->generics->contains($generics->last()));
+        $this->assertTrue($medicine->generics->contains($generics->get(0)));
+        $this->assertTrue($medicine->generics->contains($generics->get(1)));
         $this->assertTrue($medicine->generics->doesntContain($otherMedicine));
 
     }

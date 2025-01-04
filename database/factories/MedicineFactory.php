@@ -24,8 +24,8 @@ class MedicineFactory extends Factory
             'form' => $form,
             'dosage' => $dosage,
             'packaging' => $packaging,
-            'code_id' => CodeFactory::new()->createOne(),
-            'laboratory_id' => LaboratoryFactory::new()->createOne(),
+            'code_id' => CodeFactory::new(),
+            'laboratory_id' => LaboratoryFactory::new(),
         ];
     }
 

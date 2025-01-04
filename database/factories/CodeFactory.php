@@ -12,7 +12,7 @@ class CodeFactory extends Factory
     public function definition(): array
     {
         return [
-            'class_id' => MedicineClassFactory::new()->createOne(),
+            'class_id' => MedicineClassFactory::new(),
             'value' => $this->faker->regexify('\d{2}[A-Z]\d{3}'),
         ];
     }

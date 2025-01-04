@@ -47,7 +47,7 @@ class Medicine extends Model
 
     public function generics(): HasMany
     {
-        return $this->hasMany(self::class, 'code_id')->whereNot('id', $this->id);
+        return $this->hasMany(self::class, 'code_id', 'code_id')->whereNot('id', $this->id);
     }
 
     // Utility Methods
