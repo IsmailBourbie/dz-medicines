@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class CodeTest extends TestCase
+class CodeRelationshipTest extends TestCase
 {
 
     #[Test]

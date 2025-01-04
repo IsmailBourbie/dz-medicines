@@ -5,30 +5,12 @@ namespace Tests\Medicines\Intergration;
 use Database\Factories\CodeFactory;
 use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
-use Domains\Medicines\Models\Medicine;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class MedicineTest extends TestCase
 {
-
-    #[Test]
-    public function it_has_path_based_on_slug(): void
-    {
-        $medicine = new Medicine(['slug' => 'hello-world']);
-
-        $this->assertEquals('/medicines/hello-world', $medicine->path());
-    }
-
-    #[Test]
-    public function it_gets_the_label_as_uppercases_letter(): void
-    {
-        $medicine = new Medicine(['label' => 'hello world']);
-
-        $this->assertEquals('HELLO WORLD', $medicine->label);
-
-    }
 
     #[Test]
     public function it_get_related_medicines_based_on_class(): void
