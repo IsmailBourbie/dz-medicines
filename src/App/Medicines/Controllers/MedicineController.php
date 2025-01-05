@@ -10,7 +10,7 @@ class MedicineController extends Controller
 {
     public function index(): View
     {
-        return view('medicines.index', ['medicines' => Medicine::query()->paginate()]);
+        return view('medicines.index');
     }
 
     public function show(Medicine $medicine): View
