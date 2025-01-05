@@ -59,12 +59,12 @@ class MedicineTest extends TestCase
     }
 
     #[Test]
-    public function it_get_generics_medicines(): void
+    public function it_has_many_generics_medicines(): void
     {
         $code = CodeFactory::new()->createOne(['id' => 2024]); // Different id for medicine id
+
         $medicine = MedicineFactory::new()->for($code)->createOne();
         $generics = MedicineFactory::new()->count(2)->for($code)->create();
-
         $otherMedicine = MedicineFactory::new()->createOne();
 
         $this->assertCount(2, $medicine->generics);
