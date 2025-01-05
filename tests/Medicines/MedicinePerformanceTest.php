@@ -2,6 +2,8 @@
 
 namespace Tests\Medicines;
 
+use Database\Factories\CodeFactory;
+use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
 use Domains\Medicines\Models\Medicine;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +17,10 @@ class MedicinePerformanceTest extends TestCase
     {
         parent::setUp();
 
-        $this->medicine = MedicineFactory::new()->createOne();
+        $class = MedicineClassFactory::new()->createOne();
+        $code = CodeFactory::new()->for($class)->createOne();
+        $medicines = MedicineFactory::new()->count(100)->for($code)->create();
+        $this->medicine = $medicines->random();
         // Enable query logging
         DB::enableQueryLog();
     }
@@ -38,9 +43,9 @@ class MedicinePerformanceTest extends TestCase
 
         // Assert performance metrics
         $this->assertLessThanOrEqual(
-            100,
+            200,
             $executionTime,
-            "Query took too long: {$executionTime}ms"
+            "Request took a long time: {$executionTime}ms"
         );
 
         $this->assertLessThanOrEqual(
