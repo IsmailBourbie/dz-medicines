@@ -173,6 +173,7 @@ class MedicinesControllerTest extends TestCase
 
         $response->assertViewHas('related_medicines');
         $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
+        $response->assertDontSeeText('No related medicines');
 
     }
 
@@ -187,7 +188,6 @@ class MedicinesControllerTest extends TestCase
         $response = $this->get($medicine->first()->path());
 
         $response->assertSeeText('No related medicines');
-
     }
 
     #[Test]

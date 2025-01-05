@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Str;
 
@@ -35,14 +36,26 @@ class Medicine extends Model
 
     public function class(): HasOneThrough
     {
-        return $this->hasOneThrough(MedicineClass::class, Code::class, 'id', 'id', 'code_id', 'class_id');
+        return $this->hasOneThrough(
+            MedicineClass::class,
+            Code::class,
+            'id',        // Foreign key on codes table
+            'id',        // Foreign key on medicine_classes table
+            'code_id',   // Local key on medicines table
+            'class_id'   // Local key on codes table
+        );
     }
 
-    public function classRelatedMedicines()
+    public function classMedicines(): HasManyThrough
     {
-        return $this->class->medicines()
-            ->where('medicines.id', '!=', $this->id)
-            ->get();
+        return $this->hasManyThrough(
+            Medicine::class,        // Final model we want to get
+            Code::class,           // Intermediate model
+            'class_id',           // Foreign key on intermediate table (codes)
+            'code_id',           // Foreign key on final table (medicines)
+            'code_id',          // Local key on current medicine
+            'id'               // Local key on intermediate table
+        )->whereNot('medicines.id', $this->id); // Exclude current medicine
     }
 
     public function generics(): HasMany

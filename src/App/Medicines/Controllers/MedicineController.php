@@ -17,7 +17,7 @@ class MedicineController extends Controller
     {
         $same_lab_medicines = $medicine->labMedicines;
 
-        $related_medicines = $medicine->classRelatedMedicines();
+        $related_medicines = $medicine->classMedicines;
 
         $generics = $medicine->generics;
 

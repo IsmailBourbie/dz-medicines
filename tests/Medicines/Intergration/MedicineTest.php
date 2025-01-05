@@ -6,7 +6,6 @@ use Database\Factories\CodeFactory;
 use Database\Factories\LaboratoryFactory;
 use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -14,49 +13,32 @@ class MedicineTest extends TestCase
 {
 
     #[Test]
-    public function it_get_related_medicines_based_on_class(): void
+    public function it_has_many_class_medicines(): void
     {
-        $class = MedicineClassFactory::new()->createOne();
-        $code = CodeFactory::new()->for($class)->createOne();
-        $medicine = MedicineFactory::new()->createOne(['code_id' => $code, 'label' => 'amlor 5mg']);
-        $relatedMedicines = MedicineFactory::new()->for($code)->count(2)
-            ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
-            ->create();
+        $class = MedicineClassFactory::new()->createOne(['id' => 1234]);
+        $code = CodeFactory::new()->for($class)->createOne(['id' => 1234]);
 
-        $classRelatedMedicines = $medicine->classRelatedMedicines();
+        $medicine = MedicineFactory::new()->for($code)->createOne();
+        $sameClassMedicines = MedicineFactory::new()->for($code)->count(2)->create();
+        $otherMedicine = MedicineFactory::new()->createOne();
 
-        $this->assertCount(2, $classRelatedMedicines);
-
-        $this->assertContains($relatedMedicines->first()->label,
-            $classRelatedMedicines->pluck('label')->toArray());
-        $this->assertContains($relatedMedicines->last()->label, $classRelatedMedicines->pluck('label')->toArray());
-        $this->assertNotContains($medicine->label, $classRelatedMedicines->pluck('label')->toArray());
-
+        $this->assertCount(2, $medicine->classMedicines);
+        $this->assertTrue($medicine->classMedicines->contains($sameClassMedicines->get(0)));
+        $this->assertTrue($medicine->classMedicines->contains($sameClassMedicines->get(1)));
+        $this->assertTrue($medicine->classMedicines->doesntContain($otherMedicine));
     }
 
     #[Test]
-    public function it_get_related_medicines_based_on_class_with_different_codes(): void
+    public function it_has_many_class_medicines_with_different_codes(): void
     {
         $class = MedicineClassFactory::new()->createOne();
         $codeOne = CodeFactory::new()->for($class)->createOne();
         $codeTwo = CodeFactory::new()->for($class)->createOne();
-        $medicine = MedicineFactory::new()->createOne(['code_id' => $codeOne, 'label' => 'amlor 5mg']);
-        $relatedMedicines = MedicineFactory::new()->for($codeTwo)->count(2)
-            ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
-            ->create();
 
-        $classRelatedMedicines = $medicine->classRelatedMedicines();
+        $medicine = MedicineFactory::new()->for($codeOne)->createOne();
+        MedicineFactory::new()->for($codeTwo)->count(2)->create();
 
-
-        $this->assertContains(
-            $relatedMedicines->first()->label,
-            $classRelatedMedicines->pluck('label')->toArray()
-        );
-        $this->assertContains(
-            $relatedMedicines->last()->label,
-            $classRelatedMedicines->pluck('label')->toArray()
-        );
-
+        $this->assertCount(2, $medicine->classMedicines);
     }
 
     #[Test]
