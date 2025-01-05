@@ -80,7 +80,7 @@
                 <x-medicine.section.heading>
                     Available generic medicines
                 </x-medicine.section.heading>
-                <x-medicine.section.list :medicines="$generics"
+                <x-medicine.section.list :medicines="$medicine->generics"
                                          empty-state-display="No available generics."
                 />
             </x-medicine.section>
@@ -94,7 +94,8 @@
                         related medicines
                     </a>
                 </x-medicine.section.heading>
-                <x-medicine.section.list :medicines="$related_medicines" empty-state-display="No related medicines."/>
+                <x-medicine.section.list :medicines="$medicine->classMedicines"
+                                         empty-state-display="No related medicines."/>
             </x-medicine.section>
 
             <x-medicine.section>
@@ -106,7 +107,7 @@
                         {{$medicine->laboratory->name}}
                     </a>
                 </x-medicine.section.heading>
-                <x-medicine.section.list :medicines="$same_lab_medicines"
+                <x-medicine.section.list :medicines="$medicine->labMedicines"
                                          empty-state-display="No medicines from this lab."
                 />
             </x-medicine.section>

@@ -139,7 +139,6 @@ class MedicinesControllerTest extends TestCase
 
         $response = $this->get($amlor->path());
 
-        $response->assertViewHas('same_lab_medicines');
         $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
         $response->assertDontSeeText('No medicines from this lab');
     }
@@ -151,12 +150,7 @@ class MedicinesControllerTest extends TestCase
         $amlor = MedicineFactory::new()
             ->for($phizer)
             ->createOne(['label' => 'amlor 5mg', 'name' => 'amlor', 'is_local' => false]);
-
         $response = $this->get($amlor->path());
-
-        $response->assertViewHas('same_lab_medicines', function ($same_lab_medicines) {
-            return $same_lab_medicines->isEmpty();
-        });
         $response->assertSeeText('No medicines from this lab.');
     }
 
@@ -171,7 +165,6 @@ class MedicinesControllerTest extends TestCase
 
         $response = $this->get($medicines->first()->path());
 
-        $response->assertViewHas('related_medicines');
         $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
         $response->assertDontSeeText('No related medicines');
 
@@ -201,7 +194,6 @@ class MedicinesControllerTest extends TestCase
 
         $response = $this->get($medicines->first()->path());
 
-        $response->assertViewHas('generics');
         $response->assertSeeText($medicines->skip(1)->pluck('label')->toArray());
         $response->assertDontSeeText('No available generics');
 
