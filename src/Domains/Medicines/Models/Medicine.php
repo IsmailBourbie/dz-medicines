@@ -50,6 +50,12 @@ class Medicine extends Model
         return $this->hasMany(self::class, 'code_id', 'code_id')->whereNot('id', $this->id);
     }
 
+    public function labMedicines(): HasMany
+    {
+        return $this->hasMany(self::class, 'laboratory_id', 'laboratory_id')->whereNot('id', $this->id);
+    }
+
+
     // Utility Methods
     public function path(): string
     {

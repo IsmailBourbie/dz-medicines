@@ -139,12 +139,9 @@ class MedicinesControllerTest extends TestCase
 
         $response = $this->get($amlor->path());
 
-        $response->assertViewHas('same_lab_medicines', function ($same_lab_medicines) {
-            return $same_lab_medicines->contains('label', 'MEDICINE_0') &&
-                $same_lab_medicines->contains('label', 'MEDICINE_1') &&
-                $same_lab_medicines->doesntContain('label', 'AMLOR 5MG');
-        });
+        $response->assertViewHas('same_lab_medicines');
         $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
+        $response->assertDontSeeText('No medicines from this lab');
     }
 
     #[Test]

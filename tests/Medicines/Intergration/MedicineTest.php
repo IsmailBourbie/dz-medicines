@@ -3,6 +3,7 @@
 namespace Tests\Medicines\Intergration;
 
 use Database\Factories\CodeFactory;
+use Database\Factories\LaboratoryFactory;
 use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
 use Illuminate\Database\Eloquent\Factories\Sequence;
@@ -55,6 +56,22 @@ class MedicineTest extends TestCase
             $relatedMedicines->last()->label,
             $classRelatedMedicines->pluck('label')->toArray()
         );
+
+    }
+
+    #[Test]
+    public function it_has_many_lab_medicines(): void
+    {
+        $laboratory = LaboratoryFactory::new()->createOne(['id' => 1234]); // Different id for medicine id
+
+        $medicine = MedicineFactory::new()->for($laboratory)->createOne();
+        $medicinesFromSameLab = MedicineFactory::new()->count(2)->for($laboratory)->create();
+        $otherMedicine = MedicineFactory::new()->createOne();
+
+        $this->assertCount(2, $medicine->labMedicines);
+        $this->assertTrue($medicine->labMedicines->contains($medicinesFromSameLab->get(0)));
+        $this->assertTrue($medicine->labMedicines->contains($medicinesFromSameLab->get(1)));
+        $this->assertTrue($medicine->labMedicines->doesntContain($otherMedicine));
 
     }
 
