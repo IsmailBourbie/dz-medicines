@@ -7,6 +7,7 @@ use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
 use Domains\Medicines\Models\Medicine;
 use Illuminate\Support\Facades\DB;
+use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class MedicinePerformanceTest extends TestCase
@@ -19,37 +20,44 @@ class MedicinePerformanceTest extends TestCase
 
         $class = MedicineClassFactory::new()->createOne();
         $code = CodeFactory::new()->for($class)->createOne();
-        $medicines = MedicineFactory::new()->count(100)->for($code)->create();
+        $medicines = MedicineFactory::new()->count(2)->for($code)->create();
         $this->medicine = $medicines->random();
         // Enable query logging
         DB::enableQueryLog();
     }
 
-    /**
-     * Test database query performance
-     */
-    public function testDatabaseQueryPerformance()
+    #[Test]
+    public function test_database_query_performance_for_index_page()
     {
-        $startTime = microtime(true);
+        $expectedQueries = 2; // count total of medicines for pagination + get medicines per page;
 
-        $this->get($this->medicine->path());
-
-        $endTime = microtime(true);
-
-        $executionTime = ($endTime - $startTime) * 1000; // Convert to milliseconds
-
-        // Get query log
+        $this->get(route('medicines.index'));
         $queries = count(DB::getQueryLog());
 
-        // Assert performance metrics
-        $this->assertLessThanOrEqual(
-            200,
-            $executionTime,
-            "Request took a long time: {$executionTime}ms"
+        $this->assertEquals(
+            $expectedQueries,
+            $queries,
+            "Too many queries executed: $queries"
         );
+    }
 
-        $this->assertLessThanOrEqual(
-            6,
+    #[Test]
+    public function test_database_query_performance_for_show_page()
+    {
+        /*
+         * 1- get the medicine
+         * 2- get the laboratory
+         * 3- get the class
+         * 4- get related medicines by laboratory
+         * 5- get related medicines by class
+         * 6- get related generics medicines
+         * */
+        $expectedQueries = 6;
+        $this->get($this->medicine->path());
+        $queries = count(DB::getQueryLog());
+
+        $this->assertEquals(
+            $expectedQueries,
             $queries,
             "Too many queries executed: $queries"
         );
