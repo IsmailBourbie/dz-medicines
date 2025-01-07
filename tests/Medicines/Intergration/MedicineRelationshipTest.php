@@ -9,7 +9,7 @@ use Database\Factories\MedicineFactory;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class MedicineTest extends TestCase
+class MedicineRelationshipTest extends TestCase
 {
 
     #[Test]
