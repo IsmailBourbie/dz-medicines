@@ -5,6 +5,9 @@
             "src"
         ]
     },
+    "logs": {
+        "html": "storage/framework/testing/infection.html"
+    },
     "mutators": {
         "@default": true
     }

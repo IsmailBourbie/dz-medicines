@@ -1,13 +1,13 @@
 @component('layouts.base', ['title' => $medicine->label])
     <div class="w-9/12 mx-auto">
         <div class="min-h-screen flex flex-col items-center justify-center space-y-14">
-            <x-medicine.section class="py-5">
+            <x-medicine.section class="py-5 capitalize">
                 <div class="py-2">
-                    <h2 class="text-5xl text-sky-700 font-quicksand font-bold tracking-wide capitalize mb-2">
+                    <h2 class="text-5xl text-sky-700 font-quicksand font-bold tracking-wide mb-2">
                         {{$medicine->name}}
                     </h2>
                     <span
-                        class="ps-1.5 text-xl text-sky-500 font-medium tracking-wider capitalize">{{$medicine->dci}}</span>
+                        class="ps-1.5 text-xl text-sky-500 font-medium tracking-wider">{{$medicine->dci}}</span>
                 </div>
                 <div class="flex space-x-28">
                     <div class="space-y-0.5">
@@ -41,7 +41,7 @@
                         <div class="flex items-baseline">
                             <h2 class="text-lg mr-2 font-bold text-sky-800">Class:</h2>
                             <a href="{{route('classes.show', $medicine->class)}}"
-                               class="text-slate-500 font-medium capitalize"
+                               class="text-slate-500 font-medium"
                             >
                                 {{$medicine->class->name}}
                             </a>
@@ -64,10 +64,10 @@
                                 class="flex gap-1 font-quicksand bg-purple-100 text-purple-700 text-xs font-bold me-2 px-1.5 py-0.5 rounded tracking-wide"
                             >
                                 @if($medicine->is_local)
-                                    <span>Local</span>
+                                    <span>local</span>
                                     <x-icons.home size="sm"/>
                                 @else
-                                    <span>Foreign</span>
+                                    <span class="">foreign</span>
                                     <x-icons.globe-americas size="sm"/>
                                 @endif
                             </div>

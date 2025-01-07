@@ -102,9 +102,9 @@ class MedicinesControllerTest extends TestCase
 
         $response = $this->get($amlor->path());
 
-        $response->assertSeeText('PHIZER');
-        $response->assertSeeText('France');
-        $response->assertSeeText('Foreign');
+        $response->assertSeeText('phizer');
+        $response->assertSeeText('france');
+        $response->assertSeeText('foreign');
     }
 
     #[Test]
