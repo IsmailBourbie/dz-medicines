@@ -16,7 +16,7 @@ class Medicine extends Model
     protected $perPage = 10;
 
     // Accessor Methods
-    public function label(): Attribute
+    protected function label(): Attribute
     {
         return Attribute::make(
             get: fn($value) => Str::upper($value)
