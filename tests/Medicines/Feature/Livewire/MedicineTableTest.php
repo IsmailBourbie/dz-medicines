@@ -7,6 +7,7 @@ use Database\Factories\CodeFactory;
 use Database\Factories\LaboratoryFactory;
 use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Livewire\Livewire;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
@@ -62,5 +63,22 @@ class MedicineTableTest extends TestCase
         $response->assertSeeText([
             $medicines[0]->name, $medicines[1]->name,
         ]);
+    }
+
+    #[Test]
+    public function it_always_use_pagination_to_get_10_medicines(): void
+    {
+        MedicineFactory::new()
+            ->count(11)
+            ->state(new Sequence(
+                fn($sequence) => ['name' => 'medicine_'.$sequence->index]
+            ))
+            ->create();
+
+        $response = Livewire::test(Table::class);
+
+        $response->assertSeeText([
+            'medicine_0', 'medicine_9',
+        ])->assertDontSeeText('medicine_10');
     }
 }

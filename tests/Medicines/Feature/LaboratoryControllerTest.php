@@ -4,7 +4,6 @@ namespace Tests\Medicines\Feature;
 
 use Database\Factories\LaboratoryFactory;
 use Database\Factories\MedicineFactory;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -37,28 +36,6 @@ class LaboratoryControllerTest extends TestCase
             $medicine->dosage, $medicine->form,
             $medicine->packaging,
         ]);
-
-    }
-
-    #[Test]
-    public function it_use_pagination_to_show_ten_medicine_per_page(): void
-    {
-        $laboratory = LaboratoryFactory::new()->createOne();
-        $medicines = MedicineFactory::new()->for($laboratory)
-            ->count(11)
-            ->state(new Sequence(
-                fn($sequence) => ['name' => 'medicine_'.$sequence->index]
-            ))
-            ->create();
-
-
-        $response = $this->get(route('laboratories.show', $laboratory->id));
-
-        $response->assertSeeText([
-            'medicine_0',
-            'medicine_9',
-        ]);
-        $response->assertDontSeeText('medicine_10');
 
     }
 }

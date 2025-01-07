@@ -50,20 +50,6 @@ class MedicinesControllerTest extends TestCase
     }
 
     #[Test]
-    public function it_show_10_medicines_per_page_using_pagination(): void
-    {
-        MedicineFactory::new()->count(11)->state(new Sequence(
-            fn($sequence) => ['name' => 'medicine_'.$sequence->index]
-        ))->create();
-
-        $response = $this->get(route('medicines.index'));
-
-        $response->assertSeeText('Results: 11');
-        $response->assertSeeText(['medicine_0', 'medicine_4', 'medicine_9']);
-        $response->assertDontSeeText(['medicine_10']);
-    }
-
-    #[Test]
     public function it_show_a_medicine_details_page_successfully_with_all_information(): void
     {
         $this->withoutExceptionHandling();
