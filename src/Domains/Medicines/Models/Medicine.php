@@ -55,19 +55,24 @@ class Medicine extends Model
             'code_id',           // Foreign key on final table (medicines)
             'code_id',          // Local key on current medicine
             'id'               // Local key on intermediate table
-        )->whereNot('medicines.id', $this->id); // Exclude current medicine
+        )->filterOutMedicine($this->id);
     }
 
     public function generics(): HasMany
     {
-        return $this->hasMany(self::class, 'code_id', 'code_id')->whereNot('id', $this->id);
+        return $this->hasMany(self::class, 'code_id', 'code_id')->filterOutMedicine($this->id);
     }
 
     public function labMedicines(): HasMany
     {
-        return $this->hasMany(self::class, 'laboratory_id', 'laboratory_id')->whereNot('id', $this->id);
+        return $this->hasMany(self::class, 'laboratory_id', 'laboratory_id')->filterOutMedicine($this->id);
     }
 
+    // Scopes
+    public function scopeFilterOutMedicine($query, int $related_medicine_id)
+    {
+        return $query->whereNot('medicines.id', $related_medicine_id);
+    }
 
     // Utility Methods
     public function path(): string
