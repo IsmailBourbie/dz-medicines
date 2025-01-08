@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class MedicineClassRelationshipTest extends TestCase
+class MedicineClassRelationshipsTest extends TestCase
 {
 
     #[Test]

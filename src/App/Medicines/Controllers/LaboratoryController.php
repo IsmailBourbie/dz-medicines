@@ -9,7 +9,7 @@ use Illuminate\View\View;
 class LaboratoryController extends Controller
 {
 
-    public function show(Laboratory $laboratory): View
+    public function __invoke(Laboratory $laboratory): View
     {
         return view('laboratories.show', compact('laboratory'));
     }

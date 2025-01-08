@@ -9,7 +9,7 @@ Route::get('/medicines', [MedicineController::class, 'index'])->name('medicines.
 Route::get('/medicines/{medicine:slug}', [MedicineController::class, 'show'])->name('medicines.show');
 
 
-Route::get('/laboratories/{laboratory}', [LaboratoryController::class, 'show'])->name('laboratories.show');
+Route::get('/laboratories/{laboratory}', LaboratoryController::class)->name('laboratories.show');
 
 
-Route::get('/classes/{class}', [MedicineClassController::class, 'show'])->name('classes.show');
+Route::get('/classes/{class}', MedicineClassController::class)->name('classes.show');

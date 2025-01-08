@@ -8,7 +8,7 @@ use Domains\Medicines\Models\MedicineClass;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class CodeRelationshipTest extends TestCase
+class CodeRelationshipsTest extends TestCase
 {
 
     #[Test]

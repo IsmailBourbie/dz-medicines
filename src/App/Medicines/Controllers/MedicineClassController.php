@@ -9,7 +9,7 @@ use Illuminate\View\View;
 class MedicineClassController extends Controller
 {
 
-    public function show(MedicineClass $class): View
+    public function __invoke(MedicineClass $class): View
     {
         return view('classes.show', compact('class'));
     }
