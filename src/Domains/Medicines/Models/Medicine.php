@@ -1,7 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace Domains\Medicines\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -69,7 +71,7 @@ class Medicine extends Model
     }
 
     // Scopes
-    public function scopeFilterOutMedicine($query, int $related_medicine_id)
+    public function scopeFilterOutMedicine(Builder $query, int $related_medicine_id): Builder
     {
         return $query->whereNot('medicines.id', $related_medicine_id);
     }
