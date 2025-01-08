@@ -94,4 +94,28 @@ class MedicineRelationshipTest extends TestCase
         $this->assertTrue($medicine->class->is($class));
     }
 
+    #[Test]
+    public function it_cannot_apply_eager_loading_generics_relation(): void
+    {
+        $medicine = MedicineFactory::new()->createOne();
+        $this->expectException(\TypeError::class);
+        $medicine->load(['generics']);
+    }
+
+    #[Test]
+    public function it_cannot_apply_eager_loading_labMedicines_relation(): void
+    {
+        $medicine = MedicineFactory::new()->createOne();
+        $this->expectException(\TypeError::class);
+        $medicine->load(['labMedicines']);
+    }
+
+    #[Test]
+    public function it_cannot_apply_eager_loading_classMedicines_relation(): void
+    {
+        $medicine = MedicineFactory::new()->createOne();
+        $this->expectException(\TypeError::class);
+        $medicine->load(['classMedicines']);
+    }
+
 }
