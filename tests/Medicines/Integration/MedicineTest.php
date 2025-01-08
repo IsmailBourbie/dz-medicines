@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Medicines\Intergration;
+namespace Tests\Medicines\Integration;
 
 use Database\Factories\MedicineFactory;
 use Domains\Medicines\Models\Medicine;
@@ -14,7 +14,7 @@ class MedicineTest extends TestCase
     {
         $medicine = MedicineFactory::new()->createOne();
         MedicineFactory::new()->count(2)->create();
-        
+
         $filteredMedicines = Medicine::query()->filterOutMedicine($medicine->id)->get();
 
         $this->assertCount(2, $filteredMedicines);

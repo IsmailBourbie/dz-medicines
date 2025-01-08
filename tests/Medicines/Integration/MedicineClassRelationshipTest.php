@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Medicines\Intergration;
+namespace Tests\Medicines\Integration;
 
 use Database\Factories\CodeFactory;
 use Database\Factories\MedicineClassFactory;
