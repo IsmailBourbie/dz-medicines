@@ -18,125 +18,81 @@ class MedicinesControllerTest extends TestCase
     {
         $response = $this->get(route('medicines.index'));
 
-        $response->assertStatus(200);
-        $response->assertViewIs('medicines.index');
+        $response->assertStatus(200)
+            ->assertViewIs('medicines.index');
     }
 
     #[Test]
-    public function it_show_all_existed_medicines_names_with_full_details(): void
+    public function it_show_all_existed_medicines_names_with_needed_details(): void
     {
-        $this->withoutExceptionHandling();
-        $medicine1 = MedicineFactory::new()->create([
-            'name' => 'amlor',
-            'dci' => 'amlodipine',
-            'dosage' => '5mg',
-            'form' => 'comp',
-            'packaging' => 'BTE 30',
-        ]);
-        $medicine2 = MedicineFactory::new()->create([
-            'name' => 'exval',
-            'dci' => 'amlodipine/valsartan',
-            'dosage' => '5mg/80mg',
-            'form' => 'comp',
-            'packaging' => 'BTE 30',
-        ]);
+        $medicines = MedicineFactory::new()->count(2)->create();
 
         $response = $this->get(route('medicines.index'));
 
         $response->assertSeeText([
-            'amlor', 'amlodipine', '5mg', 'comp', 'BTE 30',
-            'exval', 'amlodipine/valsartan', '5mg/80mg', 'comp', 'BTE 30',
-        ]);
+            $medicines[0]->name, $medicines[0]->dci, $medicines[0]->dosage, $medicines[0]->form,
+            $medicines[0]->packaging,
+        ])
+            ->assertSeeText([
+                $medicines[1]->name, $medicines[1]->dci, $medicines[1]->dosage, $medicines[1]->form,
+                $medicines[1]->packaging,
+            ]);
     }
 
     #[Test]
     public function it_show_a_medicine_details_page_successfully_with_all_information(): void
     {
-        $this->withoutExceptionHandling();
-        $amlor = MedicineFactory::new()->createOne([
-            'label' => 'amlor 5mg COMP bte 30',
-            'name' => 'amlor',
-            'dci' => 'amlodipine',
-            'dosage' => '5mg',
-            'form' => 'COMP',
-            'packaging' => 'BTE 30',
-            'is_generic' => false,
-        ]);
-
-        $response = $this->get($amlor->path());
-
-        $response->assertSuccessful();
-        $response->assertViewIs('medicines.show');
-        $response->assertViewHas('medicine');
-        $response->assertSeeTextInOrder([
-            'AMLOR 5MG COMP BTE 30',
-            'amlor', 'amlodipine',
-            '5mg',
-            'COMP',
-            'BTE 30',
-            'Innovator',
-        ]);
-    }
-
-    #[Test]
-    public function it_show_the_detail_of_medicine_laboratory(): void
-    {
-        $phizer = LaboratoryFactory::new()->createOne(['name' => 'phizer', 'country' => 'france']);
-        $amlor = MedicineFactory::new()
-            ->for($phizer)
-            ->createOne(['name' => 'amlor', 'is_local' => false]);
-
-        $response = $this->get($amlor->path());
-
-        $response->assertSeeText('phizer');
-        $response->assertSeeText('france');
-        $response->assertSeeText('foreign');
-    }
-
-    #[Test]
-    public function it_show_the_class_name(): void
-    {
-        $class = MedicineClassFactory::new()->createOne(['name' => 'cardiology']);
+        $laboratory = LaboratoryFactory::new()->createOne();
+        $class = MedicineClassFactory::new()->createOne();
         $code = CodeFactory::new()->for($class)->createOne();
 
-        $amlor = MedicineFactory::new()
-            ->for($code)
-            ->createOne(['name' => 'amlor']);
+        $medicine = MedicineFactory::new()->for($code)->for($laboratory)
+            ->createOne(['is_generic' => false, 'is_local' => false]);
 
-        $response = $this->get($amlor->path());
+        $response = $this->get($medicine->path());
 
-        $response->assertSeeText('cardiology');
+        $response->assertSuccessful()
+            ->assertViewIs('medicines.show')
+            ->assertViewHas(['medicine', 'generics', 'classMedicines', 'labMedicines'])
+            ->assertSeeText([
+                $medicine->label, $medicine->name, $medicine->dci,
+                $medicine->dosage, $medicine->form, $medicine->packaging,
+                'Innovator',
+            ])
+            ->assertSeeText([$laboratory->name, $laboratory->country, 'foreign'])
+            ->assertSeeText($class->name);
     }
 
     #[Test]
     public function it_show_other_medicine_form_the_same_laboratory(): void
     {
-        $this->withoutExceptionHandling();
-        $phizer = LaboratoryFactory::new()->createOne(['name' => 'phizer', 'country' => 'france']);
+        $laboratory = LaboratoryFactory::new()->createOne();
 
         MedicineFactory::new()
-            ->for($phizer)
+            ->for($laboratory)
             ->count(2)
             ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
             ->create();
-        $amlor = MedicineFactory::new()
-            ->for($phizer)
-            ->createOne(['label' => 'amlor 5mg', 'name' => 'amlor', 'is_local' => false]);
+        $medicine = MedicineFactory::new()
+            ->for($laboratory)
+            ->createOne();
 
-        $response = $this->get($amlor->path());
+        $response = $this->get($medicine->path());
 
-        $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
-        $response->assertDontSeeText('No medicines from this lab');
+        $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1'])
+            ->assertDontSeeText('No medicines from this lab');
     }
 
     #[Test]
     public function it_show_empty_state_for_not_founding_same_lab_medicines(): void
     {
-        $phizer = LaboratoryFactory::new()->createOne(['name' => 'phizer', 'country' => 'france']);
-        $amlor = MedicineFactory::new()
-            ->for($phizer)
-            ->createOne(['label' => 'amlor 5mg', 'name' => 'amlor', 'is_local' => false]);
-        $response = $this->get($amlor->path());
+        $laboratory = LaboratoryFactory::new()->createOne();
+        $medicine = MedicineFactory::new()
+            ->for($laboratory)
+            ->createOne();
+
+        $response = $this->get($medicine->path());
+
         $response->assertSeeText('No medicines from this lab.');
     }
 
@@ -164,7 +120,7 @@ class MedicinesControllerTest extends TestCase
             ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
             ->createOne();
 
-        $response = $this->get($medicine->first()->path());
+        $response = $this->get($medicine->path());
 
         $response->assertSeeText('No related medicines');
     }
@@ -180,8 +136,20 @@ class MedicinesControllerTest extends TestCase
 
         $response = $this->get($medicines->first()->path());
 
-        $response->assertSeeText($medicines->skip(1)->pluck('label')->toArray());
-        $response->assertDontSeeText('No available generics');
+        $response->assertSeeText($medicines->skip(1)->pluck('label')->toArray())
+            ->assertDontSeeText('No available generics');
+
+    }
+
+    #[Test]
+    public function it_show_empty_state_for_generics_medicines(): void
+    {
+        $medicines = MedicineFactory::new()
+            ->for(CodeFactory::new()->createOne())
+            ->createOne();
+
+        $this->get($medicines->path())
+            ->assertSeeText('No available generics');
 
     }
 

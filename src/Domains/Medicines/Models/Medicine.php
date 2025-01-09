@@ -47,7 +47,7 @@ class Medicine extends Model
     }
 
     // Scopes
-    public function scopeFilterOutMedicine(Builder $query, int $related_medicine_id): Builder
+    protected function scopeFilterOutMedicine(Builder $query, int $related_medicine_id): Builder
     {
         return $query->whereNot('medicines.id', $related_medicine_id);
     }
