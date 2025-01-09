@@ -1,0 +1,38 @@
+<?php
+
+namespace Tests\Medicines\Integration;
+
+use Database\Factories\LaboratoryFactory;
+use Database\Factories\MedicineFactory;
+use Domains\Medicines\Models\Medicine;
+use Domains\Medicines\ViewModels\MedicineShowViewModel;
+use PHPUnit\Framework\Attributes\Test;
+use Tests\TestCase;
+
+class MedicineShowViewModelTest extends TestCase
+{
+    #[Test]
+    public function it_has_medicine(): void
+    {
+        $medicine = MedicineFactory::new()->createOne();
+        $vieModel = new MedicineShowViewModel($medicine);
+
+        $this->assertInstanceOf(Medicine::class, $vieModel->medicine);
+        $this->assertTrue($medicine->is($vieModel->medicine));
+    }
+
+    #[Test]
+    public function it_has_related_medicines_by_laboratory(): void
+    {
+        $laboratory = LaboratoryFactory::new()->createOne(['id' => 12]);
+        $medicines = MedicineFactory::new()->for($laboratory)->count(3)->create();
+        $otherMedicine = MedicineFactory::new()->createOne();
+
+        $vieModel = new MedicineShowViewModel($medicines[0]);
+
+        $this->assertCount(2, $vieModel->labMedicines());
+        $this->assertTrue($vieModel->labMedicines()->contains($medicines[1]));
+        $this->assertTrue($vieModel->labMedicines()->contains($medicines[2]));
+        $this->assertNotTrue($vieModel->labMedicines()->contains($otherMedicine));
+    }
+}
