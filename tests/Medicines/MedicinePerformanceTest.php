@@ -51,13 +51,14 @@ class MedicinePerformanceTest extends TestCase
     {
         /*
          * 1- get the medicine
-         * 2- get the laboratory
-         * 3- get the class
-         * 4- get related medicines by laboratory
-         * 5- get related medicines by class
-         * 6- get related generics medicines
+         * 2- load the code
+         * 3- load the laboratory
+         * 4- load the class
+         * 5- get related medicines by laboratory
+         * 6- get related medicines by class
+         * 7- get related generics medicines by code
          * */
-        $expectedQueries = 6;
+        $expectedQueries = 7;
         $this->get($this->medicine->path());
         $queries = count(DB::getQueryLog());
 

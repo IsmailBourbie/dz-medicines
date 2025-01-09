@@ -13,67 +13,6 @@ class MedicineRelationshipsTest extends TestCase
 {
 
     #[Test]
-    public function it_has_many_class_medicines(): void
-    {
-        $class = MedicineClassFactory::new()->createOne(['id' => 1234]);
-        $code = CodeFactory::new()->for($class)->createOne(['id' => 1234]);
-
-        $medicine = MedicineFactory::new()->for($code)->createOne();
-        $sameClassMedicines = MedicineFactory::new()->for($code)->count(2)->create();
-        $otherMedicine = MedicineFactory::new()->createOne();
-
-        $this->assertCount(2, $medicine->classMedicines);
-        $this->assertTrue($medicine->classMedicines->contains($sameClassMedicines->get(0)));
-        $this->assertTrue($medicine->classMedicines->contains($sameClassMedicines->get(1)));
-        $this->assertTrue($medicine->classMedicines->doesntContain($otherMedicine));
-    }
-
-    #[Test]
-    public function it_has_many_class_medicines_with_different_codes(): void
-    {
-        $class = MedicineClassFactory::new()->createOne();
-        $codeOne = CodeFactory::new()->for($class)->createOne();
-        $codeTwo = CodeFactory::new()->for($class)->createOne();
-
-        $medicine = MedicineFactory::new()->for($codeOne)->createOne();
-        MedicineFactory::new()->for($codeTwo)->count(2)->create();
-
-        $this->assertCount(2, $medicine->classMedicines);
-    }
-
-    #[Test]
-    public function it_has_many_lab_medicines(): void
-    {
-        $laboratory = LaboratoryFactory::new()->createOne(['id' => 1234]); // Different id for medicine id
-
-        $medicine = MedicineFactory::new()->for($laboratory)->createOne();
-        $medicinesFromSameLab = MedicineFactory::new()->count(2)->for($laboratory)->create();
-        $otherMedicine = MedicineFactory::new()->createOne();
-
-        $this->assertCount(2, $medicine->labMedicines);
-        $this->assertTrue($medicine->labMedicines->contains($medicinesFromSameLab->get(0)));
-        $this->assertTrue($medicine->labMedicines->contains($medicinesFromSameLab->get(1)));
-        $this->assertTrue($medicine->labMedicines->doesntContain($otherMedicine));
-
-    }
-
-    #[Test]
-    public function it_has_many_generics_medicines(): void
-    {
-        $code = CodeFactory::new()->createOne(['id' => 2024]); // Different id for medicine id
-
-        $medicine = MedicineFactory::new()->for($code)->createOne();
-        $generics = MedicineFactory::new()->count(2)->for($code)->create();
-        $otherMedicine = MedicineFactory::new()->createOne();
-
-        $this->assertCount(2, $medicine->generics);
-        $this->assertTrue($medicine->generics->contains($generics->get(0)));
-        $this->assertTrue($medicine->generics->contains($generics->get(1)));
-        $this->assertTrue($medicine->generics->doesntContain($otherMedicine));
-
-    }
-
-    #[Test]
     public function it_belongs_to_code(): void
     {
         $code = CodeFactory::new()->createOne();
@@ -81,6 +20,17 @@ class MedicineRelationshipsTest extends TestCase
 
         $this->assertNotNull($medicine->code);
         $this->assertTrue($medicine->code->is($code));
+    }
+
+
+    #[Test]
+    public function it_belongs_to_laboratory(): void
+    {
+        $laboratory = LaboratoryFactory::new()->createOne();
+        $medicine = MedicineFactory::new()->for($laboratory)->createOne();
+
+        $this->assertNotNull($medicine->laboratory);
+        $this->assertTrue($medicine->laboratory->is($laboratory));
     }
 
     #[Test]
@@ -94,28 +44,5 @@ class MedicineRelationshipsTest extends TestCase
         $this->assertTrue($medicine->class->is($class));
     }
 
-    #[Test]
-    public function it_cannot_apply_eager_loading_generics_relation(): void
-    {
-        $medicine = MedicineFactory::new()->createOne();
-        $this->expectException(\TypeError::class);
-        $medicine->load(['generics']);
-    }
-
-    #[Test]
-    public function it_cannot_apply_eager_loading_labMedicines_relation(): void
-    {
-        $medicine = MedicineFactory::new()->createOne();
-        $this->expectException(\TypeError::class);
-        $medicine->load(['labMedicines']);
-    }
-
-    #[Test]
-    public function it_cannot_apply_eager_loading_classMedicines_relation(): void
-    {
-        $medicine = MedicineFactory::new()->createOne();
-        $this->expectException(\TypeError::class);
-        $medicine->load(['classMedicines']);
-    }
 
 }

@@ -15,6 +15,16 @@ class MedicineController extends Controller
 
     public function show(Medicine $medicine): View
     {
-        return view('medicines.show', compact('medicine'));
+        $medicine->loadMissing(['code', 'class', 'laboratory']);
+        $generics = $medicine->code->medicines()->filterOutMedicine($medicine->id)->get();
+        $classMedicines = $medicine->class->medicines()->filterOutMedicine($medicine->id)->get();
+        $labMedicines = $medicine->laboratory->medicines()->filterOutMedicine($medicine->id)->get();
+
+        return view('medicines.show', compact(
+            'medicine',
+            'generics',
+            'classMedicines',
+            'labMedicines'
+        ));
     }
 }

@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use Illuminate\Support\Str;
 
@@ -46,28 +44,6 @@ class Medicine extends Model
             'code_id',   // Local key on medicines table
             'class_id'   // Local key on codes table
         );
-    }
-
-    public function classMedicines(): HasManyThrough
-    {
-        return $this->hasManyThrough(
-            Medicine::class,        // Final model we want to get
-            Code::class,           // Intermediate model
-            'class_id',           // Foreign key on intermediate table (codes)
-            'code_id',           // Foreign key on final table (medicines)
-            'code_id',          // Local key on current medicine
-            'id'               // Local key on intermediate table
-        )->filterOutMedicine($this->id);
-    }
-
-    public function generics(): HasMany
-    {
-        return $this->hasMany(self::class, 'code_id', 'code_id')->filterOutMedicine($this->id);
-    }
-
-    public function labMedicines(): HasMany
-    {
-        return $this->hasMany(self::class, 'laboratory_id', 'laboratory_id')->filterOutMedicine($this->id);
     }
 
     // Scopes
