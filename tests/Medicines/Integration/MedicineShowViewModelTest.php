@@ -2,12 +2,12 @@
 
 namespace Tests\Medicines\Integration;
 
+use App\Medicines\ViewModels\MedicineShowViewModel;
 use Database\Factories\CodeFactory;
 use Database\Factories\LaboratoryFactory;
 use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
 use Domains\Medicines\Models\Medicine;
-use Domains\Medicines\ViewModels\MedicineShowViewModel;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Responsable;
 use PHPUnit\Framework\Attributes\Test;

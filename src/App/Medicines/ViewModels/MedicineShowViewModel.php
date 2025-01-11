@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace Domains\Medicines\ViewModels;
+namespace App\Medicines\ViewModels;
 
 use Domains\Medicines\Models\Medicine;
 use Illuminate\Database\Eloquent\Collection;
