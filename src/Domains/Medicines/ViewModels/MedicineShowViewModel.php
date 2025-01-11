@@ -17,4 +17,9 @@ class MedicineShowViewModel extends ViewModel
     {
         return $this->medicine->laboratory->medicines()->filterOutMedicine($this->medicine->id)->get();
     }
+
+    public function classMedicines(): Collection
+    {
+        return $this->medicine->class->medicines()->filterOutMedicine($this->medicine->id)->get();
+    }
 }

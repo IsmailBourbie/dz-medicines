@@ -2,7 +2,9 @@
 
 namespace Tests\Medicines\Integration;
 
+use Database\Factories\CodeFactory;
 use Database\Factories\LaboratoryFactory;
+use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
 use Domains\Medicines\Models\Medicine;
 use Domains\Medicines\ViewModels\MedicineShowViewModel;
@@ -34,5 +36,21 @@ class MedicineShowViewModelTest extends TestCase
         $this->assertTrue($vieModel->labMedicines()->contains($medicines[1]));
         $this->assertTrue($vieModel->labMedicines()->contains($medicines[2]));
         $this->assertNotTrue($vieModel->labMedicines()->contains($otherMedicine));
+    }
+
+    #[Test]
+    public function it_has_related_medicines_by_class(): void
+    {
+        $class = MedicineClassFactory::new()->createOne(['id' => 23]);
+        $code = CodeFactory::new()->for($class)->createOne(['id' => 34]);
+        $medicines = MedicineFactory::new()->for($code)->count(3)->create();
+        $otherMedicine = MedicineFactory::new()->createOne();
+
+        $vieModel = new MedicineShowViewModel($medicines[0]);
+
+        $this->assertCount(2, $vieModel->classMedicines());
+        $this->assertTrue($vieModel->classMedicines()->contains($medicines[1]));
+        $this->assertTrue($vieModel->classMedicines()->contains($medicines[2]));
+        $this->assertNotTrue($vieModel->classMedicines()->contains($otherMedicine));
     }
 }
