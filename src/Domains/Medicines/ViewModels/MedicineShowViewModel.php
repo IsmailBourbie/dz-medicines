@@ -22,4 +22,9 @@ class MedicineShowViewModel extends ViewModel
     {
         return $this->medicine->class->medicines()->filterOutMedicine($this->medicine->id)->get();
     }
+
+    public function generics(): Collection
+    {
+        return $this->medicine->code->medicines()->filterOutMedicine($this->medicine->id)->get();
+    }
 }

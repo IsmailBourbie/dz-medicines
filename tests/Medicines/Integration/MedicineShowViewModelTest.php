@@ -68,4 +68,19 @@ class MedicineShowViewModelTest extends TestCase
         $this->assertCount(2, $vieModel->classMedicines());
         $this->assertTrue($vieModel->classMedicines()->contains($otherMedicineSameCode));
     }
+
+    #[Test]
+    public function it_has_generics_medicines_by_code(): void
+    {
+        $code = CodeFactory::new()->createOne(['id' => 56]);
+        $medicines = MedicineFactory::new()->for($code)->count(3)->create();
+        $otherMedicine = MedicineFactory::new()->createOne();
+
+        $vieModel = new MedicineShowViewModel($medicines[0]);
+
+        $this->assertCount(2, $vieModel->generics());
+        $this->assertTrue($vieModel->generics()->contains($medicines[1]));
+        $this->assertTrue($vieModel->generics()->contains($medicines[2]));
+        $this->assertNotTrue($vieModel->generics()->contains($otherMedicine));
+    }
 }
