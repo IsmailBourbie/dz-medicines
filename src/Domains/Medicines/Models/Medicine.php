@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Domains\Medicines\Models;
 
-use Illuminate\Database\Eloquent\Builder;
+use Domains\Medicines\QueryBuilders\MedicineQueryBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -46,32 +46,17 @@ class Medicine extends Model
         );
     }
 
-    // Scopes
-    protected function scopeFilterOutMedicine(Builder $query, int $related_medicine_id): Builder
-    {
-        return $query->whereNot('medicines.id', $related_medicine_id);
-    }
-
-    protected function scopeLabMedicines(Builder $query, Laboratory $laboratory): Builder
-    {
-        return $query->where('laboratory_id', $laboratory->id);
-    }
-
-    protected function scopeCodeMedicines(Builder $query, Code $code): Builder
-    {
-        return $query->where('code_id', $code->id);
-    }
-
-    protected function scopeClassMedicines(Builder $query, MedicineClass $class): Builder
-    {
-        return $query->whereHas('code', function (Builder $query) use ($class) {
-            return $query->where('class_id', $class->id);
-        });
-    }
 
     // Utility Methods
     public function path(): string
     {
         return "/medicines/$this->slug";
     }
+
+    // Custom QueryBuilder
+    public function newEloquentBuilder($query): MedicineQueryBuilder
+    {
+        return new MedicineQueryBuilder($query);
+    }
+
 }
