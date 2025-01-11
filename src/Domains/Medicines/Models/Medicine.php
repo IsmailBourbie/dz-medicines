@@ -52,6 +52,23 @@ class Medicine extends Model
         return $query->whereNot('medicines.id', $related_medicine_id);
     }
 
+    protected function scopeLabMedicines(Builder $query, Laboratory $laboratory): Builder
+    {
+        return $query->where('laboratory_id', $laboratory->id);
+    }
+
+    protected function scopeCodeMedicines(Builder $query, Code $code): Builder
+    {
+        return $query->where('code_id', $code->id);
+    }
+
+    protected function scopeClassMedicines(Builder $query, MedicineClass $class): Builder
+    {
+        return $query->whereHas('code', function (Builder $query) use ($class) {
+            return $query->where('class_id', $class->id);
+        });
+    }
+
     // Utility Methods
     public function path(): string
     {

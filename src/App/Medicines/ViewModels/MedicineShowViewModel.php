@@ -15,16 +15,16 @@ class MedicineShowViewModel extends ViewModel
 
     public function labMedicines(): Collection
     {
-        return $this->medicine->laboratory->medicines()->filterOutMedicine($this->medicine->id)->get();
+        return Medicine::query()->labMedicines($this->medicine->laboratory)->filterOutmedicine($this->medicine->id)->get();
     }
 
     public function classMedicines(): Collection
     {
-        return $this->medicine->class->medicines()->filterOutMedicine($this->medicine->id)->get();
+        return Medicine::query()->classMedicines($this->medicine->class)->filterOutmedicine($this->medicine->id)->get();
     }
 
     public function generics(): Collection
     {
-        return $this->medicine->code->medicines()->filterOutMedicine($this->medicine->id)->get();
+        return Medicine::query()->codeMedicines($this->medicine->code)->filterOutmedicine($this->medicine->id)->get();
     }
 }

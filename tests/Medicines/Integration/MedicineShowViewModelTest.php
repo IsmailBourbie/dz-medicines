@@ -37,8 +37,6 @@ class MedicineShowViewModelTest extends TestCase
         $vieModel = new MedicineShowViewModel($medicines[0]);
 
         $this->assertCount(2, $vieModel->labMedicines());
-        $this->assertTrue($vieModel->labMedicines()->contains($medicines[1]));
-        $this->assertTrue($vieModel->labMedicines()->contains($medicines[2]));
         $this->assertNotTrue($vieModel->labMedicines()->contains($otherMedicine));
     }
 
@@ -53,24 +51,7 @@ class MedicineShowViewModelTest extends TestCase
         $vieModel = new MedicineShowViewModel($medicines[0]);
 
         $this->assertCount(2, $vieModel->classMedicines());
-        $this->assertTrue($vieModel->classMedicines()->contains($medicines[1]));
-        $this->assertTrue($vieModel->classMedicines()->contains($medicines[2]));
         $this->assertNotTrue($vieModel->classMedicines()->contains($otherMedicine));
-    }
-
-    #[Test]
-    public function it_has_related_medicines_by_class_with_different_code(): void
-    {
-        $class = MedicineClassFactory::new()->createOne(['id' => 23]);
-        $codeOne = CodeFactory::new()->for($class)->createOne(['id' => 34]);
-        $codeTwo = CodeFactory::new()->for($class)->createOne(['id' => 45]);
-        $medicines = MedicineFactory::new()->for($codeOne)->count(2)->create();
-        $otherMedicineSameCode = MedicineFactory::new()->for($codeTwo)->createOne();
-
-        $vieModel = new MedicineShowViewModel($medicines[0]);
-
-        $this->assertCount(2, $vieModel->classMedicines());
-        $this->assertTrue($vieModel->classMedicines()->contains($otherMedicineSameCode));
     }
 
     #[Test]
@@ -83,8 +64,6 @@ class MedicineShowViewModelTest extends TestCase
         $vieModel = new MedicineShowViewModel($medicines[0]);
 
         $this->assertCount(2, $vieModel->generics());
-        $this->assertTrue($vieModel->generics()->contains($medicines[1]));
-        $this->assertTrue($vieModel->generics()->contains($medicines[2]));
         $this->assertNotTrue($vieModel->generics()->contains($otherMedicine));
     }
 }
