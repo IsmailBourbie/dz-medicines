@@ -8,6 +8,8 @@ use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
 use Domains\Medicines\Models\Medicine;
 use Domains\Medicines\ViewModels\MedicineShowViewModel;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Responsable;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -21,6 +23,8 @@ class MedicineShowViewModelTest extends TestCase
 
         $this->assertInstanceOf(Medicine::class, $vieModel->medicine);
         $this->assertTrue($medicine->is($vieModel->medicine));
+        $this->assertInstanceOf(Arrayable::class, $vieModel);
+        $this->assertInstanceOf(Responsable::class, $vieModel);
     }
 
     #[Test]
