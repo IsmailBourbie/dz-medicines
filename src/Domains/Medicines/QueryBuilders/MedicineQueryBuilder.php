@@ -5,14 +5,15 @@ namespace Domains\Medicines\QueryBuilders;
 
 use Domains\Medicines\Models\Code;
 use Domains\Medicines\Models\Laboratory;
+use Domains\Medicines\Models\Medicine;
 use Domains\Medicines\Models\MedicineClass;
 use Illuminate\Database\Eloquent\Builder;
 
 final class MedicineQueryBuilder extends Builder
 {
-    public function filterOutMedicine(int $related_medicine_id): self
+    public function filterOutMedicine(Medicine $medicine): self
     {
-        return $this->whereNot('medicines.id', $related_medicine_id);
+        return $this->whereNot('medicines.id', $medicine->id);
     }
 
     public function labMedicines(Laboratory $laboratory): self

@@ -10,22 +10,22 @@ use Domains\Medicines\Models\Medicine;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class MedicineTest extends TestCase
+class MedicineQueryBuilderTest extends TestCase
 {
     #[Test]
-    public function it_has_scope_to_filter_out_a_medicine(): void
+    public function it_filter_out_a_medicine(): void
     {
         $medicine = MedicineFactory::new()->createOne();
         MedicineFactory::new()->count(2)->create();
 
-        $filteredMedicines = Medicine::query()->filterOutMedicine($medicine->id)->get();
+        $filteredMedicines = Medicine::query()->filterOutMedicine($medicine)->get();
 
         $this->assertCount(2, $filteredMedicines);
         $this->assertTrue($filteredMedicines->doesntContain($medicine));
     }
 
     #[Test]
-    public function it_has_scope_to_get_medicines_from_given_laboratory(): void
+    public function it_get_medicines_from_given_laboratory(): void
     {
         $laboratory = LaboratoryFactory::new()->createOne(['id' => 12]);
         $medicines = MedicineFactory::new()->for($laboratory)->count(3)->create();
@@ -39,7 +39,7 @@ class MedicineTest extends TestCase
     }
 
     #[Test]
-    public function it_has_scope_to_get_medicines_from_given_code(): void
+    public function it_get_medicines_from_given_code(): void
     {
         $code = CodeFactory::new()->createOne(['id' => 23]);
         $medicines = MedicineFactory::new()->for($code)->count(3)->create();
@@ -53,7 +53,7 @@ class MedicineTest extends TestCase
     }
 
     #[Test]
-    public function it_has_scope_to_get_medicines_from_given_class(): void
+    public function it_get_medicines_from_given_class(): void
     {
         $class = MedicineClassFactory::new()->createOne(['id' => 23]);
         $codeOne = CodeFactory::new()->for($class)->createOne(['id' => 34]);
