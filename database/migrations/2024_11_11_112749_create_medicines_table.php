@@ -19,7 +19,7 @@ return new class extends Migration {
             $table->string('packaging');
             $table->boolean('is_generic')->default(true);
             $table->boolean('is_local')->default(true);
-            $table->string('label')->nullable();
+            $table->string('label');
             $table->string('slug');
             $table->timestamps();
         });

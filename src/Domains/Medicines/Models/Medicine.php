@@ -15,6 +15,15 @@ class Medicine extends Model
     protected $guarded = [];
     protected $perPage = 10;
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function (Medicine $medicine) {
+            $medicine->label = $medicine->name.' '.$medicine->form.' '.$medicine->dosage.' '.$medicine->packaging;
+        });
+    }
+
     // Accessor Methods
     protected function label(): Attribute
     {

@@ -68,10 +68,10 @@ class MedicinesControllerTest extends TestCase
     {
         $laboratory = LaboratoryFactory::new()->createOne();
 
-        MedicineFactory::new()
+        $medicines = MedicineFactory::new()
             ->for($laboratory)
             ->count(2)
-            ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
+            ->state(new Sequence(fn($sequence) => ['name' => 'medicine_'.$sequence->index]))
             ->create();
         $medicine = MedicineFactory::new()
             ->for($laboratory)
@@ -79,7 +79,7 @@ class MedicinesControllerTest extends TestCase
 
         $response = $this->get($medicine->path());
 
-        $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1'])
+        $response->assertSeeText($medicines->pluck('label')->all())
             ->assertDontSeeText('No medicines from this lab');
     }
 
@@ -102,12 +102,12 @@ class MedicinesControllerTest extends TestCase
         $medicines = MedicineFactory::new()
             ->for(CodeFactory::new())
             ->count(3)
-            ->state(new Sequence(fn($sequence) => ['label' => 'medicine_'.$sequence->index]))
+            ->state(new Sequence(fn($sequence) => ['name' => 'medicine_'.$sequence->index]))
             ->create();
 
         $response = $this->get($medicines->first()->path());
 
-        $response->assertSeeText(['MEDICINE_0', 'MEDICINE_1']);
+        $response->assertSeeText($medicines->pluck('label')->all());
         $response->assertDontSeeText('No related medicines');
 
     }
