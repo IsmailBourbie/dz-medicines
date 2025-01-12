@@ -21,6 +21,7 @@ class Medicine extends Model
 
         static::saving(function (Medicine $medicine) {
             $medicine->label = $medicine->name.' '.$medicine->form.' '.$medicine->dosage.' '.$medicine->packaging;
+            $medicine->slug = str()->slug($medicine->label);
         });
     }
 
