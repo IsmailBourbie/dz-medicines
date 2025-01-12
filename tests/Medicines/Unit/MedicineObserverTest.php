@@ -1,41 +1,43 @@
 <?php
 
-namespace Tests\Medicines\Integration;
+namespace Tests\Medicines\Unit;
 
-use Database\Factories\MedicineFactory;
+use Domains\Medicines\Models\Medicine;
+use Domains\Medicines\Observers\MedicineObserver;
 use PHPUnit\Framework\Attributes\Test;
-use Tests\TestCase;
+use PHPUnit\Framework\TestCase;
 
-class MedicineTest extends TestCase
+class MedicineObserverTest extends TestCase
 {
     #[Test]
-    public function it_generate_label_based_on_medicine_details(): void
+    public function it_generate_label_based_on_medicine_detail(): void
     {
-        $medicine = MedicineFactory::new()->make([
+        $medicine = new Medicine([
             'name' => 'doliprane',
             'dosage' => '500mg',
             'form' => 'comp',
             'packaging' => 'bte de 10',
-            'label' => null,
         ]);
 
-        $medicine->save();
+        $observer = new MedicineObserver();
+        $observer->saving($medicine);
 
         $this->assertEquals('doliprane comp 500mg bte de 10', $medicine->getAttributes()['label']);
 
     }
 
     #[Test]
-    public function it_generate_slug_based_on_label(): void
+    public function it_generate_slug_based_on_medicine_slug(): void
     {
-        $medicine = MedicineFactory::new()->make([
+        $medicine = new Medicine([
             'name' => 'doliprane',
             'dosage' => '500mg',
             'form' => 'comp',
             'packaging' => 'bte de 10',
         ]);
 
-        $medicine->save();
+        $observer = new MedicineObserver();
+        $observer->saving($medicine);
 
         $this->assertEquals('doliprane-comp-500mg-bte-de-10', $medicine->slug);
 

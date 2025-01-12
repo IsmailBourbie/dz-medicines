@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace Domains\Medicines\Models;
 
+use Domains\Medicines\Observers\MedicineObserver;
 use Domains\Medicines\QueryBuilders\MedicineQueryBuilder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
@@ -15,14 +16,11 @@ class Medicine extends Model
     protected $guarded = [];
     protected $perPage = 10;
 
-    protected static function boot()
+    protected static function boot(): void
     {
         parent::boot();
 
-        static::saving(function (Medicine $medicine) {
-            $medicine->label = $medicine->name.' '.$medicine->form.' '.$medicine->dosage.' '.$medicine->packaging;
-            $medicine->slug = str()->slug($medicine->label);
-        });
+        self::observe(MedicineObserver::class);
     }
 
     // Accessor Methods
