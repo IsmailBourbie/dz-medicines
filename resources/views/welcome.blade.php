@@ -3,7 +3,7 @@
         <div class="">
             <nav class="py-10"></nav>
             <div
-                class="py-20 bg-gradient-to-r from-10% via-40% from-blue-500 via-blue-600 to-blue-700 text-center text-white space-y-4 rounded-3xl">
+                class="py-20 bg-cover bg-bottom bg-[url('https://static.vecteezy.com/system/resources/previews/053/967/103/non_2x/abstract-blue-background-with-geometric-shapes-free-vector.jpg')] text-center text-white space-y-4 rounded-3xl">
                 <h2 class="text-6xl font-quicksand font-bold">Available medicines in Algeria</h2>
                 <p class="text-xl font-medium pb-4">Your trusted source of information for prescription drugs and
                     medications</p>
@@ -96,20 +96,28 @@
     </section>
 
     <section class="my-28">
-        <div class="py-8 space-y-16 text-indigo-600">
+        <div
+            class="py-16 space-y-16 text-indigo-600">
             {{--            <h2 class="text-4xl font-quicksand font-bold text-center">Meddz by the Numbers</h2>--}}
-            <div class="flex justify-around items-center w-8/12 mx-auto">
-                <div>
+            <div
+                class="flex justify-around items-center w-8/12 mx-auto">
+                <div class="space-y-4">
                     <h4 class="text-7xl font-bold font-quicksand">+10k</h4>
-                    <p class="py-4 text-lg font-bold font-quicksand text-center">Medicines to explore.</p>
+                    <p
+                        class="relative py-4 text-lg font-medium text-center before:w-20 before:h-1 before:bg-indigo-600 before:absolute before:top-2"
+                    >
+                        Medicines to explore.
+                    </p>
                 </div>
-                <div>
+                <div class="space-y-4">
+                    <h4 class="text-7xl font-bold font-quicksand">28</h4>
+                    <p class="relative py-4 text-lg font-medium text-center before:w-20 before:h-1 before:bg-indigo-600 before:absolute before:top-2">
+                        Medicine Classes</p>
+                </div>
+                <div class="space-y-4">
                     <h4 class="text-7xl font-bold font-quicksand">+100</h4>
-                    <p class="py-4 text-lg font-bold font-quicksand text-center">Laboratories Available.</p>
-                </div>
-                <div>
-                    <h4 class="text-7xl font-bold font-quicksand">+27</h4>
-                    <p class="py-4 text-lg font-bold font-quicksand text-center">Medicine Classes</p>
+                    <p class="relative py-4 text-lg font-medium text-center before:w-20 before:h-1 before:bg-indigo-600 before:absolute before:top-2">
+                        Laboratories Available.</p>
                 </div>
             </div>
         </div>
