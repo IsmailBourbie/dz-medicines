@@ -66,4 +66,32 @@
             </form>
         </div>
     </header>
+    <section class="mt-20">
+        <hr class="w-11/12 mx-auto pb-4">
+        <div class="space-y-16">
+            <h2 class="text-4xl font-quicksand font-bold text-indigo-500 text-center">Medicine Classes</h2>
+            <div class="flex justify-around items-center w-8/12 mx-auto">
+                <div>
+                    <img src="https://placehold.co/150" alt="image">
+                    <h4 class="py-4 font-bold font-quicksand text-center">Lorem ipsum.</h4>
+                </div>
+                <div>
+                    <img src="https://placehold.co/150" alt="image">
+                    <h4 class="py-4 font-bold font-quicksand text-center">Lorem ipsum.</h4>
+                </div>
+                <div>
+                    <img src="https://placehold.co/150" alt="image">
+                    <h4 class="py-4 font-bold font-quicksand text-center">Lorem ipsum.</h4>
+                </div>
+                <div>
+                    <img src="https://placehold.co/150" alt="image">
+                    <h4 class="py-4 font-bold font-quicksand text-center">Lorem ipsum.</h4>
+                </div>
+                <div>
+                    <img src="https://placehold.co/150" alt="image">
+                    <h4 class="py-4 font-bold font-quicksand text-center">Lorem ipsum.</h4>
+                </div>
+            </div>
+        </div>
+    </section>
 @endcomponent
