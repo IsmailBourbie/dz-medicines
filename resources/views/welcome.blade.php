@@ -94,4 +94,24 @@
             </div>
         </div>
     </section>
+
+    <section class="my-28">
+        <div class="py-8 space-y-16 text-indigo-600">
+            {{--            <h2 class="text-4xl font-quicksand font-bold text-center">Meddz by the Numbers</h2>--}}
+            <div class="flex justify-around items-center w-8/12 mx-auto">
+                <div>
+                    <h4 class="text-7xl font-bold font-quicksand">+10k</h4>
+                    <p class="py-4 text-lg font-bold font-quicksand text-center">Medicines to explore.</p>
+                </div>
+                <div>
+                    <h4 class="text-7xl font-bold font-quicksand">+100</h4>
+                    <p class="py-4 text-lg font-bold font-quicksand text-center">Laboratories Available.</p>
+                </div>
+                <div>
+                    <h4 class="text-7xl font-bold font-quicksand">+27</h4>
+                    <p class="py-4 text-lg font-bold font-quicksand text-center">Medicine Classes</p>
+                </div>
+            </div>
+        </div>
+    </section>
 @endcomponent
