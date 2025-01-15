@@ -66,32 +66,33 @@
             </form>
         </div>
     </header>
+
     <section class="mt-20">
         <div class="w-8/12 mx-auto">
             <div class="flex flex-wrap">
                 <div class="w-1/4 p-4">
-                    <img src="https://placehold.co/250" alt="image">
+                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
                 </div>
                 <div class="w-1/4 p-4">
-                    <img src="https://placehold.co/250" alt="image">
+                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
                 </div>
                 <div class="w-1/4 p-4">
-                    <img src="https://placehold.co/250" alt="image">
+                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
                 </div>
                 <div class="w-1/4 p-4">
-                    <img src="https://placehold.co/250" alt="image">
+                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
                 </div>
                 <div class="w-1/4 p-4">
-                    <img src="https://placehold.co/250" alt="image">
+                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
                 </div>
                 <div class="w-1/4 p-4">
-                    <img src="https://placehold.co/250" alt="image">
+                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
                 </div>
                 <div class="w-1/4 p-4">
-                    <img src="https://placehold.co/250" alt="image">
+                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
                 </div>
                 <div class="w-1/4 p-4">
-                    <img src="https://placehold.co/250" alt="image">
+                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
                 </div>
             </div>
             <div class="text-end px-4">
@@ -104,29 +105,41 @@
         </div>
     </section>
 
-    <section class="my-28">
-        <div
-            class="py-16 space-y-16 text-indigo-600">
-            {{--            <h2 class="text-4xl font-quicksand font-bold text-center">Meddz by the Numbers</h2>--}}
-            <div
-                class="flex justify-around items-center w-8/12 mx-auto">
-                <div class="space-y-4">
-                    <h4 class="text-7xl font-bold font-quicksand">+10k</h4>
-                    <p
-                        class="relative py-4 text-lg font-medium text-center before:w-20 before:h-1 before:bg-indigo-600 before:absolute before:top-2"
-                    >
-                        Medicines to explore.
+    <section class="my-28 bg-slate-100">
+        <div class="py-16 space-y-16">
+            <div class="flex justify-around items-center px-8">
+                <div class="w-7/12 space-y-4">
+                    <h2 class="text-4xl font-quicksand font-bold text-blue-950">
+                        Explore Medicines in Algeria with Meddz: Your Ultimate Guide to Insights and Details
+                    </h2>
+                    <p class="text-lg font-medium text-slate-600">
+                        Dive into the comprehensive world of medicines available in Algeria with Meddz. Our statistics
+                        section offers a wealth of information designed to empower you with accurate and reliable data.
+                        From exploring a full list of available medications to uncovering detailed information about
+                        their uses, origins, and manufacturers, we have it all. You can also discover generic
+                        alternatives, explore various medicine classes, and make informed decisions about your
+                        healthcare needs. Navigate with ease and unlock the knowledge you need—all in one place!
                     </p>
                 </div>
-                <div class="space-y-4">
-                    <h4 class="text-7xl font-bold font-quicksand">28</h4>
-                    <p class="relative py-4 text-lg font-medium text-center before:w-20 before:h-1 before:bg-indigo-600 before:absolute before:top-2">
-                        Medicine Classes</p>
-                </div>
-                <div class="space-y-4">
-                    <h4 class="text-7xl font-bold font-quicksand">+100</h4>
-                    <p class="relative py-4 text-lg font-medium text-center before:w-20 before:h-1 before:bg-indigo-600 before:absolute before:top-2">
-                        Laboratories Available.</p>
+                <div class="flex flex-col text-blue-500 space-y-3">
+                    <div class="space-y-2">
+                        <h4 class="text-4xl font-bold font-quicksand">9,000+</h4>
+                        <p
+                            class="relative py-4 font-medium before:w-20 before:h-1 before:bg-blue-500 before:absolute before:top-2"
+                        >
+                            Medicines to explore.
+                        </p>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="text-4xl font-bold font-quicksand">28</h4>
+                        <p class="relative py-4 font-medium before:w-20 before:h-1 before:bg-blue-500 before:absolute before:top-2">
+                            Medicine Classes</p>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="text-4xl font-bold font-quicksand">100+</h4>
+                        <p class="relative py-4 font-medium before:w-20 before:h-1 before:bg-blue-500 before:absolute before:top-2">
+                            Laboratories Available.</p>
+                    </div>
                 </div>
             </div>
         </div>
