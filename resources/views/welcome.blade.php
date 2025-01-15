@@ -144,4 +144,26 @@
             </div>
         </div>
     </section>
+
+    <section class="space-y-4 mb-96">
+        <div class="space-x-8 space-y-8">
+            <div class="space-y-4 text-center">
+                <h2 class="text-4xl text-indigo-800 font-bold font-quicksand">
+                    Discover Leading Pharmaceutical Laboratories
+                </h2>
+                <p class="w-8/12 mx-auto text-lg tracking-wide font-medium text-slate-500">
+                    Explore a comprehensive list of pharmaceutical laboratories shaping healthcare in Algeria. Learn
+                    about their contributions, the medicines they produce, and their global reach—all in one convenient
+                    place.
+                </p>
+            </div>
+            <div class="text-center space-y-8">
+                <img src="https://merinal.com/wp-content/uploads/2024/02/Export.svg" alt="global">
+                <a href="#"
+                   class="inline-block px-14 py-3 text-lg font-bold font-quicksand text-indigo-600 tracking-widest border border-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-indigo-100 transition-colors">
+                    Learn more
+                </a>
+            </div>
+        </div>
+    </section>
 @endcomponent
