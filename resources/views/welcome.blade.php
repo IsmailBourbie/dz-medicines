@@ -67,30 +67,39 @@
         </div>
     </header>
     <section class="mt-20">
-        <hr class="w-11/12 mx-auto pb-4">
-        <div class="space-y-16">
-            <h2 class="text-4xl font-quicksand font-bold text-indigo-500 text-center">Medicine Classes</h2>
-            <div class="flex justify-around items-center w-8/12 mx-auto">
-                <div>
-                    <img src="https://placehold.co/150" alt="image">
-                    <h4 class="py-4 font-bold font-quicksand text-center">Lorem ipsum.</h4>
+        <div class="w-8/12 mx-auto">
+            <div class="flex flex-wrap">
+                <div class="w-1/4 p-4">
+                    <img src="https://placehold.co/250" alt="image">
                 </div>
-                <div>
-                    <img src="https://placehold.co/150" alt="image">
-                    <h4 class="py-4 font-bold font-quicksand text-center">Lorem ipsum.</h4>
+                <div class="w-1/4 p-4">
+                    <img src="https://placehold.co/250" alt="image">
                 </div>
-                <div>
-                    <img src="https://placehold.co/150" alt="image">
-                    <h4 class="py-4 font-bold font-quicksand text-center">Lorem ipsum.</h4>
+                <div class="w-1/4 p-4">
+                    <img src="https://placehold.co/250" alt="image">
                 </div>
-                <div>
-                    <img src="https://placehold.co/150" alt="image">
-                    <h4 class="py-4 font-bold font-quicksand text-center">Lorem ipsum.</h4>
+                <div class="w-1/4 p-4">
+                    <img src="https://placehold.co/250" alt="image">
                 </div>
-                <div>
-                    <img src="https://placehold.co/150" alt="image">
-                    <h4 class="py-4 font-bold font-quicksand text-center">Lorem ipsum.</h4>
+                <div class="w-1/4 p-4">
+                    <img src="https://placehold.co/250" alt="image">
                 </div>
+                <div class="w-1/4 p-4">
+                    <img src="https://placehold.co/250" alt="image">
+                </div>
+                <div class="w-1/4 p-4">
+                    <img src="https://placehold.co/250" alt="image">
+                </div>
+                <div class="w-1/4 p-4">
+                    <img src="https://placehold.co/250" alt="image">
+                </div>
+            </div>
+            <div class="text-end px-4">
+                <a href="#"
+                   class="flex items-center justify-end font-medium text-blue-700 hover:mr-0.5 hover:gap-0.5 transition-all">
+                    All medicine Classes
+                    <x-icons.arrow-long-right class="fill-blue-700"/>
+                </a>
             </div>
         </div>
     </section>
