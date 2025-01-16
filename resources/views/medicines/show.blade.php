@@ -4,11 +4,11 @@
             <div class="min-h-screen flex flex-col items-center justify-center space-y-14">
                 <x-medicine.section class="py-5 capitalize">
                     <div class="py-2">
-                        <h2 class="text-5xl text-sky-700 font-quicksand font-bold tracking-wide mb-2">
+                        <h2 class="text-5xl text-indigo-500 font-quicksand font-bold tracking-wide mb-2">
                             {{$medicine->name}}
                         </h2>
                         <span
-                            class="ps-1.5 text-xl text-sky-500 font-medium tracking-wider">{{$medicine->dci}}</span>
+                            class="ps-1.5 text-xl text-blue-400 font-medium tracking-wider">{{$medicine->dci}}</span>
                     </div>
                     <div class="flex space-x-28">
                         <div class="space-y-0.5">
@@ -90,7 +90,7 @@
                     <x-medicine.section.heading>
                         Explore
                         <a href="{{route('classes.show', $medicine->class)}}"
-                           class=" font-bold text-sky-600 hover:text-sky-700"
+                           class=" font-bold text-blue-500 hover:text-blue-600"
                         >
                             related medicines
                         </a>
@@ -103,7 +103,7 @@
                     <x-medicine.section.heading>
                         See more from
                         <a href="{{route('laboratories.show', $medicine->laboratory)}}"
-                           class=" font-bold text-sky-600 hover:text-sky-700"
+                           class="font-bold text-blue-500 hover:text-blue-600"
                         >
                             {{$medicine->laboratory->name}}
                         </a>

@@ -150,7 +150,7 @@
     <x-wrapper class="container mx-auto space-y-4 mb-20">
         <div class="space-x-8 space-y-8">
             <div class="space-y-4 text-center">
-                <h2 class="text-4xl text-indigo-800 font-bold font-quicksand">
+                <h2 class="text-4xl text-blue-800 font-bold font-quicksand">
                     Discover Algeria's Pharmaceutical Laboratories
                 </h2>
                 <p class="w-8/12 mx-auto text-lg tracking-wide font-medium text-slate-500">

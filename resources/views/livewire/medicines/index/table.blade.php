@@ -1,7 +1,7 @@
 <div class="relative  shadow-md sm:rounded-lg">
     <div class="overflow-x-auto">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500">
-            <thead class="text-sm text-sky-800 font-bold uppercase bg-indigo-100 font-quicksand">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 rounded-lg overflow-hidden">
+            <thead class="text-sm text-indigo-100 font-bold uppercase bg-indigo-500 font-quicksand">
             <tr>
                 <th scope="col" class="px-6 py-3">
                     #
