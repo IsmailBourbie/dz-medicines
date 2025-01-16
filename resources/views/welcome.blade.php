@@ -149,20 +149,19 @@
         <div class="space-x-8 space-y-8">
             <div class="space-y-4 text-center">
                 <h2 class="text-4xl text-indigo-800 font-bold font-quicksand">
-                    Discover Leading Pharmaceutical Laboratories
+                    Discover Algeria's Pharmaceutical Laboratories
                 </h2>
                 <p class="w-8/12 mx-auto text-lg tracking-wide font-medium text-slate-500">
-                    Explore a comprehensive list of pharmaceutical laboratories shaping healthcare in Algeria. Learn
-                    about their contributions, the medicines they produce, and their global reach—all in one convenient
-                    place.
+                    Browse an extensive list of laboratories revolutionizing healthcare in Algeria. Uncover their
+                    innovations, product lines, and global impact—all in one place.
+                    <a href="#"
+                       class="inline-block mt-2 text-blue-600 font-semibold hover:text-blue-800 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 transition">Learn
+                        more</a>
+                    to explore all available laboratories.
                 </p>
             </div>
             <div class="text-center space-y-8">
                 <img src="https://merinal.com/wp-content/uploads/2024/02/Export.svg" alt="global">
-                <a href="#"
-                   class="inline-block px-14 py-3 text-lg font-bold font-quicksand text-indigo-600 tracking-widest border border-indigo-600 rounded-lg hover:bg-indigo-600 hover:text-indigo-100 transition-colors">
-                    Learn more
-                </a>
             </div>
         </div>
     </section>
