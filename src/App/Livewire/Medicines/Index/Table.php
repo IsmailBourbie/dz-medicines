@@ -15,12 +15,14 @@ class Table extends Component
 
     public Laboratory|MedicineClass|null $source = null;
 
+    public ?string $query = null;
+
     public function render(): View
     {
         $query = $this->source?->medicines() ?? Medicine::query();
 
         return view('livewire.medicines.index.table', [
-            'medicines' => $query->paginate(),
+            'medicines' => $query->whereLike('label', "%$this->query%")->paginate(),
         ]);
     }
 }

@@ -4,7 +4,6 @@
             <div class="w-11/12 md:w-full">
                 <div class="my-12 space-y-16">
                     <h2 class="text-3xl font-bold text-blue-500 font-quicksand">All Medicines</h2>
-                    <x-search.index/>
                     <livewire:medicines.index.table/>
                 </div>
             </div>

@@ -1,4 +1,5 @@
 <div class="relative sm:rounded-lg">
+    <x-search.index class="mb-8"/>
     <div class="overflow-x-auto">
         <table
             class="w-full border-separate border-spacing-y-1.5 text-sm text-left rtl:text-right">

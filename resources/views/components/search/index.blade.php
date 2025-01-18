@@ -8,6 +8,7 @@
                     <x-icons.magnifying-glass class="fill-gray-500"/>
                 </div>
                 <input type="text" id="search-input"
+                       wire:model.live.debounce="query"
                        class="block w-full bg-gray-50/40 text-gray-900 text-sm border border-gray-300 pl-10 p-3 rounded-lg"
                        placeholder="Doliprane 500mg comp..." required="">
             </div>
