@@ -10,7 +10,7 @@
                         medications</p>
                 </div>
             </div>
-            <x-search.index class="w-5/12 mx-auto -mt-16"/>
+            <x-search.index class="w-5/12 mx-auto -mt-16 shadow"/>
         </x-wrapper>
     </header>
 

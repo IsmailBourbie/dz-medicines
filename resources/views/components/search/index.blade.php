@@ -1,5 +1,5 @@
 <div
-    {{$attributes->merge(['class' => 'min-h-44 py-6 px-6 bg-white rounded-lg shadow-xl border border-slate-200'])}}>
+    {{$attributes->merge(['class' => 'min-h-44 py-6 px-6 bg-white rounded-lg  border border-slate-200'])}}>
     <form action="" class="space-y-10">
         <div class="flex">
             <label for="search-input" class="sr-only">Search</label>
@@ -8,7 +8,7 @@
                     <x-icons.magnifying-glass class="fill-gray-500"/>
                 </div>
                 <input type="text" id="search-input"
-                       class="block w-full bg-gray-50 text-gray-900 text-sm border border-gray-300 pl-10 p-3 rounded-lg"
+                       class="block w-full bg-gray-50/40 text-gray-900 text-sm border border-gray-300 pl-10 p-3 rounded-lg"
                        placeholder="Doliprane 500mg comp..." required="">
             </div>
         </div>
