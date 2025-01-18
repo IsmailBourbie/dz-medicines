@@ -1,5 +1,10 @@
 <div class="relative sm:rounded-lg">
-    <x-search.index class="mb-8"/>
+    <x-search.index class="flex items-center justify-between mb-8 mx-4" wire:submit.prevent>
+        <x-search.input class="w-5/12 flex-shrink"/>
+        <div>
+            <x-search.filters/>
+        </div>
+    </x-search.index>
     <div class="overflow-x-auto">
         <table
             class="w-full border-separate border-spacing-y-1.5 text-sm text-left rtl:text-right">

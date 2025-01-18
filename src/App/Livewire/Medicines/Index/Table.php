@@ -6,6 +6,7 @@ use Domains\Medicines\Models\Laboratory;
 use Domains\Medicines\Models\Medicine;
 use Domains\Medicines\Models\MedicineClass;
 use Illuminate\View\View;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -15,6 +16,7 @@ class Table extends Component
 
     public Laboratory|MedicineClass|null $source = null;
 
+    #[Url()]
     public ?string $query = null;
 
     public function render(): View

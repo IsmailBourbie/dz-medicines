@@ -10,7 +10,15 @@
                         medications</p>
                 </div>
             </div>
-            <x-search.index class="w-5/12 mx-auto -mt-16 shadow"/>
+            <x-search.index
+                action="{{route('medicines.index')}}"
+                class="min-h-44 py-6 px-6 bg-white rounded-lg border border-slate-200 w-5/12 mx-auto -mt-16 shadow space-y-8">
+                <x-search.input/>
+                <div class="flex items-center justify-between px-2">
+                    <x-search.filters/>
+                    <x-search.button/>
+                </div>
+            </x-search.index>
         </x-wrapper>
     </header>
 
