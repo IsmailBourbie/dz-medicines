@@ -5,7 +5,11 @@
             <x-search.filters/>
         </div>
     </x-search.index>
-    <div class="overflow-x-auto">
+    <div class="relative overflow-x-auto">
+        <div class="absolute w-full h-full inset-0 bg-slate-100 opacity-50 flex items-center justify-center"
+             wire:loading.flex>
+            <x-icons.loading size="2xl" wire:loading.class="animate-spin"/>
+        </div>
         <table
             class="w-full border-separate border-spacing-y-1.5 text-sm text-left rtl:text-right">
             <tbody x-data>
