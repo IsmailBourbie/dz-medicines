@@ -12,7 +12,7 @@
     @vite('resources/css/app.css')
     <title>{{$title ?? 'Page' }}{{ app()->isProduction() ? '' : ' (local)' }}</title>
 </head>
-<body class="font-sans bg-indigo-50/30">
+<body class="font-sans">
 <div class="min-h-screen">
     {{$slot}}
 </div>

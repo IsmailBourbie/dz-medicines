@@ -1,25 +1,26 @@
 @component('layouts.base', ['title' => 'Meddz'])
     <header>
-        <x-wrapper>
-            <div class="">
-                <nav class="py-10"></nav>
-                <div
-                    class="py-20 bg-cover bg-bottom bg-[url('https://static.vecteezy.com/system/resources/previews/053/967/103/non_2x/abstract-blue-background-with-geometric-shapes-free-vector.jpg')] text-center text-white space-y-4 rounded-3xl">
-                    <h2 class="text-6xl font-quicksand font-bold">Available medicines in Algeria</h2>
-                    <p class="text-xl font-medium pb-4">Your trusted source of information for prescription drugs and
-                        medications</p>
+        <div class="">
+            <nav class="py-10"></nav>
+            <div
+                class="bg-gradient-to-b from-indigo-100 via-indigo-50 to-white">
+                <div class="py-20 w-4/6 mx-auto text-center space-y-6">
+                    <h2 class="text-6xl font-bold font-quicksand text-blue-950">
+                        Access Reliable Information on Prescription Drugs and Medicines in Algeria
+                    </h2>
+                    <div class="space-y-12">
+                        <p class="text-xl text-slate-600 font-medium pb-4 w-9/12 mx-auto">
+                            Search and explore a comprehensive list of prescription drugs and medicines available in
+                            Algeria, with accurate, up-to-date information to meet your healthcare needs.
+                        </p>
+                        <a href="{{route('medicines.index')}}"
+                           class="inline-block px-6 py-3 text-lg text-blue-50 font-medium tracking-wider rounded-lg bg-blue-700 hover:bg-blue-800">
+                            Discover Available Medicines
+                        </a>
+                    </div>
                 </div>
             </div>
-            <x-search.index
-                action="{{route('medicines.index')}}"
-                class="min-h-44 py-6 px-6 bg-white rounded-lg border border-slate-200 w-5/12 mx-auto -mt-16 shadow space-y-8">
-                <x-search.input/>
-                <div class="flex items-center justify-between px-2">
-                    <x-search.filters/>
-                    <x-search.button/>
-                </div>
-            </x-search.index>
-        </x-wrapper>
+        </div>
     </header>
 
     <x-wrapper class="container mx-auto mt-20">
