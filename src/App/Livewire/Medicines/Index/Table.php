@@ -23,10 +23,8 @@ class Table extends Component
     {
         $query = $this->source?->medicines() ?? Medicine::query();
 
-        $searchText = str_replace(' ', '%', $this->query);
-
         return view('livewire.medicines.index.table', [
-            'medicines' => $query->whereLike('label', "%$searchText%")->paginate(),
+            'medicines' => $query->search($this->query)->paginate(),
         ]);
     }
 }

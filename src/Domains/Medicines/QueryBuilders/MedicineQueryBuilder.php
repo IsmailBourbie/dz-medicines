@@ -32,4 +32,15 @@ final class MedicineQueryBuilder extends Builder
             return $query->where('class_id', $class->id);
         });
     }
+
+    public function search(?string $q = null): self
+    {
+        if (empty($q)) {
+            return $this;
+        }
+        
+        $q = str_replace(' ', '%%', $q);
+
+        return $this->whereLike('label', "%$q%");
+    }
 }

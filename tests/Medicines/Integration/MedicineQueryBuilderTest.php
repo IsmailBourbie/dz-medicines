@@ -7,6 +7,8 @@ use Database\Factories\LaboratoryFactory;
 use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
 use Domains\Medicines\Models\Medicine;
+use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Support\Facades\DB;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -69,5 +71,52 @@ class MedicineQueryBuilderTest extends TestCase
         $this->assertTrue($medicinesFromClass->contains($differentCodeMedicine));
         $this->assertTrue($medicinesFromClass->doesntContain($otherMedicine));
 
+    }
+
+    #[Test]
+    public function it_search_medicine(): void
+    {
+        $medicines = MedicineFactory::new()->count(2)->state(new Sequence(
+            ['name' => 'first medicine'],
+            ['name' => 'second medicine'],
+        ))->create();
+
+        $searchResult = Medicine::query()->search('first')->get();
+
+        $this->assertCount(1, $searchResult);
+        $this->assertTrue($searchResult->contains($medicines[0]));
+        $this->assertTrue($searchResult->doesntContain($medicines[1]));
+
+    }
+
+    #[Test]
+    public function it_return_nothing_for_empty_query_without_touching_db(): void
+    {
+        MedicineFactory::new()->count(2)->create();
+
+        DB::enableQueryLog();
+
+        $searchResultForEmpty = Medicine::query()->search('')->get();
+        $searchResultForNull = Medicine::query()->search()->get();
+
+        $queryLog = DB::getQueryLog();
+
+        $this->assertCount(2, $queryLog, 'queries must be only 2');
+        $this->assertCount(2, $searchResultForEmpty);
+        $this->assertCount(2, $searchResultForNull);
+    }
+
+    #[Test]
+    public function it_search_medicine_with_spaces(): void
+    {
+        $medicines = MedicineFactory::new()->count(2)->state(new Sequence(
+            ['name' => 'first medicine'],
+            ['name' => 'second medicine'],
+        ))->create();
+
+        $searchResult = Medicine::query()->search('fir medic')->get();
+
+        $this->assertTrue($searchResult->contains($medicines[0]));
+        $this->assertTrue($searchResult->doesntContain($medicines[1]));
     }
 }
