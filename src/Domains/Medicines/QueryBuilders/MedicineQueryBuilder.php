@@ -38,9 +38,10 @@ final class MedicineQueryBuilder extends Builder
         if (empty($q)) {
             return $this;
         }
-        
-        $q = str_replace(' ', '%%', $q);
 
-        return $this->whereLike('label', "%$q%");
+        $q_includes_spaces = str_replace(' ', '%%', $q);
+
+        return $this->whereLike('label', "%$q_includes_spaces%")
+            ->orWhereLike('dci', "%$q%");
     }
 }

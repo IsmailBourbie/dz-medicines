@@ -119,4 +119,32 @@ class MedicineQueryBuilderTest extends TestCase
         $this->assertTrue($searchResult->contains($medicines[0]));
         $this->assertTrue($searchResult->doesntContain($medicines[1]));
     }
+
+    #[Test]
+    public function it_search_medicine_with_dci(): void
+    {
+        $medicines = MedicineFactory::new()->count(2)
+            ->state(new Sequence(['dci' => 'first dci'], ['dci' => 'second dci'],))->create();
+
+        $searchResult = Medicine::query()->search('first')->get();
+
+        $this->assertCount(1, $searchResult);
+        $this->assertTrue($searchResult->contains($medicines[0]));
+        $this->assertTrue($searchResult->doesntContain($medicines[1]));
+
+    }
+
+    #[Test]
+    public function it_search_medicine_with_dci_without_spaces(): void
+    {
+        $medicines = MedicineFactory::new()->count(2)->state(new Sequence(
+            ['dci' => 'first dci'],
+            ['dci' => 'second dci'],
+        ))->create();
+
+        $searchResult = Medicine::query()->search('fir dc')->get();
+
+        $this->assertCount(0, $searchResult);
+
+    }
 }
