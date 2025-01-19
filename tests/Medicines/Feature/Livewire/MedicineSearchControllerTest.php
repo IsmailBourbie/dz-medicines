@@ -32,4 +32,23 @@ class MedicineSearchControllerTest extends TestCase
             ->assertDontSeeText($medicines[1]->name);
 
     }
+
+    #[Test]
+    public function it_search_medicine_with_spaces(): void
+    {
+        $this->withoutExceptionHandling();
+        $medicines = MedicineFactory::new()->count(2)->state(new Sequence(
+            ['name' => 'first medicine'],
+            ['name' => 'second medicine'],
+        ))->create();
+
+
+        $response = Livewire::test(Table::class)
+            ->set('query', 'fir medic');
+
+
+        $response->assertSeeText($medicines[0]->name)
+            ->assertDontSeeText($medicines[1]->name);
+
+    }
 }
