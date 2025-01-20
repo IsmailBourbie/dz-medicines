@@ -21,18 +21,23 @@ class Table extends Component
 
     public ?string $type = 'all';
 
-    public function render(): View
+    private function isGeneric(): ?bool
     {
-        $query = $this->source?->medicines() ?? Medicine::query();
-
-        $is_generic = match ($this->type) {
+        return match ($this->type) {
             'generics' => true,
             'innovators' => false,
             default => null,
         };
+    }
+
+    public function render(): View
+    {
+        $query = $this->source?->medicines() ?? Medicine::query();
 
         return view('livewire.medicines.index.table', [
-            'medicines' => $query->search($this->query)->filters($is_generic)->paginate(),
+            'medicines' => $query->search($this->query)
+                ->filters($this->isGeneric())
+                ->paginate(),
         ]);
     }
 }

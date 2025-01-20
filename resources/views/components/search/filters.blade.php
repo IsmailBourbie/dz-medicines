@@ -3,7 +3,7 @@
         <label for="types" class="sr-only">Select
             a type</label>
         <select id="types"
-                wire:model="type"
+                wire:model.live="type"
                 class="min-w-40 border-b border-slate-400 text-gray-900 text-sm block p-1.5">
             <option value="all" selected>All Types</option>
             <option value="generics">Generics</option>
