@@ -44,4 +44,12 @@ final class MedicineQueryBuilder extends Builder
         return $this->whereLike('label', "%$q_includes_spaces%")
             ->orWhereLike('dci', "%$q%");
     }
+
+    public function filters(?bool $is_generic = null): self
+    {
+        return $this->when(!is_null($is_generic), function (Builder $query) use ($is_generic) {
+            $query->where('is_generic', $is_generic);
+
+        });
+    }
 }

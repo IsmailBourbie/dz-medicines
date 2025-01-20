@@ -19,12 +19,20 @@ class Table extends Component
     #[Url()]
     public ?string $query = null;
 
+    public ?string $type = 'all';
+
     public function render(): View
     {
         $query = $this->source?->medicines() ?? Medicine::query();
 
+        $is_generic = match ($this->type) {
+            'generics' => true,
+            'innovators' => false,
+            default => null,
+        };
+
         return view('livewire.medicines.index.table', [
-            'medicines' => $query->search($this->query)->paginate(),
+            'medicines' => $query->search($this->query)->filters($is_generic)->paginate(),
         ]);
     }
 }

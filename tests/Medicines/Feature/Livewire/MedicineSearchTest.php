@@ -9,7 +9,7 @@ use Livewire\Livewire;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class MedicineSearchControllerTest extends TestCase
+class MedicineSearchTest extends TestCase
 {
 
     #[Test]
@@ -27,4 +27,22 @@ class MedicineSearchControllerTest extends TestCase
             ->assertDontSeeText($medicines[1]->name);
 
     }
+
+    #[Test]
+    public function it_filter_medicines_by_type(): void
+    {
+        $medicines = MedicineFactory::new()->count(2)->state(new Sequence(
+            ['is_generic' => false],
+            ['is_generic' => true],
+        ))->create();
+
+        $response = Livewire::test(Table::class)
+            ->set('type', 'innovators');
+
+        $response->assertSet('type', 'innovators')
+            ->assertSeeText($medicines[0]->name)
+            ->assertDontSeeText($medicines[1]->name);
+
+    }
+
 }

@@ -3,10 +3,11 @@
         <label for="types" class="sr-only">Select
             a type</label>
         <select id="types"
+                wire:model="type"
                 class="min-w-40 border-b border-slate-400 text-gray-900 text-sm block p-1.5">
-            <option value="0" selected>All Types</option>
-            <option value="1">Generics</option>
-            <option value="2">Innovators</option>
+            <option value="all" selected>All Types</option>
+            <option value="generics">Generics</option>
+            <option value="innovators">Innovators</option>
         </select>
     </div>
     <div>

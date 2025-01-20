@@ -147,4 +147,41 @@ class MedicineQueryBuilderTest extends TestCase
         $this->assertCount(0, $searchResult);
 
     }
+
+    #[Test]
+    public function it_filter_medicines_by_type(): void
+    {
+        $medicines = MedicineFactory::new()->count(2)->state(new Sequence(
+            ['is_generic' => true],
+            ['is_generic' => false],
+        ))->create();
+
+        $generics = Medicine::query()->filters(true)->get();
+        $innovators = Medicine::query()->filters(false)->get();
+
+        $this->assertCount(1, $generics);
+        $this->assertTrue($generics->contains($medicines[0]));
+        $this->assertTrue($generics->doesntContain($medicines[1]));
+
+        $this->assertCount(1, $innovators);
+        $this->assertTrue($innovators->contains($medicines[1]));
+        $this->assertTrue($innovators->doesntContain($medicines[0]));
+
+    }
+
+    #[Test]
+    public function it_doesnt_apply_medicine_filters_by_nullable_type(): void
+    {
+        $medicines = MedicineFactory::new()->count(2)->state(new Sequence(
+            ['is_generic' => true],
+            ['is_generic' => false],
+        ))->create();
+
+        DB::enableQueryLog();
+        $filtersResult = Medicine::query()->filters()->get();
+        $queryLog = DB::getQueryLog();
+
+        $this->assertCount(2, $filtersResult);
+        $this->assertCount(1, $queryLog, 'queries must be only 1');
+    }
 }
