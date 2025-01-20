@@ -14,10 +14,11 @@
         <label for="origins" class="sr-only">Select
             an origin</label>
         <select id="origins"
+                wire:model.live="origin"
                 class="min-w-40 border-b border-slate-400 text-gray-900 text-sm block p-1.5">
-            <option value="0" selected>All Origin</option>
-            <option value="1">Foreign</option>
-            <option value="2">Local</option>
+            <option value="all" selected>All Origin</option>
+            <option value="local">Local</option>
+            <option value="foreign">Foreign</option>
         </select>
     </div>
 </div>

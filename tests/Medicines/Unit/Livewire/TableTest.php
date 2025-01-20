@@ -25,4 +25,21 @@ class TableTest extends TestCase
         $table->type = 'innovators';
         $this->assertFalse($method->invoke($table));
     }
+
+    #[Test]
+    public function it_get_is_local_as_nullable_boolean(): void
+    {
+        $table = new Table();
+
+        $reflection = new ReflectionClass($table);
+        $method = $reflection->getMethod('isLocal');
+
+        $this->assertNull($method->invoke($table));
+
+        $table->origin = 'local';
+        $this->assertTrue($method->invoke($table));
+
+        $table->origin = 'foreign';
+        $this->assertFalse($method->invoke($table));
+    }
 }

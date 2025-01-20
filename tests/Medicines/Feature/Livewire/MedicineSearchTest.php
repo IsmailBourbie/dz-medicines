@@ -45,4 +45,21 @@ class MedicineSearchTest extends TestCase
 
     }
 
+    #[Test]
+    public function it_filter_medicines_by_origin(): void
+    {
+        $medicines = MedicineFactory::new()->count(2)->state(new Sequence(
+            ['is_local' => false],
+            ['is_local' => true],
+        ))->create();
+
+        $response = Livewire::test(Table::class)
+            ->set('origin', 'foreign');
+
+        $response
+            ->assertSeeText($medicines[0]->name)
+            ->assertDontSeeText($medicines[1]->name);
+
+    }
+
 }

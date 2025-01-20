@@ -19,7 +19,10 @@ class Table extends Component
     #[Url()]
     public ?string $query = null;
 
-    public ?string $type = 'all';
+    public ?string $type = null;
+
+    public ?string $origin = null;
+
 
     private function isGeneric(): ?bool
     {
@@ -30,13 +33,25 @@ class Table extends Component
         };
     }
 
+    private function isLocal(): ?bool
+    {
+        return match ($this->origin) {
+            'local' => true,
+            'foreign' => false,
+            default => null,
+        };
+    }
+
     public function render(): View
     {
         $query = $this->source?->medicines() ?? Medicine::query();
 
         return view('livewire.medicines.index.table', [
             'medicines' => $query->search($this->query)
-                ->filters($this->isGeneric())
+                ->filters([
+                    'is_generic' => $this->isGeneric(),
+                    'is_local' => $this->isLocal(),
+                ])
                 ->paginate(),
         ]);
     }

@@ -156,8 +156,8 @@ class MedicineQueryBuilderTest extends TestCase
             ['is_generic' => false],
         ))->create();
 
-        $generics = Medicine::query()->filters(true)->get();
-        $innovators = Medicine::query()->filters(false)->get();
+        $generics = Medicine::query()->filters(['is_generic' => true])->get();
+        $innovators = Medicine::query()->filters(['is_generic' => false])->get();
 
         $this->assertCount(1, $generics);
         $this->assertTrue($generics->contains($medicines[0]));
@@ -170,7 +170,28 @@ class MedicineQueryBuilderTest extends TestCase
     }
 
     #[Test]
-    public function it_doesnt_apply_medicine_filters_by_nullable_type(): void
+    public function it_filter_medicines_by_origin(): void
+    {
+        $medicines = MedicineFactory::new()->count(2)->state(new Sequence(
+            ['is_local' => true],
+            ['is_local' => false],
+        ))->create();
+
+        $local = Medicine::query()->filters(['is_local' => true])->get();
+        $foreign = Medicine::query()->filters(['is_local' => false])->get();
+
+        $this->assertCount(1, $local);
+        $this->assertTrue($local->contains($medicines[0]));
+        $this->assertTrue($local->doesntContain($medicines[1]));
+
+        $this->assertCount(1, $foreign);
+        $this->assertTrue($foreign->contains($medicines[1]));
+        $this->assertTrue($foreign->doesntContain($medicines[0]));
+
+    }
+
+    #[Test]
+    public function it_doesnt_apply_medicine_filters_by_if_nullable(): void
     {
         $medicines = MedicineFactory::new()->count(2)->state(new Sequence(
             ['is_generic' => true],

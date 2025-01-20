@@ -45,11 +45,21 @@ final class MedicineQueryBuilder extends Builder
             ->orWhereLike('dci', "%$q%");
     }
 
-    public function filters(?bool $is_generic = null): self
+    public function filters(?array $filters = null): self
     {
-        return $this->when(!is_null($is_generic), function (Builder $query) use ($is_generic) {
+        $is_generic = $filters['is_generic'] ?? null;
+        $is_local = $filters['is_local'] ?? null;
+
+        $this->when(!is_null($is_generic), function (Builder $query) use ($is_generic) {
             $query->where('is_generic', $is_generic);
 
         });
+
+        $this->when(!is_null($is_local), function (Builder $query) use ($is_local) {
+            $query->where('is_local', $is_local);
+
+        });
+
+        return $this;
     }
 }

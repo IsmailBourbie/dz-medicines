@@ -60,8 +60,8 @@ class MedicineSeeder extends Seeder
                 'slug' => 'co-dolyc-500mg-comp',
                 'form' => 'COMP',
                 'packaging' => 'bte 20',
-                'is_generic' => false,
-                'is_local' => false,
+                'is_generic' => true,
+                'is_local' => true,
             ]);
 
         // Fake Data
