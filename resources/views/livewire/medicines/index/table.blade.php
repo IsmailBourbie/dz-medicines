@@ -2,7 +2,7 @@
     <x-search.index class="flex items-end justify-between mb-8 mx-4" wire:submit.prevent>
         <x-search.input class="w-5/12 flex-shrink"/>
         <div>
-            <x-search.filters/>
+            <x-search.filters type="{{$type}}"/>
         </div>
     </x-search.index>
     <div class="relative overflow-x-auto">
