@@ -12,7 +12,7 @@ class MedicineFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->words(rand(1, 2), true),
+            'name' => $this->faker->words(rand(2, 3), true),
             'dci' => $this->faker->words(rand(2, 3), true),
             'form' => $this->faker->randomElement(['COMP', 'SUPP', 'INJ']),
             'dosage' => $this->faker->randomElement(['10mg', '2.5mg', '1g', "75µg", '3%']),

@@ -39,10 +39,13 @@ final class MedicineQueryBuilder extends Builder
             return $this;
         }
 
-        $q_includes_spaces = str_replace(' ', '%%', $q);
+        return $this->where(function (Builder $query) use ($q) {
 
-        return $this->whereLike('label', "%$q_includes_spaces%")
-            ->orWhereLike('dci', "%$q%");
+            $q_includes_spaces = str_replace(' ', '%%', $q);
+
+            $query->whereLike('label', "%$q_includes_spaces%")
+                ->orWhereLike('dci', "%$q%");
+        });
     }
 
     public function filters(?array $filters = null): self

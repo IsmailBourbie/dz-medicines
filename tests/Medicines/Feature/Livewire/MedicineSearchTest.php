@@ -62,4 +62,21 @@ class MedicineSearchTest extends TestCase
 
     }
 
+    #[Test]
+    public function it_combine_search_with_filters(): void
+    {
+        $medicines = MedicineFactory::new()->count(2)->state(new Sequence(
+            ['name' => 'first medicine', 'is_local' => true, 'is_generic' => false],
+            ['name' => 'second medicine', 'is_local' => true, 'is_generic' => true],
+        ))->create();
+
+        $response = Livewire::test(Table::class)
+            ->set('query', 'medicine')
+            ->set('type', 'innovators')
+            ->set('origin', 'local');
+
+        $response->assertSeeText($medicines[0]->name)
+            ->assertDontSeeText($medicines[1]->name);
+    }
+
 }
