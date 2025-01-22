@@ -2,19 +2,25 @@
     'is_generic',
     'is_local'
 ])
+@php
+    $type = match ($is_generic) {
+        true => 'Generics',
+        false => 'Innovators',
+        default => 'All Types'
+    };
+    $origin = match ($is_local) {
+        true => 'Local',
+        false => 'Foreign',
+        default => 'All Origins'
+    };
+@endphp
 <div class="flex space-x-4">
     <div>
         <x-popover>
             <x-popover.button
                 class="min-w-32 flex justify-between items-center gap-2 rounded-lg  border pl-3 pr-2 py-2 text-slate-600 text-sm hover:bg-gray-50">
                 <div>
-                    @if($is_generic === true)
-                        Generics
-                    @elseif($is_generic === false)
-                        Innovators
-                    @else
-                        All Types
-                    @endif
+                    {{$type}}
                 </div>
                 <x-icons.chevron-down size="sm"/>
             </x-popover.button>
@@ -63,13 +69,7 @@
             <x-popover.button
                 class="min-w-32 flex justify-between items-center gap-2 rounded-lg border pl-3 pr-2 py-2 text-gray-600 text-sm hover:bg-gray-50">
                 <div>
-                    @if($is_local === true)
-                        Local
-                    @elseif($is_local === false)
-                        Foreign
-                    @else
-                        All Origins
-                    @endif
+                    {{$origin}}
                 </div>
                 <x-icons.chevron-down size="sm"/>
             </x-popover.button>
