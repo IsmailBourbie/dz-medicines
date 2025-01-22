@@ -37,10 +37,9 @@ class MedicineSearchTest extends TestCase
         ))->create();
 
         $response = Livewire::test(Table::class)
-            ->set('type', 'innovators');
+            ->set('isGeneric', false);
 
-        $response->assertSet('type', 'innovators')
-            ->assertSeeText($medicines[0]->name)
+        $response->assertSeeText($medicines[0]->name)
             ->assertDontSeeText($medicines[1]->name);
 
     }
@@ -54,7 +53,7 @@ class MedicineSearchTest extends TestCase
         ))->create();
 
         $response = Livewire::test(Table::class)
-            ->set('origin', 'foreign');
+            ->set('isLocal', false);
 
         $response
             ->assertSeeText($medicines[0]->name)
@@ -72,8 +71,8 @@ class MedicineSearchTest extends TestCase
 
         $response = Livewire::test(Table::class)
             ->set('query', 'medicine')
-            ->set('type', 'innovators')
-            ->set('origin', 'local');
+            ->set('isGeneric', false)
+            ->set('isLocal', true);
 
         $response->assertSeeText($medicines[0]->name)
             ->assertDontSeeText($medicines[1]->name);

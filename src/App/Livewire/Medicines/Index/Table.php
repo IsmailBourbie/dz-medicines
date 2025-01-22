@@ -16,32 +16,15 @@ class Table extends Component
 
     public Laboratory|MedicineClass|null $source = null;
 
-    #[Url()]
+    #[Url]
     public ?string $query = null;
 
-    public ?string $type = null;
+    #[Url]
+    public ?bool $isGeneric = null;
 
-    public ?string $origin = null;
-
-
-    private function isGeneric(): ?bool
-    {
-        return match ($this->type) {
-            'generics' => true,
-            'innovators' => false,
-            default => null,
-        };
-    }
-
-    private function isLocal(): ?bool
-    {
-        return match ($this->origin) {
-            'local' => true,
-            'foreign' => false,
-            default => null,
-        };
-    }
-
+    #[Url]
+    public ?bool $isLocal = null;
+    
     public function render(): View
     {
         $query = $this->source?->medicines() ?? Medicine::query();
@@ -49,8 +32,8 @@ class Table extends Component
         return view('livewire.medicines.index.table', [
             'medicines' => $query->search($this->query)
                 ->filters([
-                    'is_generic' => $this->isGeneric(),
-                    'is_local' => $this->isLocal(),
+                    'is_generic' => $this->isGeneric,
+                    'is_local' => $this->isLocal,
                 ])
                 ->paginate(),
         ]);
