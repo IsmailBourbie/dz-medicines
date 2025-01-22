@@ -1,12 +1,12 @@
 @props([
-    'is_generic' => null,
-    'is_local' => null
+    'is_generic',
+    'is_local'
 ])
 <div class="flex space-x-4">
     <div>
         <x-popover>
             <x-popover.button
-                class="flex items-center gap-2 rounded-lg border pl-3 pr-2 py-2 text-gray-600 text-sm hover:bg-gray-50">
+                class="min-w-32 flex justify-between items-center gap-2 rounded-lg  border pl-3 pr-2 py-2 text-slate-600 text-sm hover:bg-gray-50">
                 <div>
                     @if($is_generic === true)
                         Generics
@@ -26,6 +26,10 @@
                             class="w-full flex items-center justify-between text-gray-800 px-3 py-2 gap-2 cursor-pointer hover:bg-gray-100"
                             type="button">
                             All Types
+                            @if($is_generic === null)
+                                <x-icons.check/>
+                            @endif
+
                         </button>
                     </x-popover.close>
                     <x-popover.close>
@@ -34,6 +38,9 @@
                             class="w-full flex items-center justify-between text-gray-800 px-3 py-2 gap-2 cursor-pointer hover:bg-gray-100"
                             type="button">
                             Generics
+                            @if($is_generic === true)
+                                <x-icons.check/>
+                            @endif
                         </button>
                     </x-popover.close>
                     <x-popover.close>
@@ -42,6 +49,9 @@
                             class="w-full flex items-center justify-between text-gray-800 px-3 py-2 gap-2 cursor-pointer hover:bg-gray-100"
                             type="button">
                             Innovators
+                            @if($is_generic === false)
+                                <x-icons.check/>
+                            @endif
                         </button>
                     </x-popover.close>
                 </div>
@@ -51,7 +61,7 @@
     <div>
         <x-popover>
             <x-popover.button
-                class="flex items-center gap-2 rounded-lg border pl-3 pr-2 py-2 text-gray-600 text-sm hover:bg-gray-50">
+                class="min-w-32 flex justify-between items-center gap-2 rounded-lg border pl-3 pr-2 py-2 text-gray-600 text-sm hover:bg-gray-50">
                 <div>
                     @if($is_local === true)
                         Local
@@ -71,6 +81,9 @@
                             class="w-full flex items-center justify-between text-gray-800 px-3 py-2 gap-2 cursor-pointer hover:bg-gray-100"
                             type="button">
                             All Origins
+                            @if($is_local === null)
+                                <x-icons.check/>
+                            @endif
                         </button>
                     </x-popover.close>
                     <x-popover.close>
@@ -79,6 +92,9 @@
                             class="w-full flex items-center justify-between text-gray-800 px-3 py-2 gap-2 cursor-pointer hover:bg-gray-100"
                             type="button">
                             Local
+                            @if($is_local === true)
+                                <x-icons.check/>
+                            @endif
                         </button>
                     </x-popover.close>
                     <x-popover.close>
@@ -87,6 +103,9 @@
                             class="w-full flex items-center justify-between text-gray-800 px-3 py-2 gap-2 cursor-pointer hover:bg-gray-100"
                             type="button">
                             Foreign
+                            @if($is_local === false)
+                                <x-icons.check/>
+                            @endif
                         </button>
                     </x-popover.close>
                 </div>
