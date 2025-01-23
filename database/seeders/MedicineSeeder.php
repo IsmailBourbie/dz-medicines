@@ -4,19 +4,19 @@ namespace Database\Seeders;
 
 use Database\Factories\CodeFactory;
 use Database\Factories\LaboratoryFactory;
-use Database\Factories\MedicineClassFactory;
 use Database\Factories\MedicineFactory;
+use Domains\Medicines\Models\MedicineClass;
 use Illuminate\Database\Seeder;
 
 class MedicineSeeder extends Seeder
 {
     public function run(): void
     {
-        $class = MedicineClassFactory::new()->createOne(['name' => 'antalgique']);
 
+        $antalgique = MedicineClass::find(3);
 
-        $paracetamol_code = CodeFactory::new()->for($class)->createOne();
-        $paracetamol_codeine_code = CodeFactory::new()->for($class)->createOne();
+        $paracetamol_code = CodeFactory::new()->for($antalgique)->createOne();
+        $paracetamol_codeine_code = CodeFactory::new()->for($antalgique)->createOne();
 
 
         $sanofi = LaboratoryFactory::new()->createOne(['name' => 'Sanofi', 'country' => 'France']);
@@ -66,11 +66,10 @@ class MedicineSeeder extends Seeder
 
         // Fake Data
 
-        $otherClasses = MedicineClassFactory::new()->count(3)->create();
         $otherLabs = LaboratoryFactory::new()->count(3)->create();
 
         $otherCodes = CodeFactory::new()->count(3)
-            ->sequence(fn() => ['class_id' => $otherClasses->random()])
+            ->sequence(fn() => ['class_id' => MedicineClass::inRandomOrder()->first()->id])
             ->create();
 
         MedicineFactory::new()->count(25)->sequence(fn() => [
