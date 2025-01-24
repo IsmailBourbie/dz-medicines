@@ -25,35 +25,28 @@
 
     <x-wrapper class="container mx-auto mt-20">
         <div class="w-8/12 mx-auto">
-            <div class="flex flex-wrap">
-                <div class="w-1/4 p-4">
-                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
-                </div>
-                <div class="w-1/4 p-4">
-                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
-                </div>
-                <div class="w-1/4 p-4">
-                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
-                </div>
-                <div class="w-1/4 p-4">
-                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
-                </div>
-                <div class="w-1/4 p-4">
-                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
-                </div>
-                <div class="w-1/4 p-4">
-                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
-                </div>
-                <div class="w-1/4 p-4">
-                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
-                </div>
-                <div class="w-1/4 p-4">
-                    <img src="https://picsum.photos/id/{{rand(1, 200)}}/200" alt="image">
-                </div>
+            <div class="flex flex-wrap -mx-2">
+                @foreach($medicineClasses as $class)
+                    <div class="relative w-1/4 px-2 mb-4 group">
+                        <a href="{{route('classes.show', $class->id)}}">
+                            <div class="overflow-hidden">
+                                <img src="{{asset('images/classes/'.$class->id.'.webp')}}" alt="{{$class->name}}"
+                                     loading="lazy"
+                                     class="w-full h-auto group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <div class="pb-4 pt-2 flex items-start justify-between">
+                                <h3 class="text-sm text-blue-950 font-bold font-quicksand">{{$class->name}}</h3>
+                                <x-icons.arrow-top-right-on-square size="sm"
+                                                                   class="opacity-0 group-hover:opacity-100 transition-opacity duration-300"/>
+                            </div>
+
+                        </a>
+                    </div>
+                @endforeach
             </div>
             <div class="text-end px-4">
                 <a href="#"
-                   class="flex items-center justify-end font-medium text-blue-700 hover:mr-0.5 hover:gap-0.5 transition-all">
+                   class="inline-flex items-center justify-end font-medium text-blue-700 hover:mr-0.5 hover:gap-0.5 transition-all">
                     All medicine Classes
                     <x-icons.arrow-long-right class="fill-blue-700"/>
                 </a>
