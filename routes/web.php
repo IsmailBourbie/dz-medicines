@@ -1,14 +1,12 @@
 <?php
 
+use App\General\WelcomeController;
 use App\Medicines\Controllers\LaboratoryController;
 use App\Medicines\Controllers\MedicineClassController;
 use App\Medicines\Controllers\MedicineController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome',
-        ['medicineClasses' => \Domains\Medicines\Models\MedicineClass::query()->inRandomOrder()->limit(12)->get()]);
-});
+Route::get('/', WelcomeController::class)->name('welcome');
 
 Route::get('/medicines', [MedicineController::class, 'index'])->name('medicines.index');
 Route::get('/medicines/{medicine:slug}', [MedicineController::class, 'show'])->name('medicines.show');
