@@ -11,11 +11,11 @@
             <x-icons.loading size="2xl" wire:loading.class="animate-spin"/>
         </div>
         <table
-            class="w-full border-separate border-spacing-y-1.5 text-sm text-left rtl:text-right">
+            class="w-full border-separate border-spacing-y-2 text-sm text-left rtl:text-right">
             <tbody x-data>
             @foreach($medicines as $medicine)
                 <tr
-                    class="bg-teal-100/70 uppercase text-teal-900 hover:cursor-pointer hover:bg-teal-100"
+                    class="bg-slate-50/60 uppercase text-teal-900 hover:cursor-pointer hover:bg-slate-50"
                     wire:key="{{$medicine->id}}"
                     x-on:click="location.href = '{{route('medicines.show', $medicine->slug)}}'">
                     <td class="rounded-s-lg px-6 py-6 font-medium text-teal-950 whitespace-nowrap">{{ ($medicines->currentPage() - 1) * $medicines->perPage() + $loop->iteration }}</td>
