@@ -42,7 +42,7 @@
                             <div class="flex items-baseline">
                                 <h2 class="text-lg mr-2 font-bold text-sky-800">Class:</h2>
                                 <a href="{{route('classes.show', $medicine->class)}}"
-                                   class="text-slate-500 font-medium"
+                                   class="text-slate-500 font-medium underline decoration-dotted decoration-1 underline-offset-4 decoration-blue-500 hover:text-blue-500"
                                 >
                                     {{$medicine->class->name}}
                                 </a>
@@ -50,7 +50,7 @@
                             <div class="flex items-baseline">
                                 <h2 class="text-lg mr-2 font-bold text-sky-800">Laboratory:</h2>
                                 <a href="{{route('laboratories.show', $medicine->laboratory)}}"
-                                   class="text-slate-500 font-medium"
+                                   class="text-slate-500 font-medium underline decoration-dotted decoration-1 underline-offset-4 decoration-blue-500 hover:text-blue-500"
                                 >
                                     {{$medicine->laboratory->name}}
                                 </a>
