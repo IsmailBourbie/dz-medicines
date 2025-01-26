@@ -15,6 +15,7 @@
         "vite": "^6.0"
     },
     "dependencies": {
-        "@alpinejs/ui": "^3.14.8"
+        "@alpinejs/ui": "^3.14.8",
+        "@tailwindcss/postcss": "^4.0.0"
     }
 }
