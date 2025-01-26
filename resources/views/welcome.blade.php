@@ -104,7 +104,7 @@
                     Browse an extensive list of laboratories revolutionizing healthcare in Algeria. Uncover their
                     innovations, product lines, and global impact—all in one place.
                     <a href="#"
-                       class="inline-block mt-2 text-blue-600 font-semibold hover:text-blue-800 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 transition">Learn
+                       class="inline-block mt-2 text-blue-600 font-semibold hover:text-blue-800 hover:underline focus:outline-hidden focus:ring-2 focus:ring-blue-500 transition">Learn
                         more</a>
                     to explore all available laboratories.
                 </p>
