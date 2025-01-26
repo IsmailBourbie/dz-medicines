@@ -1,6 +1,6 @@
 <div class="relative sm:rounded-lg">
     <x-search.index class="flex items-end justify-between mb-8 mx-4" wire:submit.prevent>
-        <x-search.input class="w-5/12 flex-shrink"/>
+        <x-search.input class="w-5/12 shrink"/>
         <div>
             <x-search.filters :is_generic="$isGeneric" :is_local="$isLocal"/>
         </div>
