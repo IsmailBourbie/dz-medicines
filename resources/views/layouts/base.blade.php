@@ -13,7 +13,8 @@
     <title>{{$title ?? 'Page' }}{{ app()->isProduction() ? '' : ' (local)' }}</title>
 </head>
 <body class="font-sans">
-<div class="min-h-screen">
+<x-navbar/>
+<div class="">
     {{$slot}}
 </div>
 

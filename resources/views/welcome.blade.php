@@ -1,24 +1,18 @@
 @component('layouts.base', ['title' => 'Meddz'])
-    <header>
-        <div class="">
-            <nav class="py-10"></nav>
-            <div
-                class="bg-gradient-to-b from-indigo-100 via-indigo-50 to-white">
-                <div class="py-20 w-4/6 mx-auto text-center space-y-6">
-                    <h2 class="text-6xl font-bold font-quicksand text-blue-950">
-                        Access Reliable Information on Prescription Drugs and Medicines in Algeria
-                    </h2>
-                    <div class="space-y-12">
-                        <p class="text-xl text-slate-600 font-medium pb-4 w-9/12 mx-auto">
-                            Search and explore a comprehensive list of prescription drugs and medicines available in
-                            Algeria, with accurate, up-to-date information to meet your healthcare needs.
-                        </p>
-                        <a href="{{route('medicines.index')}}"
-                           class="inline-block px-6 py-3 text-lg text-blue-50 font-medium tracking-wider rounded-lg bg-blue-700 hover:bg-blue-800">
-                            Discover Available Medicines
-                        </a>
-                    </div>
-                </div>
+    <header class="bg-gradient-to-b from-indigo-100 via-indigo-50 to-white">
+        <div class="pt-40 pb-20 w-4/6 mx-auto text-center space-y-6">
+            <h2 class="text-6xl font-bold font-quicksand text-blue-950">
+                Access Reliable Information on Prescription Drugs and Medicines in Algeria
+            </h2>
+            <div class="space-y-12">
+                <p class="text-xl text-slate-600 font-medium pb-4 w-9/12 mx-auto">
+                    Search and explore a comprehensive list of prescription drugs and medicines available in
+                    Algeria, with accurate, up-to-date information to meet your healthcare needs.
+                </p>
+                <a href="{{route('medicines.index')}}"
+                   class="inline-block px-6 py-3 text-lg text-blue-50 font-medium tracking-wider rounded-lg bg-blue-700 hover:bg-blue-800">
+                    Discover Available Medicines
+                </a>
             </div>
         </div>
     </header>
