@@ -1,5 +1,5 @@
 @component('layouts.base')
-    <div class="min-h-screen flex items-center justify-center">
+    <div class="py-40 flex items-center justify-center">
         <div class="flex min-h-full w-full flex-col justify-center px-6 py-12 lg:px-8">
             <div class="sm:mx-auto sm:w-full sm:max-w-sm">
                 <img class="mx-auto h-10 w-auto"
