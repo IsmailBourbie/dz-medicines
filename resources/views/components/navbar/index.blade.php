@@ -1,3 +1,4 @@
+@props(['user'])
 <nav x-data="{ isScrolled: false, open: false }"
      @scroll.window="isScrolled = window.scrollY > 50"
      :class="{'bg-white shadow': isScrolled, 'bg-transparent': !isScrolled }"
@@ -7,10 +8,14 @@
             <img src="{{asset('images/logo.svg')}}" class="h-6" alt="Meedz Logo">
         </a>
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            <a href="{{route('login')}}" type="button"
-               class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">
-                Get started
-            </a>
+            @if($user)
+                <x-navbar.profile-menu username="{{$user->name}}"/>
+            @else
+                <a href="{{route('login')}}" type="button"
+                   class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">
+                    Get started
+                </a>
+            @endif
             <button x-on:click="open = !open" type="button"
                     class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                     aria-controls="navbar-sticky" aria-expanded="false">

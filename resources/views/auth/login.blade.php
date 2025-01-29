@@ -2,8 +2,8 @@
     <div class="py-40 flex items-center justify-center">
         <div class="flex min-h-full w-full flex-col justify-center px-6 py-12 lg:px-8">
             <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-                <img class="mx-auto h-10 w-auto"
-                     src="https://tailwindui.com/plus/img/logos/mark.svg?color=blue&shade=600"
+                <img class="mx-auto h-6 w-auto"
+                     src="{{asset('images/logo.svg')}}"
                      alt="Your Company">
                 <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your
                     account</h2>
@@ -17,6 +17,7 @@
                         <div class="mt-2">
                             <input type="email" name="email" id="email"
                                    placeholder="user@email.com"
+                                   value="test@gmail.com"
                                    autocomplete="email" required
                                    class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6">
                         </div>
@@ -35,7 +36,8 @@
                             </div>
                         </div>
                         <div class="mt-2">
-                            <input type="password" name="password" id="password" autocomplete="current-password"
+                            <input type="password" name="password" id="password" value="password"
+                                   autocomplete="current-password"
                                    required
                                    class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 sm:text-sm/6">
                         </div>

@@ -19,7 +19,11 @@
 </head>
 <body class="font-sans">
 
-<x-navbar/>
+@php
+    $user = auth()->user();
+@endphp
+
+<x-navbar :user="$user"/>
 
 <div class="pt-20">
     {{$slot}}
