@@ -4,8 +4,7 @@
      class="fixed w-full z-20 top-0 start-0 transition-all duration-300">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 mb">
         <a href="{{route('welcome')}}" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="https://flowbite.com/docs/images/logo.svg" class="h-8" alt="Flowbite Logo">
-            <span class="self-center text-2xl font-semibold whitespace-nowrap">Flowbite</span>
+            <img src="{{asset('images/logo.svg')}}" class="h-6" alt="Meedz Logo">
         </a>
         <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
             <button type="button"
