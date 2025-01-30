@@ -12,7 +12,7 @@
                 <x-navbar.profile-menu userName="{{$user->name}}"/>
             @else
                 <a href="{{route('login')}}" type="button"
-                   class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center">
+                   class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm mr-2 px-4 py-2 text-center">
                     Get started
                 </a>
             @endif
@@ -29,7 +29,7 @@
              :class="open ? 'flex' : 'hidden'"
              x-cloak
         >
-            <ul class="flex flex-col w-full p-4 md:p-0 mt-4 font-medium border border-gray-100 bg-white md:bg-transparent rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+            <ul class="flex flex-col w-full p-4 md:p-0 mt-4 font-medium border border-slate-200 bg-slate-100 md:bg-transparent rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
                 <li>
                     <x-navbar.link label="Home" route="welcome"/>
                 </li>
