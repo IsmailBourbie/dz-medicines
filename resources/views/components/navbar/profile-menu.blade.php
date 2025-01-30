@@ -1,11 +1,11 @@
-@props(['username' => 'Default'])
+@props(['userName' => 'Default'])
 <div>
     <x-popover>
         <x-popover.button
-            class="min-w-32 cursor-pointer flex justify-between items-center gap-1 pl-3 pr-2 py-2 text-gray-600 hover:text-gray-950 font-bold">
-            <x-icons.user-circle/>
-            <div>
-                {{$username}}
+            class="min-w-32 cursor-pointer flex justify-end items-center pl-3 pr-2 py-2 text-gray-600 hover:text-gray-950 font-bold">
+            <x-icons.user-circle size="lg"/>
+            <div class="hidden md:block">
+                {{$userName}}
             </div>
         </x-popover.button>
         <x-popover.panel class="border border-gray-100 shadow-xl z-10" position="bottom-end">

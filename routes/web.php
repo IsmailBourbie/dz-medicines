@@ -16,3 +16,7 @@ Route::get('/laboratories/{laboratory}', LaboratoryController::class)->name('lab
 
 
 Route::get('/classes/{class}', MedicineClassController::class)->name('classes.show');
+
+// TODO: Update these routes!!.
+Route::get('/classes', MedicineClassController::class)->name('classes.index');
+Route::get('/contact', MedicineClassController::class)->name('contact.index');
