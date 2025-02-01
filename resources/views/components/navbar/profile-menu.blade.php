@@ -11,17 +11,20 @@
         <x-popover.panel class="border border-gray-100 shadow-xl z-10" position="bottom-end">
             <div class="flex flex-col divide-y divide-gray-100 min-w-64">
                 <x-popover.close>
-                    <button
-                        class="w-full flex items-center justify-between text-gray-800 px-3 py-2 gap-2 cursor-pointer hover:bg-gray-100"
-                        type="button">
+
+                    <a
+                        href="#"
+                        class="w-full flex items-center font-medium text-slate-600 px-3 py-2 gap-2 hover:bg-slate-100">
+                        <x-icons.cog-settings/>
                         Settings
-                    </button>
+                    </a>
                 </x-popover.close>
                 <x-popover.close>
                     <form action="{{route('logout')}}" method="post">
                         @csrf
                         <button type="submit"
-                                class="w-full flex items-center justify-between text-gray-800 px-3 py-2 gap-2 cursor-pointer hover:bg-gray-100">
+                                class="w-full flex items-center font-medium text-slate-600 px-3 py-2 gap-2 cursor-pointer hover:bg-slate-100">
+                            <x-icons.logout/>
                             Logout
                         </button>
                     </form>
