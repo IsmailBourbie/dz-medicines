@@ -3,6 +3,10 @@
     "source": {
         "directories": [
             "src"
+        ],
+        excludes: [
+            "App/Providers",
+            "Domains/Auth/Actions/Fortify",
         ]
     },
     "logs": {

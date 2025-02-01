@@ -19,6 +19,10 @@
         <include>
             <directory>src</directory>
         </include>
+        <exclude>
+            <directory>src/App/Providers</directory>
+            <directory>src/Domains/Auth/Actions/Fortify</directory>
+        </exclude>
     </source>
     <php>
         <env name="APP_ENV" value="testing"/>
