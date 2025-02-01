@@ -53,9 +53,8 @@
             </div>
         </x-form>
         <p class="mt-10 text-center text-sm/6 text-gray-500">
-            Not a member?
-            <a href="#" class="font-semibold text-blue-600 hover:text-blue-500">Start a 14 day free
-                trial</a>
+            Don’t have an account?
+            <a href="#" class="font-semibold text-blue-600 hover:text-blue-500">Sign Up</a>
         </p>
     </x-form.wrapper>
 @endcomponent
