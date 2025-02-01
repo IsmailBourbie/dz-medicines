@@ -1,6 +1,12 @@
 @component('layouts.base')
     <x-form.wrapper class="md:w-4/12">
         <x-form.header>Sign in to your account</x-form.header>
+        @if (session('status'))
+            <div
+                class="mt-5 p-4 mx-auto font-medium text-sm bg-green-100 border border-green-200 rounded-lg text-green-700">
+                {{ session('status') }}
+            </div>
+        @endif
 
         <x-form action="{{route('login.store')}}" method="POST">
             <div>
