@@ -9,7 +9,7 @@ use Illuminate\Http\UploadedFile;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
-class DataImportControllerTest extends TestCase
+class ImportDataControllerTest extends TestCase
 {
     #[Test]
     public function it_render_import_page(): void
