@@ -7,6 +7,7 @@ use Domains\Medicines\Models\Laboratory;
 use Domains\Medicines\Models\Medicine;
 use Domains\Medicines\ValueObjects\CodeValue;
 use Illuminate\Support\LazyCollection;
+use Illuminate\Support\Str;
 
 final readonly class ImportDataService
 {
@@ -37,7 +38,7 @@ final readonly class ImportDataService
 
     protected function importLaboratoryData(string $name, string $country): int
     {
-        return Laboratory::create([
+        return Laboratory::firstOrCreate(['slug' => Str::slug($name.' '.$country)], [
             'name' => $name,
             'country' => $country,
         ])->id;
