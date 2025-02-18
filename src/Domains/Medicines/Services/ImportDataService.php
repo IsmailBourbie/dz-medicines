@@ -45,8 +45,7 @@ final readonly class ImportDataService
 
     protected function importCodeData(CodeValue $value): int
     {
-        return Code::create([
-            'value' => $value,
+        return Code::firstOrCreate(['value' => $value,], [
             'class_id' => $value->classId(),
         ])->id;
     }
