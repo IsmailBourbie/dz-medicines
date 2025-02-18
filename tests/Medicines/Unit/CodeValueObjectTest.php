@@ -1,0 +1,20 @@
+<?php
+
+namespace Tests\Medicines\Unit;
+
+use Domains\Medicines\ValueObjects\CodeValue;
+use PHPUnit\Framework\Attributes\Test;
+use PHPUnit\Framework\TestCase;
+
+class CodeValueObjectTest extends TestCase
+{
+    #[Test]
+    public function it_get_speciality_id(): void
+    {
+        $codeValue = new CodeValue('03 A 003');
+
+        $this->assertIsInt($codeValue->specialityId());
+        $this->assertEquals(3, $codeValue->specialityId());
+
+    }
+}
