@@ -19,7 +19,7 @@ class CodeValue implements CastsAttributes
     public function set(Model $model, string $key, $value, array $attributes): array
     {
         return [
-            'value' => $value,
+            'value' => (string) $value,
         ];
     }
 }

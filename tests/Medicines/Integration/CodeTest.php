@@ -14,7 +14,7 @@ class CodeTest extends TestCase
     public function it_cast_code_value_as_value_object(): void
     {
         $code = CodeFactory::new()->createOneQuietly();
-        
+
         $this->assertInstanceOf(CodeValue::class, $code->value);
     }
 }

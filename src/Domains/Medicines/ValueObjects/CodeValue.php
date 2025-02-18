@@ -2,7 +2,9 @@
 
 namespace Domains\Medicines\ValueObjects;
 
-final readonly class CodeValue
+use Stringable;
+
+final readonly class CodeValue implements Stringable
 {
     public function __construct(protected string $value)
     {
@@ -16,4 +18,8 @@ final readonly class CodeValue
     }
 
 
+    public function __toString(): string
+    {
+        return $this->value;
+    }
 }
