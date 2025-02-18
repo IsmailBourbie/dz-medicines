@@ -10,7 +10,7 @@ final readonly class CodeValue implements Stringable
     {
     }
 
-    public function specialityId(): int
+    public function classId(): int
     {
         preg_match('/^\d+/', $this->value, $matches);
 

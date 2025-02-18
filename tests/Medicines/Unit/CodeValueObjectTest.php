@@ -24,8 +24,8 @@ class CodeValueObjectTest extends TestCase
     {
         $codeValue = new CodeValue('03 A 003');
 
-        $this->assertIsInt($codeValue->specialityId());
-        $this->assertEquals(3, $codeValue->specialityId());
+        $this->assertIsInt($codeValue->classId());
+        $this->assertEquals(3, $codeValue->classId());
 
     }
 }

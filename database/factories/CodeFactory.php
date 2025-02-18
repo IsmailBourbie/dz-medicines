@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Domains\Medicines\Models\Code;
+use Domains\Medicines\ValueObjects\CodeValue;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CodeFactory extends Factory
@@ -13,7 +14,7 @@ class CodeFactory extends Factory
     {
         return [
             'class_id' => MedicineClassFactory::new(),
-            'value' => $this->faker->regexify('\d{2}[A-Z]\d{3}'),
+            'value' => new CodeValue($this->faker->regexify('\d{2} [A-Z] \d{3}')),
         ];
     }
 

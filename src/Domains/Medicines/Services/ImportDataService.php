@@ -2,8 +2,10 @@
 
 namespace Domains\Medicines\Services;
 
+use Domains\Medicines\Models\Code;
 use Domains\Medicines\Models\Laboratory;
 use Domains\Medicines\Models\Medicine;
+use Domains\Medicines\ValueObjects\CodeValue;
 use Illuminate\Support\LazyCollection;
 
 final readonly class ImportDataService
@@ -27,7 +29,7 @@ final readonly class ImportDataService
                     $row["LABORATOIRES DETENTEUR DE LA DECISION D'ENREGISTREMENT"],
                     $row["PAYS DU LABORATOIRE DETENTEUR DE LA DECISION D'ENREGISTREMENT"]
                 ),
-                'code_id' => $this->importCodeData($row["CODE"]),
+                'code_id' => $this->importCodeData(new CodeValue($row["CODE"])),
             ]);
         });
     }
@@ -41,11 +43,11 @@ final readonly class ImportDataService
         ])->id;
     }
 
-    protected function importCodeData(CodeValueObject $code): int
+    protected function importCodeData(CodeValue $value): int
     {
         return Code::create([
-            'name' => $code,
-            'country' => $country,
+            'value' => $value,
+            'class_id' => $value->classId(),
         ])->id;
     }
 }
