@@ -2,6 +2,7 @@
 
 namespace Tests\Medicines\Feature;
 
+use Database\Seeders\MedicineClassSeeder;
 use Domains\Medicines\Models\Code;
 use Domains\Medicines\Models\Laboratory;
 use Domains\Medicines\Models\Medicine;
@@ -11,6 +12,13 @@ use Tests\TestCase;
 
 class ImportDataControllerTest extends TestCase
 {
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->seed(MedicineClassSeeder::class);
+    }
+
     #[Test]
     public function it_render_import_page(): void
     {
@@ -36,8 +44,8 @@ class ImportDataControllerTest extends TestCase
         ]);
 
         $response->assertSuccessful();
-        $this->assertDatabaseCount(Medicine::class, 10);
-        $this->assertDatabaseCount(Code::class, 8);
+        $this->assertDatabaseCount(Medicine::class, 20);
+        $this->assertDatabaseCount(Code::class, 7);
         $this->assertDatabaseCount(Laboratory::class, 18);
     }
 }

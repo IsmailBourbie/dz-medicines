@@ -18,6 +18,9 @@ final readonly class ImportDataService
     public function importAllData(): void
     {
         $this->rows->each(function (array $row) {
+            if (!$row["CODE"]) {
+                return;
+            }
             Medicine::query()->create([
                 'name' => $row["NOM DE MARQUE"],
                 'dci' => $row["DENOMINATION COMMUNE INTERNATIONALE"],

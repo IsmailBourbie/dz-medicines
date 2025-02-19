@@ -17,23 +17,19 @@ class ImportDataController
     public function store(Request $request): void
     {
 
-        $reader = SimpleExcelReader::create($request->file('file'))
+        $readerSheetOne = SimpleExcelReader::create($request->file('file'))
+            ->fromSheet(1)
+            ->trimHeaderRow()
+            ->headerOnRow(4)->getRows();
+
+        $readerSheetTwo = SimpleExcelReader::create($request->file('file'))
             ->fromSheet(2)
             ->trimHeaderRow()
-            ->headerOnRow(4);
+            ->headerOnRow(4)->getRows();
 
-        dd($reader->getRows()->all());
+        $importService = new ImportDataService($readerSheetOne->merge($readerSheetTwo));
 
-        $importService = new ImportDataService($reader->getRows());
-//        function (array $row) {
-//                // create laboratory with slug
-//                // retrieve speciality from code
-//                // create the Code
-//                // create Medicine
-//                dump($row["LABORATOIRES DETENTEUR DE LA DECISION D'ENREGISTREMENT"]);
-//            }
-
-        dd('end');
+        $importService->importAllData();
 
     }
 }

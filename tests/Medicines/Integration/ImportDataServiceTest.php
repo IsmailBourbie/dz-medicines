@@ -59,6 +59,42 @@ class ImportDataServiceTest extends TestCase
     }
 
     #[Test]
+    public function it_skip_empty_data(): void
+    {
+        $data = [
+            [
+                "CODE" => "",
+                "DENOMINATION COMMUNE INTERNATIONALE" => "",
+                "NOM DE MARQUE" => "",
+                "FORME" => "",
+                "DOSAGE" => "",
+                "COND" => "",
+                "LABORATOIRES DETENTEUR DE LA DECISION D'ENREGISTREMENT" => "",
+                "PAYS DU LABORATOIRE DETENTEUR DE LA DECISION D'ENREGISTREMENT" => "",
+                "TYPE" => "",
+                "STATUT" => "",
+            ],
+            [
+                "CODE" => "01 A 003",
+                "DENOMINATION COMMUNE INTERNATIONALE" => "CETIRIZINE DICHLORHYDRATE",
+                "NOM DE MARQUE" => "CETIRIPEX",
+                "FORME" => "COMPRIME PELLICULE SECABLE",
+                "DOSAGE" => "10MG",
+                "CONDITIONNEMENT" => "B/15",
+                "LABORATOIRES DETENTEUR DE LA DECISION D'ENREGISTREMENT" => "PHARMALLIANCE",
+                "PAYS DU LABORATOIRE DETENTEUR DE LA DECISION D'ENREGISTREMENT" => "ALGERIE",
+                "TYPE" => "GE",
+                "STATUT" => "F",
+            ],
+        ];
+        $service = new ImportDataService(new LazyCollection($data));
+
+        $service->importAllData();
+
+        $this->assertDatabaseCount(Medicine::class, 1);
+    }
+
+    #[Test]
     public function it_import_data_dealing_with_the_same_code(): void
     {
         $data = [
