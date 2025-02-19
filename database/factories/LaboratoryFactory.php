@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Domains\Medicines\Models\Laboratory;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
 class LaboratoryFactory extends Factory
 {
@@ -11,9 +12,13 @@ class LaboratoryFactory extends Factory
 
     public function definition(): array
     {
+        $name = $this->faker->company;
+        $country = $this->faker->country;
+
         return [
-            'name' => $this->faker->company,
-            'country' => $this->faker->country,
+            'slug' => Str::slug($name.' '.$country),
+            'name' => $name,
+            'country' => $country,
         ];
     }
 }
