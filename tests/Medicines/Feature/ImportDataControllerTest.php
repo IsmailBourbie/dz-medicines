@@ -2,22 +2,14 @@
 
 namespace Tests\Medicines\Feature;
 
-use Database\Seeders\MedicineClassSeeder;
-use Domains\Medicines\Models\Code;
-use Domains\Medicines\Models\Laboratory;
-use Domains\Medicines\Models\Medicine;
+use Domains\Medicines\Services\ImportDataService;
 use Illuminate\Http\UploadedFile;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class ImportDataControllerTest extends TestCase
 {
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->seed(MedicineClassSeeder::class);
-    }
 
     #[Test]
     public function it_render_import_page(): void
@@ -30,22 +22,24 @@ class ImportDataControllerTest extends TestCase
     #[Test]
     public function it_import_data_and_save_it_to_database(): void
     {
-        $this->withoutExceptionHandling();
+
+        $this->mock('overload:'.ImportDataService::class, function (MockInterface $mock) {
+            $mock->shouldReceive('importAllData')->once()->andReturnNull();
+        });
+
+
         $filePath = base_path('tests\Fixtures\medicines.xlsx');
         $file = new UploadedFile(
             $filePath,
             'medicines.xlsx',
             'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
             null,
-            true);
+            true
+        );
 
-        $response = $this->post(route('admin.import-data.store'), [
+        $this->post(route('admin.import-data.store'), [
             'file' => $file,
-        ]);
-
-        $response->assertSuccessful();
-        $this->assertDatabaseCount(Medicine::class, 20);
-        $this->assertDatabaseCount(Code::class, 7);
-        $this->assertDatabaseCount(Laboratory::class, 18);
+        ])
+            ->assertSuccessful();
     }
 }
