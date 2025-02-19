@@ -16,6 +16,10 @@ class ImportDataController
 
     public function store(Request $request): void
     {
+        $request->validate([
+            'file' => ['required', 'file', 'mimes:xlsx,xls', 'max:10240'],
+        ]);
+
 
         $readerSheetOne = SimpleExcelReader::create($request->file('file'))
             ->fromSheet(1)

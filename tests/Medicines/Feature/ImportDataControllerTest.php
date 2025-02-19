@@ -5,6 +5,7 @@ namespace Tests\Medicines\Feature;
 use Domains\Medicines\Services\ImportDataService;
 use Illuminate\Http\UploadedFile;
 use Mockery\MockInterface;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -41,5 +42,23 @@ class ImportDataControllerTest extends TestCase
             'file' => $file,
         ])
             ->assertSuccessful();
+    }
+
+    #[Test]
+    #[DataProvider('validationDataProvider')]
+    public function it_required_validated_file($inputName, $inputValue): void
+    {
+        $this->post(route('admin.import-data.store'), [$inputName => $inputValue])
+            ->assertSessionHasErrors($inputName);
+    }
+
+    public static function validationDataProvider(): array
+    {
+        return [
+            'the file is required' => ['file', null],
+            'the file must be file type' => ['file', 'filename'],
+            'the file must be excel file' => ['file', UploadedFile::fake()->create('medicines.pdf')],
+            'the file must be less than 10Mb' => ['file', UploadedFile::fake()->create('medicines.xlsx', 10241)],
+        ];
     }
 }
