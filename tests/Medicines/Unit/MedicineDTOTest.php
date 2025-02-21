@@ -13,13 +13,14 @@ class MedicineDTOTest extends TestCase
     {
         $array = [
             "random" => 'hello',
-            "CODE_ID" => 2,
+            "CODE" => "01 A 004",
             "DENOMINATION COMMUNE INTERNATIONALE" => "DEXCHLORPHENIRAMINE MALEATE",
             "NOM DE MARQUE" => "POLARAMINE",
             "FORME" => "SOL.INJ.",
             "DOSAGE" => "5MG/ML",
             "COND" => "B/05 AMP. DE 1ML",
-            "LABORATORY_ID" => 1,
+            "LABORATOIRES DETENTEUR DE LA DECISION D'ENREGISTREMENT" => "SCHERING PLOUGH",
+            "PAYS DU LABORATOIRE DETENTEUR DE LA DECISION D'ENREGISTREMENT" => "FRANCE",
             "TYPE" => "RE",
             "STATUT" => "I",
         ];

@@ -13,8 +13,9 @@ class MedicineData
         public string $packaging,
         public bool $is_generic,
         public bool $is_local,
-        public int $laboratory_id,
-        public int $code_id,
+        public string $laboratory_name,
+        public string $country,
+        public string $code,
     ) {
     }
 
@@ -22,11 +23,7 @@ class MedicineData
     {
         $data["NOM DE MARQUE"];
         $data["DENOMINATION COMMUNE INTERNATIONALE"];
-        $data["FORME"];
-        $data["DOSAGE"];
-            $data["CONDITIONNEMENT"] ?? $data["COND"];
-        $data["TYPE"] === "GE";
-        $data["STATUT"] === "F";
+
 
         return new self(
             name: $data["NOM DE MARQUE"],
@@ -36,8 +33,9 @@ class MedicineData
             packaging: $data["CONDITIONNEMENT"] ?? $data["COND"],
             is_generic: $data["TYPE"] === "GE",
             is_local: $data["STATUT"] === "F",
-            laboratory_id: $data['CODE_ID'],
-            code_id: $data['LABORATORY_ID']
+            laboratory_name: $data["LABORATOIRES DETENTEUR DE LA DECISION D'ENREGISTREMENT"],
+            country: $data["PAYS DU LABORATOIRE DETENTEUR DE LA DECISION D'ENREGISTREMENT"],
+            code: $data['CODE']
         );
     }
 }
