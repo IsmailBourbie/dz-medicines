@@ -49,7 +49,7 @@ class ImportDataServiceTest extends TestCase
                 "STATUT" => "F",
             ],
         ];
-        $service = new ImportDataService();
+        $service = $this->app->make(ImportDataService::class);
 
         $service->importAllData(new LazyCollection($data));
 
@@ -87,7 +87,7 @@ class ImportDataServiceTest extends TestCase
                 "STATUT" => "F",
             ],
         ];
-        $service = new ImportDataService();
+        $service = $this->app->make(ImportDataService::class);
 
         $service->importAllData(new LazyCollection($data));
 
@@ -123,7 +123,7 @@ class ImportDataServiceTest extends TestCase
                 "STATUT" => "F",
             ],
         ];
-        $service = new ImportDataService();
+        $service = $this->app->make(ImportDataService::class);
 
         $service->importAllData(new LazyCollection($data));
 
@@ -161,7 +161,7 @@ class ImportDataServiceTest extends TestCase
                 "STATUT" => "F",
             ],
         ];
-        $service = new ImportDataService();
+        $service = $this->app->make(ImportDataService::class);
 
         $service->importAllData(new LazyCollection($data));
 
