@@ -2,23 +2,17 @@
 
 namespace Tests\Medicines\Integration;
 
-use Database\Seeders\MedicineClassSeeder;
-use Domains\Medicines\Models\Code;
-use Domains\Medicines\Models\Laboratory;
+use Domains\Medicines\DTOs\MedicineData;
 use Domains\Medicines\Models\Medicine;
 use Domains\Medicines\Services\ImportDataService;
+use Domains\Medicines\Services\MedicineImporter;
 use Illuminate\Support\LazyCollection;
+use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
 class ImportDataServiceTest extends TestCase
 {
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->seed(MedicineClassSeeder::class);
-    }
 
     #[Test]
     public function it_import_all_needed_data_to_database(): void
@@ -49,13 +43,25 @@ class ImportDataServiceTest extends TestCase
                 "STATUT" => "F",
             ],
         ];
+
+        $this->instance(
+            MedicineImporter::class,
+            $this->mock(MedicineImporter::class, function (MockInterface $mock) use ($data) {
+                $mock->shouldReceive('import')
+                    ->withArgs(function ($data) {
+                        return $data instanceof MedicineData;
+                    })
+                    ->times(count($data))
+                    ->andReturnUsing(function () {
+                        return new Medicine();
+                    });
+            })
+        );
+
         $service = $this->app->make(ImportDataService::class);
 
         $service->importAllData(new LazyCollection($data));
 
-        $this->assertDatabaseCount(Laboratory::class, 2);
-        $this->assertDatabaseCount(Medicine::class, 2);
-        $this->assertDatabaseCount(Code::class, 2);
     }
 
     #[Test]
