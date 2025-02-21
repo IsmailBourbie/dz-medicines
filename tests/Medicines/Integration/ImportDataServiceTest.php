@@ -49,9 +49,9 @@ class ImportDataServiceTest extends TestCase
                 "STATUT" => "F",
             ],
         ];
-        $service = new ImportDataService(new LazyCollection($data));
+        $service = new ImportDataService();
 
-        $service->importAllData();
+        $service->importAllData(new LazyCollection($data));
 
         $this->assertDatabaseCount(Laboratory::class, 2);
         $this->assertDatabaseCount(Medicine::class, 2);
@@ -87,9 +87,9 @@ class ImportDataServiceTest extends TestCase
                 "STATUT" => "F",
             ],
         ];
-        $service = new ImportDataService(new LazyCollection($data));
+        $service = new ImportDataService();
 
-        $service->importAllData();
+        $service->importAllData(new LazyCollection($data));
 
         $this->assertDatabaseCount(Medicine::class, 1);
     }
@@ -123,9 +123,9 @@ class ImportDataServiceTest extends TestCase
                 "STATUT" => "F",
             ],
         ];
-        $service = new ImportDataService(new LazyCollection($data));
+        $service = new ImportDataService();
 
-        $service->importAllData();
+        $service->importAllData(new LazyCollection($data));
 
         $this->assertDatabaseCount(Medicine::class, 2);
         $this->assertDatabaseCount(Code::class, 1);
@@ -161,9 +161,9 @@ class ImportDataServiceTest extends TestCase
                 "STATUT" => "F",
             ],
         ];
-        $service = new ImportDataService(new LazyCollection($data));
+        $service = new ImportDataService();
 
-        $service->importAllData();
+        $service->importAllData(new LazyCollection($data));
 
         $this->assertDatabaseCount(Medicine::class, 2);
         $this->assertDatabaseCount(Laboratory::class, 1);

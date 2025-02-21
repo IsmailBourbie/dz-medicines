@@ -2,7 +2,7 @@
 
 namespace App\Medicines\Controllers\Admin;
 
-use Domains\Medicines\Services\ImportDataService;
+use Domains\Medicines\Services\ImportDataInterface;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Spatie\SimpleExcel\SimpleExcelReader;
@@ -14,7 +14,7 @@ class ImportDataController
         return view('admin.import-data');
     }
 
-    public function store(Request $request): void
+    public function store(Request $request, ImportDataInterface $importService): void
     {
         $request->validate([
             'file' => ['required', 'file', 'mimes:xlsx,xls', 'max:10240'],
@@ -31,9 +31,8 @@ class ImportDataController
             ->trimHeaderRow()
             ->headerOnRow(4)->getRows();
 
-        $importService = new ImportDataService($readerSheetOne->merge($readerSheetTwo));
 
-        $importService->importAllData();
+        $importService->importAllData($readerSheetOne->merge($readerSheetTwo));
 
     }
 }

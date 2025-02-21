@@ -9,15 +9,11 @@ use Domains\Medicines\ValueObjects\CodeValue;
 use Illuminate\Support\LazyCollection;
 use Illuminate\Support\Str;
 
-final readonly class ImportDataService
+final readonly class ImportDataService implements ImportDataInterface
 {
-    public function __construct(public LazyCollection $rows)
+    public function importAllData(LazyCollection $data): void
     {
-    }
-
-    public function importAllData(): void
-    {
-        $this->rows->each(function (array $row) {
+        $data->each(function (array $row) {
             if (!$row["CODE"]) {
                 return;
             }

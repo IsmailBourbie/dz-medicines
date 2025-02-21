@@ -2,8 +2,9 @@
 
 namespace Tests\Medicines\Feature;
 
-use Domains\Medicines\Services\ImportDataService;
+use Domains\Medicines\Services\ImportDataInterface;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\LazyCollection;
 use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -24,10 +25,17 @@ class ImportDataControllerTest extends TestCase
     public function it_import_data_and_save_it_to_database(): void
     {
 
-        $this->mock('overload:'.ImportDataService::class, function (MockInterface $mock) {
-            $mock->shouldReceive('importAllData')->once()->andReturnNull();
-        });
-
+        $this->instance(
+            ImportDataInterface::class,
+            $this->mock(ImportDataInterface::class, function (MockInterface $mock) {
+                $mock->shouldReceive('importAllData')
+                    ->withArgs(function ($collection) {
+                        return $collection instanceof LazyCollection;
+                    })
+                    ->once()
+                    ->andReturnNull();
+            })
+        );
 
         $filePath = base_path('tests\Fixtures\medicines.xlsx');
         $file = new UploadedFile(
@@ -48,8 +56,13 @@ class ImportDataControllerTest extends TestCase
     #[DataProvider('validationDataProvider')]
     public function it_required_validated_file($inputName, $inputValue): void
     {
+        $spy = $this->spy(ImportDataInterface::class);
+        $this->instance(ImportDataInterface::class, $spy);
+
         $this->post(route('admin.import-data.store'), [$inputName => $inputValue])
             ->assertSessionHasErrors($inputName);
+
+        $spy->shouldNotHaveReceived('importAllData');
     }
 
     public static function validationDataProvider(): array
