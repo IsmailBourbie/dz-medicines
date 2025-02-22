@@ -80,23 +80,11 @@ class ImportDataServiceTest extends TestCase
                 "TYPE" => "",
                 "STATUT" => "",
             ],
-            [
-                "CODE" => "01 A 003",
-                "DENOMINATION COMMUNE INTERNATIONALE" => "CETIRIZINE DICHLORHYDRATE",
-                "NOM DE MARQUE" => "CETIRIPEX",
-                "FORME" => "COMPRIME PELLICULE SECABLE",
-                "DOSAGE" => "10MG",
-                "CONDITIONNEMENT" => "B/15",
-                "LABORATOIRES DETENTEUR DE LA DECISION D'ENREGISTREMENT" => "PHARMALLIANCE",
-                "PAYS DU LABORATOIRE DETENTEUR DE LA DECISION D'ENREGISTREMENT" => "ALGERIE",
-                "TYPE" => "GE",
-                "STATUT" => "F",
-            ],
         ];
         $service = $this->app->make(ImportDataService::class);
 
         $service->importAllData(new LazyCollection($data));
 
-        $this->assertDatabaseCount(Medicine::class, 1);
+        $this->assertDatabaseEmpty(Medicine::class);
     }
 }

@@ -5,7 +5,7 @@ namespace Domains\Medicines\Services;
 use Domains\Medicines\DTOs\MedicineData;
 use Illuminate\Support\LazyCollection;
 
-final readonly class ImportDataService implements ImportDataInterface
+class ImportDataService
 {
 
     public function __construct(

@@ -2,7 +2,7 @@
 
 namespace Tests\Medicines\Feature;
 
-use Domains\Medicines\Services\ImportDataInterface;
+use Domains\Medicines\Services\ImportDataService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\LazyCollection;
 use Mockery\MockInterface;
@@ -26,8 +26,8 @@ class ImportDataControllerTest extends TestCase
     {
 
         $this->instance(
-            ImportDataInterface::class,
-            $this->mock(ImportDataInterface::class, function (MockInterface $mock) {
+            ImportDataService::class,
+            $this->mock(ImportDataService::class, function (MockInterface $mock) {
                 $mock->shouldReceive('importAllData')
                     ->withArgs(function ($collection) {
                         return $collection instanceof LazyCollection;
@@ -56,8 +56,8 @@ class ImportDataControllerTest extends TestCase
     #[DataProvider('validationDataProvider')]
     public function it_required_validated_file($inputName, $inputValue): void
     {
-        $spy = $this->spy(ImportDataInterface::class);
-        $this->instance(ImportDataInterface::class, $spy);
+        $spy = $this->spy(ImportDataService::class);
+        $this->instance(ImportDataService::class, $spy);
 
         $this->post(route('admin.import-data.store'), [$inputName => $inputValue])
             ->assertSessionHasErrors($inputName);
