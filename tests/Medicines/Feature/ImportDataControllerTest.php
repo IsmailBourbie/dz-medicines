@@ -2,6 +2,7 @@
 
 namespace Tests\Medicines\Feature;
 
+use Domains\Medicines\Services\Contracts\ExcelFileReaderInterface;
 use Domains\Medicines\Services\ImportDataService;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\LazyCollection;
@@ -34,6 +35,20 @@ class ImportDataControllerTest extends TestCase
                     })
                     ->once()
                     ->andReturnNull();
+            })
+        );
+
+        $this->instance(
+            ExcelFileReaderInterface::class,
+            $this->mock(ExcelFileReaderInterface::class, function (MockInterface $mock) {
+                $mock->shouldReceive('readFromMultipleSheets')
+                    ->withArgs(function ($file, $sheets, $startLine) {
+                        return $file instanceof UploadedFile && count($sheets) === 2 && $startLine === 4;
+                    })
+                    ->once()
+                    ->andReturnUsing(function () {
+                        new LazyCollection();
+                    });
             })
         );
 
