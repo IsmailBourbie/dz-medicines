@@ -15,30 +15,19 @@ class ImportDataController
         return view('admin.import-data');
     }
 
-    public function store(Request $request, ExcelFileReaderInterface $reader, ImportDataService $importService): void
+    public function store(Request $request, ImportDataService $importService): void
     {
         $request->validate([
             'file' => ['required', 'file', 'mimes:xlsx,xls', 'max:10240'],
         ]);
 
+        $simpleReader = resolve(SimpleExcelReader::class, ['path' => $request->file('file')]);
 
-//        $reader->readFromMultipleSheet($file, [1, 2], 4);
+        $reader = resolve(ExcelFileReaderInterface::class, ['reader' => $simpleReader]);
 
-        $reader->readFromMultipleSheets($request->file('file'), [1, 2], 4);
+        $data = $reader->readFromMultipleSheets([1, 2], 4);
 
-
-        $readerSheetOne = SimpleExcelReader::create($request->file('file'))
-            ->fromSheet(1)
-            ->trimHeaderRow()
-            ->headerOnRow(4)->getRows();
-
-        $readerSheetTwo = SimpleExcelReader::create($request->file('file'))
-            ->fromSheet(2)
-            ->trimHeaderRow()
-            ->headerOnRow(4)->getRows();
-
-
-        $importService->importAllData($readerSheetOne->merge($readerSheetTwo));
+        $importService->importAllData($data);
 
     }
 }

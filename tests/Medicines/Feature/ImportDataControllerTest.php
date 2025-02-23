@@ -26,6 +26,25 @@ class ImportDataControllerTest extends TestCase
     public function it_import_data_and_save_it_to_database(): void
     {
 
+        $filePath = base_path('tests\Fixtures\medicines.xlsx');
+        $file = new UploadedFile(
+            $filePath,
+            'medicines.xlsx',
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            null,
+            true
+        );
+
+        $this->app->extend(ExcelFileReaderInterface::class, function () {
+            return $this->mock(ExcelFileReaderInterface::class, function (MockInterface $mock) {
+                $mock->shouldReceive('readFromMultipleSheets')
+                    ->withArgs(function ($sheets, $startLine) {
+                        return count($sheets) === 2 && $startLine === 4;
+                    })
+                    ->once()
+                    ->andReturn(new LazyCollection());
+            });
+        });
         $this->instance(
             ImportDataService::class,
             $this->mock(ImportDataService::class, function (MockInterface $mock) {
@@ -38,36 +57,12 @@ class ImportDataControllerTest extends TestCase
             })
         );
 
-        $this->instance(
-            ExcelFileReaderInterface::class,
-            $this->mock(ExcelFileReaderInterface::class, function (MockInterface $mock) {
-                $mock->shouldReceive('readFromMultipleSheets')
-                    ->withArgs(function ($file, $sheets, $startLine) {
-                        return $file instanceof UploadedFile && count($sheets) === 2 && $startLine === 4;
-                    })
-                    ->once()
-                    ->andReturnUsing(function () {
-                        new LazyCollection();
-                    });
-            })
-        );
-
-        $filePath = base_path('tests\Fixtures\medicines.xlsx');
-        $file = new UploadedFile(
-            $filePath,
-            'medicines.xlsx',
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            null,
-            true
-        );
-
-        $this->post(route('admin.import-data.store'), [
-            'file' => $file,
-        ])
+        $this->post(route('admin.import-data.store'), ['file' => $file,])
             ->assertSuccessful();
     }
 
-    #[Test]
+    #[
+        Test]
     #[DataProvider('validationDataProvider')]
     public function it_required_validated_file($inputName, $inputValue): void
     {
