@@ -6,6 +6,7 @@ use Domains\Medicines\Services\ExcelReader;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\LazyCollection;
 use PHPUnit\Framework\Attributes\Test;
+use Spatie\SimpleExcel\SimpleExcelReader;
 use Tests\TestCase;
 
 class ExcelReaderTest extends TestCase
@@ -22,9 +23,12 @@ class ExcelReaderTest extends TestCase
             true
         );
 
-        $reader = new ExcelReader();
+        $simpleExcelReader = SimpleExcelReader::create($file);
 
-        $data = $reader->readFromMultipleSheets($file, [1, 2], 4);
+        $reader = $this->app->make(ExcelReader::class, ['reader' => $simpleExcelReader]);
+
+
+        $data = $reader->readFromMultipleSheets([1, 2], 4);
 
 
         $this->assertInstanceOf(LazyCollection::class, $data);
