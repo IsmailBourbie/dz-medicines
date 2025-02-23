@@ -21,13 +21,11 @@ class ImportDataController
             'file' => ['required', 'file', 'mimes:xlsx,xls', 'max:10240'],
         ]);
 
-        $simpleReader = resolve(SimpleExcelReader::class, ['path' => $request->file('file')]);
+        $reader = resolve(ExcelFileReaderInterface::class, [
+            'reader' => SimpleExcelReader::create($request->file('file')),
+        ]);
 
-        $reader = resolve(ExcelFileReaderInterface::class, ['reader' => $simpleReader]);
-
-        $data = $reader->readFromMultipleSheets([1, 2], 4);
-
-        $importService->importAllData($data);
+        $importService->importAllData($reader->readFromMultipleSheets([1, 2], 4));
 
     }
 }
