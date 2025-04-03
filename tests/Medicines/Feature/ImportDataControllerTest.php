@@ -2,10 +2,9 @@
 
 namespace Tests\Medicines\Feature;
 
-use Domains\Medicines\Services\Contracts\ExcelFileReaderInterface;
+use Domains\Medicines\Services\Contracts\FileImporterInterface;
 use Domains\Medicines\Services\ImportDataService;
 use Illuminate\Http\UploadedFile;
-use Illuminate\Support\LazyCollection;
 use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
@@ -25,39 +24,21 @@ class ImportDataControllerTest extends TestCase
     #[Test]
     public function it_import_data_and_save_it_to_database(): void
     {
+        $this->withoutExceptionHandling();
+        $file = UploadedFile::fake()->create('medicines.xlsx');
 
-        $filePath = base_path('tests\Fixtures\medicines.xlsx');
-        $file = new UploadedFile(
-            $filePath,
-            'medicines.xlsx',
-            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            null,
-            true
-        );
-
-        $this->app->extend(ExcelFileReaderInterface::class, function () {
-            return $this->mock(ExcelFileReaderInterface::class, function (MockInterface $mock) {
-                $mock->shouldReceive('readFromMultipleSheets')
-                    ->withArgs(function ($sheets, $startLine) {
-                        return count($sheets) === 2 && $startLine === 4;
-                    })
-                    ->once()
-                    ->andReturn(new LazyCollection());
-            });
-        });
         $this->instance(
-            ImportDataService::class,
-            $this->mock(ImportDataService::class, function (MockInterface $mock) {
-                $mock->shouldReceive('importAllData')
-                    ->withArgs(function ($collection) {
-                        return $collection instanceof LazyCollection;
+            FileImporterInterface::class,
+            $this->mock(FileImporterInterface::class, function (MockInterface $mock) {
+                $mock->shouldReceive('import')
+                    ->withArgs(function ($file) {
+                        return $file instanceof UploadedFile;
                     })
-                    ->once()
-                    ->andReturnNull();
+                    ->once();
             })
         );
 
-        $this->post(route('admin.import-data.store'), ['file' => $file,])
+        $this->post(route('admin.import-data.store'), ['file' => $file])
             ->assertSuccessful();
     }
 

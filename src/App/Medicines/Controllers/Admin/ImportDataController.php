@@ -3,10 +3,10 @@
 namespace App\Medicines\Controllers\Admin;
 
 use Domains\Medicines\Services\Contracts\ExcelFileReaderInterface;
+use Domains\Medicines\Services\Contracts\FileImporterInterface;
 use Domains\Medicines\Services\ImportDataService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
-use Spatie\SimpleExcel\SimpleExcelReader;
 
 class ImportDataController
 {
@@ -15,17 +15,12 @@ class ImportDataController
         return view('admin.import-data');
     }
 
-    public function store(Request $request, ImportDataService $importService): void
+    public function store(Request $request, FileImporterInterface $importer): void
     {
         $request->validate([
             'file' => ['required', 'file', 'mimes:xlsx,xls', 'max:10240'],
         ]);
-
-        $reader = resolve(ExcelFileReaderInterface::class, [
-            'reader' => SimpleExcelReader::create($request->file('file')),
-        ]);
-
-        $importService->importAllData($reader->readFromMultipleSheets([1, 2], 4));
-
+        $file = $request->file("file");
+        $importer->import($file);
     }
 }
