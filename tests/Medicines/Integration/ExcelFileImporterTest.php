@@ -4,8 +4,8 @@ namespace Tests\Medicines\Integration;
 
 use Domains\Medicines\DTOs\MedicineData;
 use Domains\Medicines\Models\Medicine;
+use Domains\Medicines\Services\Contracts\FileImporterInterface;
 use Domains\Medicines\Services\Contracts\FileReaderInterface;
-use Domains\Medicines\Services\ExcelFileImporter;
 use Domains\Medicines\Services\MedicineImporter;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\LazyCollection;
@@ -61,7 +61,7 @@ class ExcelFileImporterTest extends TestCase
             })
         );
 
-        $importer = $this->app->make(ExcelFileImporter::class);
+        $importer = $this->app->make(FileImporterInterface::class);
         $importer->import($file);
 
     }
@@ -115,7 +115,7 @@ class ExcelFileImporterTest extends TestCase
             })
         );
 
-        $importer = $this->app->make(ExcelFileImporter::class);
+        $importer = $this->app->make(FileImporterInterface::class);
         $importer->import($file);
 
     }

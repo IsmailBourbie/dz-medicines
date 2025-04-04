@@ -4,13 +4,12 @@ namespace Domains\Medicines\Services;
 
 use Domains\Medicines\DTOs\MedicineData;
 use Domains\Medicines\Models\Medicine;
-use Domains\Medicines\ValueObjects\CodeValue;
 
 class MedicineImporter
 {
     public function __construct(
-        private LaboratoryImporter $laboratoryImporter,
-        private CodeImporter $codeImporter
+        private readonly LaboratoryImporter $laboratoryImporter,
+        private readonly CodeImporter $codeImporter
     ) {
     }
 
@@ -21,7 +20,7 @@ class MedicineImporter
             $data->country
         );
 
-        $code = $this->codeImporter->import(new CodeValue($data->code));
+        $code = $this->codeImporter->import($data->code);
 
         return Medicine::query()->create([
             'name' => $data->name,

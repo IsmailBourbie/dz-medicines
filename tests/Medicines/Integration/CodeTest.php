@@ -15,6 +15,7 @@ class CodeTest extends TestCase
     {
         $code = CodeFactory::new()->createOneQuietly();
 
-        $this->assertInstanceOf(CodeValue::class, $code->value);
+
+        $this->assertInstanceOf(CodeValue::class, $code->fresh()->value);
     }
 }

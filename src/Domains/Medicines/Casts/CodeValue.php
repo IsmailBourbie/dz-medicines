@@ -11,9 +11,7 @@ class CodeValue implements CastsAttributes
 
     public function get(Model $model, string $key, mixed $value, array $attributes): CodeValueObject
     {
-        return new CodeValueObject(
-            $attributes['value'],
-        );
+        return new CodeValueObject($value);
     }
 
     public function set(Model $model, string $key, $value, array $attributes): array

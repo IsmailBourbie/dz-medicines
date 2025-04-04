@@ -18,7 +18,7 @@ class ImportDataController
     public function store(Request $request, FileImporterInterface $importer): void
     {
         $request->validate([
-            'file' => ['required', 'file', 'mimes:xlsx,xls', 'max:10240'],
+            'file' => 'required|file|mimes:xlsx,xls|max:10240',
         ]);
         $file = $request->file("file");
         $importer->import($file);

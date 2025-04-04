@@ -16,18 +16,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-
         $this->app->bind(FileReaderInterface::class, function (Application $app) {
             return $app->make(ExcelFileReader::class);
         });
-
         $this->app->bind(FileImporterInterface::class, function (Application $app) {
             return $app->make(ExcelFileImporter::class);
         });
-
-//        $this->app->bind(ExcelFileReaderInterface::class, function (Application $app, array $params) {
-//            return new ExcelReader($params['reader']);
-//        });
     }
 
     /**

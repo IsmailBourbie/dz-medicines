@@ -3,7 +3,6 @@
 namespace Tests\Medicines\Feature;
 
 use Domains\Medicines\Services\Contracts\FileImporterInterface;
-use Domains\Medicines\Services\ImportDataService;
 use Illuminate\Http\UploadedFile;
 use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -47,13 +46,13 @@ class ImportDataControllerTest extends TestCase
     #[DataProvider('validationDataProvider')]
     public function it_required_validated_file($inputName, $inputValue): void
     {
-        $spy = $this->spy(ImportDataService::class);
-        $this->instance(ImportDataService::class, $spy);
+        $spy = $this->spy(FileImporterInterface::class);
+        $this->instance(FileImporterInterface::class, $spy);
 
         $this->post(route('admin.import-data.store'), [$inputName => $inputValue])
             ->assertSessionHasErrors($inputName);
 
-        $spy->shouldNotHaveReceived('importAllData');
+        $spy->shouldNotHaveReceived('import');
     }
 
     public static function validationDataProvider(): array
