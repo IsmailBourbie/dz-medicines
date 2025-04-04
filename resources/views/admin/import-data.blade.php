@@ -2,7 +2,7 @@
     <x-wrapper>
         <x-form.wrapper class="md:w-4/12">
             <x-form.header>Import Medicines</x-form.header>
-            <x-form action="{{route('login.store')}}" method="POST">
+            <x-form action="{{route('admin.import-data.store')}}" method="POST" enctype="multipart/form-data">
                 <div>
                     <x-fileUploader/>
                     @error('file')
