@@ -8,17 +8,14 @@ use Spatie\SimpleExcel\SimpleExcelReader;
 
 class ExcelFileReader implements Contracts\FileReaderInterface
 {
-    private const SHEETS = [1, 2];
-    private const START_LINE = 4;
-
     public function read(UploadedFile $file): LazyCollection
     {
         $reader = SimpleExcelReader::create($file);
 
-        return LazyCollection::make(self::SHEETS)
+        return LazyCollection::make(config('MedicinesImport.sheets'))
             ->flatMap(function ($sheet) use ($reader) {
                 return $reader->fromSheet($sheet)
-                    ->headerOnRow(self::START_LINE)
+                    ->headerOnRow(config('MedicinesImport.start_line'))
                     ->getRows()
                     ->filter(fn($row) => trim($row['CODE']) !== '');
             });
