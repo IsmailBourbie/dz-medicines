@@ -14,7 +14,7 @@ class CodeFactory extends Factory
     {
         return [
             'class_id' => MedicineClassFactory::new(),
-            'value' => new CodeValue($this->faker->regexify('\d{2} [A-Z] \d{3}')),
+            'value' => new CodeValue($this->faker->regexify('(0[1-9]|1[0-9]|2[0-9]|30) [A-Z] [0-9]{3}')),
         ];
     }
 
