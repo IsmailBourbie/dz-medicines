@@ -19,8 +19,10 @@ final readonly class ExcelFileImporter implements Contracts\FileImporterInterfac
 
     public function import(UploadedFile $file): void
     {
-        $filepath = $file->storeAs('temp', $file->getClientOriginalName());
-        $rows = $this->reader->read($filepath);
+        $path = $file->storeAs(path: $file->getClientOriginalName(), options: 'temp');
+
+        $fullPath = storage_path("app/temp/{$path}");
+        $rows = $this->reader->read($fullPath);
 
         foreach ($rows as $index => $row) {
             try {

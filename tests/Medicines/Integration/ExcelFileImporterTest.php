@@ -23,7 +23,7 @@ class ExcelFileImporterTest extends TestCase
     {
         parent::setUp();
 
-        Storage::fake();
+        Storage::fake('temp');
         $this->file = UploadedFile::fake()->create('medicines.xlsx');
     }
 
@@ -51,7 +51,7 @@ class ExcelFileImporterTest extends TestCase
             $this->mock(FileReaderInterface::class, function (MockInterface $mock) use ($row) {
                 $mock->shouldReceive('read')
                     ->withArgs(function (string $filepath) {
-                        return Storage::exists($filepath) && $filepath === 'temp/medicines.xlsx';
+                        return $filepath === storage_path('app/temp/medicines.xlsx');
                     })
                     ->once()
                     ->andReturnUsing(function () use ($row) {
@@ -101,7 +101,7 @@ class ExcelFileImporterTest extends TestCase
             $this->mock(FileReaderInterface::class, function (MockInterface $mock) use ($row) {
                 $mock->shouldReceive('read')
                     ->withArgs(function (string $filepath) {
-                        return Storage::exists($filepath) && $filepath === 'temp/medicines.xlsx';
+                        return $filepath === storage_path('app/temp/medicines.xlsx');
                     })
                     ->once()
                     ->andReturnUsing(function () use ($row) {
