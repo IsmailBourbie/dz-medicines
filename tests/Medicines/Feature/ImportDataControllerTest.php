@@ -23,7 +23,6 @@ class ImportDataControllerTest extends TestCase
     #[Test]
     public function it_import_data_and_save_it_to_database(): void
     {
-        $this->withoutExceptionHandling();
         $file = UploadedFile::fake()->create('medicines.xlsx');
 
         $this->instance(

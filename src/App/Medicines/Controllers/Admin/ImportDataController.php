@@ -2,9 +2,7 @@
 
 namespace App\Medicines\Controllers\Admin;
 
-use Domains\Medicines\Services\Contracts\ExcelFileReaderInterface;
 use Domains\Medicines\Services\Contracts\FileImporterInterface;
-use Domains\Medicines\Services\ImportDataService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -20,7 +18,9 @@ class ImportDataController
         $request->validate([
             'file' => 'required|file|mimes:xlsx,xls|max:10240',
         ]);
-        $file = $request->file("file");
-        $importer->import($file);
+        
+        $importer->import(
+            $request->file("file")
+        );
     }
 }

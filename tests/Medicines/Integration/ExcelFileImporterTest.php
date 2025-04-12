@@ -4,10 +4,10 @@ namespace Tests\Medicines\Integration;
 
 use Domains\Medicines\DTOs\MedicineData;
 use Domains\Medicines\Models\Medicine;
-use Domains\Medicines\Services\Contracts\FileImporterInterface;
-use Domains\Medicines\Services\Contracts\FileReaderInterface;
+use Domains\Medicines\Services\Contracts\{FileImporterInterface, FileReaderInterface};
 use Domains\Medicines\Services\MedicineImporter;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\LazyCollection;
 use Mockery\MockInterface;
 use PHPUnit\Framework\Attributes\Test;
@@ -16,6 +16,18 @@ use Tests\TestCase;
 
 class ExcelFileImporterTest extends TestCase
 {
+
+    private \Illuminate\Http\Testing\File $file;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Storage::fake();
+        $this->file = UploadedFile::fake()->create('medicines.xlsx');
+    }
+
+
     #[Test]
     public function it_import_all_needed_data_to_database(): void
     {
@@ -32,14 +44,14 @@ class ExcelFileImporterTest extends TestCase
             "STATUT" => "I",
         ];
 
-        $file = UploadedFile::fake()->create('medicines.xlsx');
+        $this->file = UploadedFile::fake()->create('medicines.xlsx');
 
         $this->instance(
             FileReaderInterface::class,
             $this->mock(FileReaderInterface::class, function (MockInterface $mock) use ($row) {
                 $mock->shouldReceive('read')
-                    ->withArgs(function ($file) {
-                        return $file instanceof UploadedFile;
+                    ->withArgs(function (string $filepath) {
+                        return Storage::exists($filepath) && $filepath === 'temp/medicines.xlsx';
                     })
                     ->once()
                     ->andReturnUsing(function () use ($row) {
@@ -62,7 +74,7 @@ class ExcelFileImporterTest extends TestCase
         );
 
         $importer = $this->app->make(FileImporterInterface::class);
-        $importer->import($file);
+        $importer->import($this->file);
 
     }
 
@@ -82,14 +94,14 @@ class ExcelFileImporterTest extends TestCase
             "STATUT" => "I",
         ];
 
-        $file = UploadedFile::fake()->create('medicines.xlsx');
+        $this->file = UploadedFile::fake()->create('medicines.xlsx');
 
         $this->instance(
             FileReaderInterface::class,
             $this->mock(FileReaderInterface::class, function (MockInterface $mock) use ($row) {
                 $mock->shouldReceive('read')
-                    ->withArgs(function ($file) {
-                        return $file instanceof UploadedFile;
+                    ->withArgs(function (string $filepath) {
+                        return Storage::exists($filepath) && $filepath === 'temp/medicines.xlsx';
                     })
                     ->once()
                     ->andReturnUsing(function () use ($row) {
@@ -116,7 +128,7 @@ class ExcelFileImporterTest extends TestCase
         );
 
         $importer = $this->app->make(FileImporterInterface::class);
-        $importer->import($file);
+        $importer->import($this->file);
 
     }
 }
