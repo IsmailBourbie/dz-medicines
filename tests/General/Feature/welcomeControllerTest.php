@@ -12,7 +12,7 @@ class welcomeControllerTest extends TestCase
     {
         parent::setUp();
 
-        MedicineClassFactory::new()->count(12)->create();
+        MedicineClassFactory::new()->count(20)->create();
     }
 
     #[Test]

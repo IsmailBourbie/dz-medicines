@@ -9,6 +9,7 @@ use Database\Factories\MedicineFactory;
 use Domains\Medicines\Models\Code;
 use Domains\Medicines\Models\Laboratory;
 use Domains\Medicines\Models\MedicineClass;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 use PHPUnit\Framework\Attributes\Test;
 use Tests\TestCase;
 
@@ -47,11 +48,11 @@ class MedicineRelationshipsTest extends TestCase
     }
 
     #[Test]
-    public function it_has_a_class_through_code(): void
+    public function it_has_one_class_through_code(): void
     {
         $medicine = MedicineFactory::new()->for($this->code)->createOne();
 
-        $this->assertNotNull($medicine->class);
+        $this->assertInstanceOf(HasOneThrough::class, $medicine->class());
         $this->assertTrue($medicine->class->is($this->class));
     }
 

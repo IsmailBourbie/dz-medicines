@@ -6,6 +6,8 @@ use App\Medicines\Controllers\MedicineClassController;
 use App\Medicines\Controllers\MedicineController;
 use Illuminate\Support\Facades\Route;
 
+require __DIR__.'/admin.php';
+
 Route::get('/', WelcomeController::class)->name('welcome');
 
 Route::get('/medicines', [MedicineController::class, 'index'])->name('medicines.index');
